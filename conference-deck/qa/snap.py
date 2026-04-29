@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-SLIDE_COUNT = 19
+SLIDE_COUNT = 17
 VIEWPORT = {"width": 1920, "height": 1080}
 URL_TEMPLATE = "http://localhost:8765/index.html#/{i}"
 SETTLE_MS = 900  # time for stagger animation + title flow field to reach a stable frame

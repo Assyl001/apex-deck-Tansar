@@ -40,7 +40,7 @@
   line-height: 1.35;
   color: var(--text-secondary);
   letter-spacing: -0.008em;
-  max-width: 76cqw;
+  max-width: 78cqw;
   animation: rise 900ms 460ms var(--spring-smooth) both;
 }
 .header .subtitle em {
@@ -49,12 +49,12 @@
   font-weight: 500;
 }
 
-/* Two-column comparison */
+/* Two panels */
 .compare {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
-  top: 35cqh;
-  bottom: 22cqh;
+  top: 36cqh;
+  bottom: 18cqh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2.2cqw;
@@ -69,12 +69,13 @@
   gap: 1.4cqh;
   animation: rise 900ms var(--spring-smooth) both;
 }
-.panel.grid-panel {
+.panel.reads {
   background: rgba(255,255,255,0.35);
   border: 1px solid var(--border-light);
   animation-delay: 540ms;
 }
-.panel.example {
+.panel.misses {
+  position: relative;
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
@@ -82,12 +83,11 @@
   box-shadow:
     inset 0 1.5px 0 var(--edge-light-top),
     inset 0 -1px 0 var(--edge-light-bottom),
-    0 10px 40px -10px rgba(14, 116, 144, 0.18);
+    0 10px 40px -10px rgba(126, 34, 206, 0.18);
   overflow: hidden;
-  position: relative;
   animation-delay: 660ms;
 }
-.panel.example::before {
+.panel.misses::before {
   content: "";
   position: absolute; inset: 0;
   background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.02) 45%, rgba(126,34,206,0.06) 100%);
@@ -95,17 +95,17 @@
   border-radius: inherit;
   z-index: 0;
 }
-.panel.example > * { position: relative; z-index: 1; }
+.panel.misses > * { position: relative; z-index: 1; }
 
 .panel-label {
   font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.78cqw;
+  font-size: 0.8cqw;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
-.panel.example .panel-label { color: var(--accent-cyan); }
+.panel.misses .panel-label { color: var(--accent-purple); }
 .panel-title {
   font-family: 'Geist', sans-serif;
   font-weight: 600;
@@ -115,119 +115,70 @@
   color: var(--text-primary);
 }
 
-/* 200-page grid */
-.page-grid {
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  gap: 0.18cqw;
-  margin-top: 0.4cqh;
-}
-.page {
-  aspect-ratio: 1;
-  background: rgba(44, 36, 22, 0.08);
-  border-radius: 1.5px;
-}
-.page.read {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
-  box-shadow: 0 0 0.4cqw rgba(14, 116, 144, 0.5);
-}
-
-.legend {
-  margin-top: auto;
-  padding-top: 1.4cqh;
-  border-top: 1px solid var(--border-subtle);
-  display: flex;
-  gap: 2cqw;
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.82cqw;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.legend .swatch {
-  display: inline-block;
-  width: 0.85cqw; height: 0.85cqw;
-  min-width: 12px; min-height: 12px;
-  border-radius: 2px;
-  vertical-align: middle;
-  margin-right: 0.5cqw;
-}
-.legend .swatch.read {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
-}
-.legend .swatch.skipped { background: rgba(44,36,22,0.12); }
-.legend .num {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-/* Example panel — working capital list */
-.wc-intro {
-  font-family: 'Geist', sans-serif;
-  font-size: 1.15cqw;
-  font-weight: 400;
-  color: var(--text-secondary);
-  letter-spacing: -0.005em;
-  line-height: 1.35;
-}
-.wc-intro strong { color: var(--text-primary); font-weight: 600; }
-
-.wc-table {
+/* Mono lists */
+.mono-list {
   background: rgba(44, 36, 22, 0.04);
   border: 1px solid rgba(44, 36, 22, 0.06);
   border-radius: var(--radius-md);
-  padding: 1.6cqh 1.4cqw;
+  padding: 1.8cqh 1.4cqw;
   font-family: 'Geist Mono', monospace;
   font-size: 1.05cqw;
-  line-height: 1.7;
+  line-height: 1.85;
   font-feature-settings: "tnum";
   display: flex;
   flex-direction: column;
-  gap: 0.4cqh;
+  gap: 0.3cqh;
 }
-.wc-row {
+.mono-row {
   display: grid;
-  grid-template-columns: 2cqw 1fr auto;
-  gap: 0.8cqw;
+  grid-template-columns: 1fr auto;
   align-items: baseline;
+  gap: 1cqw;
 }
-.wc-row .q {
-  color: var(--text-muted);
-  font-weight: 500;
-}
-.wc-row .src {
-  font-weight: 600;
-}
-.wc-row.real .src { color: var(--accent-blue); }
-.wc-row.fake .src { color: var(--brand-magenta); }
-.wc-row .val {
+.mono-row .lbl { color: var(--text-muted); }
+.mono-row .val {
   color: var(--text-primary);
-  font-weight: 500;
-}
-.wc-row.fake .val { color: var(--text-muted); font-style: italic; }
-
-.wc-finding {
-  margin-top: 0.4cqh;
-  padding: 1.4cqh 1.2cqw;
-  border-left: 2px solid var(--brand-magenta);
-  background: rgba(238, 58, 101, 0.04);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-family: 'Geist', sans-serif;
-  font-size: 1cqw;
-  font-weight: 400;
-  line-height: 1.4;
-  color: var(--text-secondary);
-  letter-spacing: -0.005em;
-}
-.wc-finding strong { color: var(--text-primary); font-weight: 600; }
-.wc-finding .miss {
-  color: var(--brand-magenta);
   font-weight: 600;
   font-feature-settings: "tnum";
 }
+.mono-row.proj .val {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-/* Verdict band */
+.mono-row.add .val { color: var(--accent-green); }
+.mono-row.sub .val { color: var(--brand-magenta); }
+.mono-row.sum {
+  border-top: 1px solid rgba(44, 36, 22, 0.1);
+  padding-top: 0.6cqh;
+  margin-top: 0.2cqh;
+}
+.mono-row.sum .lbl { color: var(--text-secondary); font-weight: 500; }
+.mono-row.sum .val {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.panel-note {
+  font-family: 'Geist', sans-serif;
+  font-size: 1cqw;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+}
+.panel-note strong { color: var(--text-primary); font-weight: 600; }
+.panel-note .err {
+  background: linear-gradient(135deg, var(--brand-magenta), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Verdict */
 .verdict {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
@@ -248,7 +199,13 @@
   letter-spacing: -0.012em;
   color: var(--text-primary);
 }
+.verdict-text em {
+  font-style: italic;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
 .verdict-text .em {
+  font-style: normal;
   font-weight: 600;
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
   -webkit-background-clip: text;
@@ -298,79 +255,71 @@
     <span class="folio-label">Slide</span>
     <span class="folio-num">05</span>
     <span class="folio-sep">/</span>
-    <span class="folio-total">19</span>
+    <span class="folio-total">17</span>
   </div>
 
   <div class="header">
-    <div class="kicker">Failure Mode · 2 of 3</div>
-    <h1 class="title">Corner cutting on data.</h1>
-    <div class="subtitle">A 10-K is 200 pages. The LLM "reads" 8–12. The rest is filled with <em>plausible defaults</em> — and the output never tells you which cells came from source vs. inference.</div>
+    <div class="kicker">Failure Mode · 3 of 3</div>
+    <h1 class="title">No normalization.</h1>
+    <div class="subtitle">The LLM treats headline figures as <em>recurring</em>. Asset sales, restructuring charges, legal settlements — all roll straight into the forward projection.</div>
   </div>
 
   <div class="compare">
-    <div class="panel grid-panel">
-      <div class="panel-label">NVIDIA FY2025 10-K · 200 Pages</div>
-      <div class="panel-title">What the model actually opens.</div>
-      <div class="page-grid" id="grid"></div>
-      <div class="legend">
-        <span><span class="swatch read"></span><span class="num">~12</span> Read</span>
-        <span><span class="swatch skipped"></span><span class="num">~188</span> Skipped · defaulted</span>
+    <div class="panel reads">
+      <div class="panel-label">What the LLM reads · Meta FY2024</div>
+      <div class="panel-title">Simple, clean, confident.</div>
+      <div class="mono-list">
+        <div class="mono-row">
+          <span class="lbl">Net income</span>
+          <span class="val">$62.4B</span>
+        </div>
+        <div class="mono-row">
+          <span class="lbl">Growth · 5-yr avg</span>
+          <span class="val">12%</span>
+        </div>
+        <div class="mono-row proj">
+          <span class="lbl">FY2026 projection</span>
+          <span class="val">$78.3B</span>
+        </div>
       </div>
+      <div class="panel-note">Built from the income statement alone — no footnote reading.</div>
     </div>
 
-    <div class="panel example">
-      <div class="panel-label">Where It Breaks · One Example</div>
-      <div class="panel-title">Working capital trajectory · FY2024.</div>
-
-      <div class="wc-table">
-        <div class="wc-row fake">
-          <span class="q">Q1</span>
-          <span class="src">inferred</span>
-          <span class="val">no source</span>
+    <div class="panel misses">
+      <div class="panel-label">What the LLM missed · in the footnotes</div>
+      <div class="panel-title">One-time items, hiding in plain sight.</div>
+      <div class="mono-list">
+        <div class="mono-row add">
+          <span class="lbl">+ One-time tax benefit</span>
+          <span class="val">$4.2B</span>
         </div>
-        <div class="wc-row real">
-          <span class="q">Q2</span>
-          <span class="src">from 10-Q</span>
+        <div class="mono-row add">
+          <span class="lbl">+ Legal settlement income</span>
           <span class="val">$2.1B</span>
         </div>
-        <div class="wc-row fake">
-          <span class="q">Q3</span>
-          <span class="src">interpolated</span>
-          <span class="val">"between"</span>
+        <div class="mono-row sub">
+          <span class="lbl">− Reality Labs impairment</span>
+          <span class="val">$3.8B</span>
         </div>
-        <div class="wc-row real">
-          <span class="q">Q4</span>
-          <span class="src">from 10-K</span>
-          <span class="val">$3.4B</span>
+        <div class="mono-row sum">
+          <span class="lbl">= Net one-time items</span>
+          <span class="val">$2.5B</span>
         </div>
       </div>
-
-      <div class="wc-finding">
-        <strong>What sat in Q1 (missed):</strong> a <span class="miss">$200M</span> inventory writedown disclosed in an MD&amp;A footnote. The LLM's <em>interpolation</em> assumed a smooth trajectory. The real one was discontinuous.
-      </div>
+      <div class="panel-note"><strong>Normalized net income ≈ $59.9B.</strong> Projecting off the wrong base compounds — forward FCF off by <span class="err">~8%</span> over 5 years.</div>
     </div>
   </div>
 
   <div class="verdict glass">
     <div class="verdict-text">
-      The DCF looks complete. <span class="em">It is not sourced.</span>
+      Headline net income is a <em>result</em>, not a <span class="em">baseline</span>. The LLM's "recurring earnings" include items that by definition <span class="em">will not recur</span>.
     </div>
     <div class="verdict-meta">
-      Source-vs-inference<br>
-      <strong>indistinguishable.</strong>
+      Three failures<br>
+      <strong>↓</strong><br>
+      Three gates · next.
     </div>
   </div>
 </div>
-
-<script>
-  // Render 200-page grid: ~12 read, rest skipped
-  const grid = document.getElementById('grid');
-  const readPages = new Set([0, 1, 2, 3, 4, 5, 11, 14, 17, 23, 27, 47, 88, 145]);
-  for (let i = 0; i < 200; i++) {
-    const cell = document.createElement('div');
-    cell.className = 'page' + (readPages.has(i) ? ' read' : '');
-    grid.appendChild(cell);
-  }
-</script>
 </body>
 </html>

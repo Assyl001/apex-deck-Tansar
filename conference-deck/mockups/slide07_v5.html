@@ -16,265 +16,204 @@
   z-index: 4;
 }
 .header .kicker {
-  margin-bottom: 2cqh;
+  margin-bottom: 1.6cqh;
   animation: rise 800ms 240ms var(--spring-smooth) both;
 }
 .header .title {
   font-family: 'Geist', sans-serif;
   font-weight: 500;
-  font-size: 4.8cqw;
+  font-size: 5cqw;
   line-height: 1.0;
   letter-spacing: -0.032em;
   color: var(--text-primary);
   margin-bottom: 1.4cqh;
   animation: rise 900ms 340ms var(--spring-smooth) both;
 }
-.header .title .em {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-}
-.header .subtitle {
-  font-family: 'Geist', sans-serif;
-  font-weight: 400;
-  font-size: 1.6cqw;
-  line-height: 1.3;
-  color: var(--text-secondary);
-  letter-spacing: -0.008em;
-  max-width: 62cqw;
-  animation: rise 900ms 460ms var(--spring-smooth) both;
-}
-.header .subtitle strong { color: var(--text-primary); font-weight: 600; }
 
-/* Ladder */
-.ladder {
+/* Timeline */
+.timeline {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
-  top: 44cqh;
-  bottom: 14cqh;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1.1cqw;
+  top: 33cqh;
+  height: 13cqh;
   z-index: 4;
+  animation: rise 900ms 460ms var(--spring-smooth) both;
 }
-
-.step {
+.timeline-track {
   position: relative;
+  margin-top: 4.4cqh;
+  height: 2px;
+  background: linear-gradient(90deg,
+    rgba(14, 116, 144, 0.5) 0%,
+    rgba(14, 116, 144, 0.7) 60%,
+    var(--accent-purple) 65%,
+    var(--accent-purple) 100%);
+  border-radius: 2px;
+}
+.q-mark {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  padding: 2.4cqh 1.2cqw 2.2cqh;
-  border-radius: var(--radius-md);
-  animation: rise 800ms var(--spring-smooth) both;
-}
-.step:nth-child(1) { animation-delay: 560ms; }
-.step:nth-child(2) { animation-delay: 620ms; }
-.step:nth-child(3) { animation-delay: 680ms; }
-.step:nth-child(4) { animation-delay: 740ms; }
-.step:nth-child(5) { animation-delay: 800ms; }
-.step:nth-child(6) { animation-delay: 860ms; }
-
-/* Non-current: subtle card with thin border */
-.step:not(.is-current) {
-  border-top: 1px solid var(--border-light);
-}
-
-/* Current step — L3: full liquid glass */
-.step.is-current {
-  padding: 2.4cqh 1.4cqw 2.2cqh;
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  box-shadow:
-    inset 0 1.5px 0 var(--edge-light-top),
-    inset 0 -1px 0 var(--edge-light-bottom),
-    0 8px 30px -10px rgba(14, 116, 144, 0.28);
-  overflow: hidden;
-  transform: translateY(-1.2cqh);
-}
-.step.is-current::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.02) 45%, rgba(14,116,144,0.08) 100%);
-  pointer-events: none;
-  border-radius: inherit;
-  z-index: 0;
-}
-.step.is-current > * { position: relative; z-index: 1; }
-.step.is-current::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 8%; right: 8%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent-cyan) 30%, var(--accent-purple) 70%, transparent);
-  border-radius: 2px;
-  z-index: 2;
-}
-
-.step-label {
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.78cqw;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 1cqh;
-  display: flex;
   align-items: center;
-  gap: 0.45em;
+  gap: 1.2cqh;
 }
-.step.is-current .step-label {
-  color: var(--accent-cyan);
-}
-.step.is-current .step-label .today {
-  font-weight: 600;
-  letter-spacing: 0.22em;
-}
-.marker-dot {
-  display: inline-block;
-  width: 0.5cqw; height: 0.5cqw;
-  min-width: 5px; min-height: 5px;
-  background: var(--accent-cyan);
+.q-mark .dot {
+  width: 1cqw; height: 1cqw;
+  min-width: 12px; min-height: 12px;
   border-radius: 50%;
-  box-shadow: 0 0 0.7cqw rgba(14,116,144,0.55);
+  background: var(--accent-cyan);
+  box-shadow: 0 0 0 0.4cqw rgba(14, 116, 144, 0.15);
 }
-
-.step-num {
-  font-family: 'Geist', sans-serif;
-  font-weight: 500;
-  font-size: 5.4cqw;
-  line-height: 0.92;
-  letter-spacing: -0.045em;
-  color: var(--text-primary);
-  margin-bottom: 1.6cqh;
-  font-feature-settings: "tnum";
+.q-mark.transition .dot {
+  background: var(--accent-purple);
+  box-shadow: 0 0 0 0.45cqw rgba(126, 34, 206, 0.18);
+  width: 1.3cqw; height: 1.3cqw;
 }
-.step:not(.is-current) .step-num { color: var(--text-secondary); }
-.step.is-current .step-num {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
+.q-mark.future .dot {
+  background: var(--accent-purple);
+  opacity: 0.6;
 }
-
-.step-name {
-  font-family: 'Geist', sans-serif;
-  font-size: 1.25cqw;
-  font-weight: 600;
-  line-height: 1.18;
-  color: var(--text-primary);
-  letter-spacing: -0.014em;
-  margin-bottom: 0.9cqh;
-}
-
-.step-desc {
-  font-family: 'Geist', sans-serif;
-  font-size: 0.95cqw;
-  font-weight: 400;
-  line-height: 1.45;
-  color: var(--text-secondary);
-  letter-spacing: -0.002em;
-  margin-bottom: 1.3cqh;
-}
-
-.step-role {
-  margin-top: auto;
-  padding-top: 1.2cqh;
-  border-top: 1px solid var(--border-subtle);
+.q-mark .q-label {
+  position: absolute;
+  top: 1.8cqw;
   font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.72cqw;
+  font-size: 0.8cqw;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-muted);
-  line-height: 1.35;
+  white-space: nowrap;
 }
-.step.is-current .step-role {
-  color: var(--accent-cyan);
-  border-top-color: rgba(14, 116, 144, 0.25);
+.q-mark.transition .q-label { color: var(--accent-purple); font-weight: 600; }
+.q-mark .q-bottom {
+  position: absolute;
+  bottom: 1.6cqw;
+  font-family: 'Geist', sans-serif;
+  font-size: 1.1cqw;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  white-space: nowrap;
 }
+.q-mark.transition .q-bottom {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.q-mark.future .q-bottom { color: var(--accent-purple); }
 
-/* Anchor callout */
-.anchor-callout {
+/* Two-column */
+.compare {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
-  bottom: 5.5cqh;
+  top: 56cqh;
+  bottom: 5cqh;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1.1cqw;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.2cqw;
   z-index: 4;
-  animation: rise 900ms 960ms var(--spring-smooth) both;
 }
-.anchor-slot {
-  grid-column: 4 / 7;
+
+.panel {
+  padding: 2.6cqh 2cqw;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqh;
+  animation: rise 900ms var(--spring-smooth) both;
+}
+.panel.what {
+  background: rgba(255,255,255,0.35);
+  border: 1px solid var(--border-light);
+  animation-delay: 640ms;
+}
+.panel.why {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1.5px 0 var(--edge-light-top),
+    inset 0 -1px 0 var(--edge-light-bottom),
+    0 12px 40px -10px rgba(126, 34, 206, 0.18);
+  overflow: hidden;
+  animation-delay: 760ms;
+}
+.panel.why::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.02) 45%, rgba(126,34,206,0.06) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+}
+.panel.why > * { position: relative; z-index: 1; }
+
+.panel-label {
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.82cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.panel.why .panel-label { color: var(--accent-purple); }
+
+.panel-headline {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600;
+  font-size: 2cqw;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  color: var(--text-primary);
+}
+
+.panel-body {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1.25cqw;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
   display: flex;
   flex-direction: column;
   gap: 1cqh;
 }
-.connector {
-  width: 1px;
-  height: 2cqh;
-  margin-left: 0.6cqw;
-  background: linear-gradient(to bottom, var(--accent-cyan), rgba(14,116,144,0.05));
+.panel-body strong { color: var(--text-primary); font-weight: 600; }
+.panel-body em {
+  font-style: italic;
+  color: var(--text-primary);
+  font-weight: 500;
 }
-.callout-body {
-  display: flex;
-  align-items: center;
-  gap: 1cqw;
-  font-family: 'Geist', sans-serif;
-  font-size: 1.35cqw;
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--text-secondary);
-  letter-spacing: -0.01em;
-}
-.callout-body strong { color: var(--text-primary); font-weight: 600; }
-.callout-body em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+.panel-body .stress {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 600;
 }
-
-.here-chip {
-  flex-shrink: 0;
-  padding: 1cqh 1.2cqw;
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.78cqw;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent-cyan);
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5cqw;
-}
-
-/* Source line bottom-left */
-.source {
-  position: absolute;
-  left: 4.5cqw;
-  bottom: 5.5cqh;
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.78cqw;
+.panel-body .pull {
+  margin-top: 0.4cqh;
+  font-family: 'Geist', sans-serif;
+  font-style: italic;
+  font-size: 1.4cqw;
   font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  z-index: 4;
-  animation: fade 800ms 1080ms var(--spring-smooth) both;
-  display: flex;
-  align-items: center;
-  gap: 0.8cqw;
+  line-height: 1.3;
+  color: var(--text-primary);
+  letter-spacing: -0.012em;
 }
-.source .sep { color: var(--text-faint); }
+.panel-body .pull .em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
 </style>
 </head>
 <body>
@@ -306,77 +245,54 @@
     <span class="folio-label">Slide</span>
     <span class="folio-num">07</span>
     <span class="folio-sep">/</span>
-    <span class="folio-total">19</span>
+    <span class="folio-total">17</span>
   </div>
 
   <div class="header">
-    <div class="kicker">A Taxonomy of Autonomous Investing</div>
-    <h1 class="title">The <span class="em">L0–L5</span> Framework.</h1>
-    <div class="subtitle">Six levels — from manual analysis to full autonomy.</div>
+    <div class="kicker">Phase 1 · 2025 · Live Capital</div>
+    <h1 class="title">Our first live deployment.</h1>
   </div>
 
-  <div class="ladder">
-    <div class="step">
-      <div class="step-label">Level 00</div>
-      <div class="step-num">L0</div>
-      <div class="step-name">No Automation</div>
-      <div class="step-desc">All analysis manual. AI as tools only.</div>
-      <div class="step-role">Full Control</div>
-    </div>
-
-    <div class="step">
-      <div class="step-label">Level 01</div>
-      <div class="step-num">L1</div>
-      <div class="step-name">Investor Assistance</div>
-      <div class="step-desc">Single-task automation. Data collection, alerts.</div>
-      <div class="step-role">Human-in-the-Loop</div>
-    </div>
-
-    <div class="step">
-      <div class="step-label">Level 02</div>
-      <div class="step-num">L2</div>
-      <div class="step-name">Partial Automation</div>
-      <div class="step-desc">Integrated analysis. Sentiment + valuation synthesized.</div>
-      <div class="step-role">Human Supervises</div>
-    </div>
-
-    <div class="step is-current">
-      <div class="step-label"><span class="marker-dot"></span><span class="today">Level 03 · Today</span></div>
-      <div class="step-num">L3</div>
-      <div class="step-name">Conditional Automation</div>
-      <div class="step-desc">AI recommends buy/sell within a defined domain.</div>
-      <div class="step-role">Human-on-the-Loop</div>
-    </div>
-
-    <div class="step">
-      <div class="step-label">Level 04</div>
-      <div class="step-num">L4</div>
-      <div class="step-name">High Automation</div>
-      <div class="step-desc">Full autonomy within a defined operational domain.</div>
-      <div class="step-role">Human-out-of-the-Loop</div>
-    </div>
-
-    <div class="step">
-      <div class="step-label">Level 05</div>
-      <div class="step-num">L5</div>
-      <div class="step-name">Full Autonomy</div>
-      <div class="step-desc">All market conditions. Theoretical.</div>
-      <div class="step-role">Policy-only</div>
+  <div class="timeline">
+    <div class="timeline-track">
+      <div class="q-mark" style="left: 0%;">
+        <span class="q-bottom">L3 · PM approval</span>
+        <div class="dot"></div>
+        <span class="q-label">Q1</span>
+      </div>
+      <div class="q-mark" style="left: 22%;">
+        <div class="dot"></div>
+        <span class="q-label">Q2</span>
+      </div>
+      <div class="q-mark transition" style="left: 62%;">
+        <span class="q-bottom">Transition</span>
+        <div class="dot"></div>
+        <span class="q-label">Q3 2025</span>
+      </div>
+      <div class="q-mark future" style="left: 100%;">
+        <span class="q-bottom">L4 · monitoring</span>
+        <div class="dot"></div>
+        <span class="q-label">Q4 → 2026</span>
+      </div>
     </div>
   </div>
 
-  <div class="source">
-    <span>Source</span>
-    <span class="sep">—</span>
-    <span>SSRN 5468687 · September 2025</span>
-  </div>
+  <div class="compare">
+    <div class="panel what">
+      <div class="panel-label">What We Ran</div>
+      <div class="panel-headline">A Level&nbsp;3 system, then L4.</div>
+      <div class="panel-body">
+        <div>US / China equities. Value approach. <strong>Conviction scoring</strong>, DCF modeling, sector-routed frameworks.</div>
+        <div>PM approval on every recommendation through Q3 — then we cut the cord. Transitioned to <strong>L4 monitoring</strong> for the rest of the year.</div>
+      </div>
+    </div>
 
-  <div class="anchor-callout">
-    <div class="anchor-slot">
-      <div class="connector"></div>
-      <div class="callout-body">
-        <span class="here-chip">You are here</span>
-        <span><strong>L3</strong> is where the industry can <em>credibly</em> be today.</span>
+    <div class="panel why">
+      <div class="panel-label">Why It Mattered</div>
+      <div class="panel-headline">Lived theory.</div>
+      <div class="panel-body">
+        <div>The <em>L3 → L4 transition</em> isn't theory from our paper — it's what we lived through in real time.</div>
+        <div class="pull">The first proof point that the framework <span class="em">describes something real.</span></div>
       </div>
     </div>
   </div>

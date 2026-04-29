@@ -22,11 +22,10 @@
 .header .title {
   font-family: 'Geist', sans-serif;
   font-weight: 500;
-  font-size: 4.8cqw;
-  line-height: 1.05;
-  letter-spacing: -0.032em;
+  font-size: 5.6cqw;
+  line-height: 1.0;
+  letter-spacing: -0.034em;
   color: var(--text-primary);
-  padding-bottom: 0.6cqh;
   animation: rise 900ms 340ms var(--spring-smooth) both;
 }
 .header .title .em {
@@ -37,33 +36,34 @@
   font-weight: 600;
 }
 
-/* Two-column challenge / implementation */
-.compare {
+/* Three sentences stacked */
+.sentences {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
-  top: 41cqh;
-  bottom: 14cqh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.4cqw;
+  top: 33cqh;
+  bottom: 5cqh;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2cqh;
   z-index: 4;
 }
 
-.panel {
-  padding: 2.8cqh 2cqw;
+.sentence {
+  position: relative;
+  padding: 2.4cqh 2.2cqw 2.4cqh 3cqw;
   border-radius: var(--radius-lg);
-  display: flex;
-  flex-direction: column;
-  gap: 1.6cqh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 2cqw;
+  background: rgba(255,255,255,0.4);
+  border: 1px solid var(--border-light);
   animation: rise 900ms var(--spring-smooth) both;
 }
-.panel.problem {
-  background: rgba(255,255,255,0.35);
-  border: 1px solid var(--border-light);
-  animation-delay: 540ms;
-}
-.panel.solution {
-  position: relative;
+.sentence:nth-child(1) { animation-delay: 480ms; }
+.sentence:nth-child(2) { animation-delay: 660ms; }
+.sentence:nth-child(3) {
+  animation-delay: 840ms;
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
@@ -73,9 +73,8 @@
     inset 0 -1px 0 var(--edge-light-bottom),
     0 12px 40px -10px rgba(14, 116, 144, 0.22);
   overflow: hidden;
-  animation-delay: 660ms;
 }
-.panel.solution::before {
+.sentence:nth-child(3)::before {
   content: "";
   position: absolute; inset: 0;
   background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.02) 45%, rgba(14,116,144,0.06) 100%);
@@ -83,111 +82,59 @@
   border-radius: inherit;
   z-index: 0;
 }
-.panel.solution > * { position: relative; z-index: 1; }
+.sentence:nth-child(3) > * { position: relative; z-index: 1; }
 
-.panel-label {
+.sentence::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18%; bottom: 18%;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+}
+.sentence:nth-child(1)::after { background: var(--accent-cyan); }
+.sentence:nth-child(2)::after { background: var(--accent-blue); }
+.sentence:nth-child(3)::after {
+  background: linear-gradient(180deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  z-index: 2;
+}
+
+.s-num {
   font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.8cqw;
+  font-size: 1cqw;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--text-muted);
+  white-space: nowrap;
 }
-.panel.solution .panel-label { color: var(--accent-cyan); }
-.panel-headline {
-  font-family: 'Geist', sans-serif;
-  font-weight: 600;
-  font-size: 2cqw;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-}
-
-.metric-row {
-  display: flex;
-  align-items: baseline;
-  gap: 1cqw;
-  font-family: 'Geist', sans-serif;
-}
-.metric-num {
-  font-weight: 600;
-  font-size: 4.2cqw;
-  line-height: 0.95;
-  letter-spacing: -0.034em;
-  color: var(--text-primary);
-  font-feature-settings: "tnum";
-}
-.panel.solution .metric-num {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+.sentence:nth-child(1) .s-num { color: var(--accent-cyan); }
+.sentence:nth-child(2) .s-num { color: var(--accent-blue); }
+.sentence:nth-child(3) .s-num {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: 700;
-}
-.metric-label {
-  font-size: 1.1cqw;
-  font-weight: 500;
-  color: var(--text-secondary);
-  letter-spacing: -0.005em;
+  font-weight: 600;
 }
 
-.bullets {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8cqh;
-}
-.bullet {
+.s-text {
   font-family: 'Geist', sans-serif;
-  font-size: 1.2cqw;
   font-weight: 400;
-  line-height: 1.4;
-  color: var(--text-secondary);
-  letter-spacing: -0.005em;
-  display: flex;
-  align-items: baseline;
-  gap: 0.7cqw;
+  font-size: 1.85cqw;
+  line-height: 1.3;
+  letter-spacing: -0.014em;
+  color: var(--text-primary);
 }
-.bullet::before {
-  content: "—";
-  color: var(--text-faint);
-  font-weight: 400;
-  flex-shrink: 0;
+.s-text strong { font-weight: 600; }
+.s-text em { font-style: italic; color: var(--text-secondary); font-weight: 500; }
+.s-text .gradient {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
 }
-.panel.solution .bullet::before {
-  color: var(--accent-cyan);
-}
-.bullet strong { color: var(--text-primary); font-weight: 600; }
-
-/* Pause line */
-.pause {
-  position: absolute;
-  left: 4.5cqw; right: 4.5cqw;
-  bottom: 5cqh;
-  padding-top: 2.4cqh;
-  border-top: 1px solid var(--border-light);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 4;
-  animation: fade 900ms 880ms var(--spring-smooth) both;
-}
-.pause-text {
-  font-family: 'Geist', sans-serif;
-  font-style: italic;
-  font-size: 1.4cqw;
-  font-weight: 400;
-  color: var(--text-secondary);
-  letter-spacing: -0.005em;
-}
-.pause-meta {
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.78cqw;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.pause-meta strong { color: var(--text-primary); }
 </style>
 </head>
 <body>
@@ -219,47 +166,29 @@
     <span class="folio-label">Slide</span>
     <span class="folio-num">16</span>
     <span class="folio-sep">/</span>
-    <span class="folio-total">19</span>
+    <span class="folio-total">17</span>
   </div>
 
   <div class="header">
-    <div class="kicker">Case Study · From Our September Paper</div>
-    <h1 class="title">Sovereign Wealth Fund <span class="em">Manager Oversight.</span></h1>
+    <div class="kicker">In Closing</div>
+    <h1 class="title">Three <span class="em">sentences.</span></h1>
   </div>
 
-  <div class="compare">
-    <div class="panel problem">
-      <div class="panel-label">The Challenge</div>
-      <div class="metric-row">
-        <span class="metric-num">75</span>
-        <span class="metric-label">external managers</span>
-      </div>
-      <div class="panel-headline">Quarterly review cycles, manual data, late warnings.</div>
-      <div class="bullets">
-        <div class="bullet">Quarterly reviews <strong>too slow</strong> for fast-moving risk.</div>
-        <div class="bullet">Insufficient <strong>early warning</strong> before exposures move.</div>
-        <div class="bullet">Manual data compilation delayed strategic decisions.</div>
-      </div>
+  <div class="sentences">
+    <div class="sentence">
+      <span class="s-num">One</span>
+      <div class="s-text">AI in investing today is mostly L1–L2. There is a credible path through L3 to L4 — <em>and we've been walking it on live capital since Q1 2025</em>.</div>
     </div>
 
-    <div class="panel solution">
-      <div class="panel-label">The Implementation</div>
-      <div class="metric-row">
-        <span class="metric-num">L3</span>
-        <span class="metric-label">monitoring system</span>
-      </div>
-      <div class="panel-headline">Daily ingestion across all 75 managers.</div>
-      <div class="bullets">
-        <div class="bullet">Performance, holdings, <strong>risk metrics</strong> — synced daily.</div>
-        <div class="bullet">Anomaly detection across strategies and sectors.</div>
-        <div class="bullet">Unified dashboard — one view for the whole portfolio.</div>
-      </div>
+    <div class="sentence">
+      <span class="s-num">Two</span>
+      <div class="s-text">The journey produced three things — a <strong>live track record</strong>, a <strong>framework co-published with one of BlackRock's most senior alumni</strong>, and an <strong>architecture rolling into production</strong>.</div>
     </div>
-  </div>
 
-  <div class="pause">
-    <div class="pause-text">Then — one Tuesday — the dashboard surfaced something.</div>
-    <div class="pause-meta">The Result <strong>→</strong></div>
+    <div class="sentence">
+      <span class="s-num">Three</span>
+      <div class="s-text">The next step is <span class="gradient">regional</span>. <strong>With this room.</strong></div>
+    </div>
   </div>
 </div>
 </body>

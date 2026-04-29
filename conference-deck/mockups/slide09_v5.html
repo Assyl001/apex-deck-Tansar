@@ -22,198 +22,136 @@
 .header .title {
   font-family: 'Geist', sans-serif;
   font-weight: 500;
-  font-size: 5cqw;
+  font-size: 4.6cqw;
   line-height: 1.0;
   letter-spacing: -0.032em;
   color: var(--text-primary);
-  margin-bottom: 1.4cqh;
   animation: rise 900ms 340ms var(--spring-smooth) both;
 }
+.header .title .em {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
 
-/* Timeline */
-.timeline {
+.team {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
-  top: 33cqh;
-  height: 13cqh;
+  top: 30cqh;
   z-index: 4;
-  animation: rise 900ms 460ms var(--spring-smooth) both;
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1.5cqw;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  letter-spacing: -0.008em;
+  max-width: 70cqw;
+  animation: rise 900ms 480ms var(--spring-smooth) both;
 }
-.timeline-track {
-  position: relative;
-  margin-top: 4.4cqh;
-  height: 2px;
-  background: linear-gradient(90deg,
-    rgba(14, 116, 144, 0.5) 0%,
-    rgba(14, 116, 144, 0.7) 60%,
-    var(--accent-purple) 65%,
-    var(--accent-purple) 100%);
-  border-radius: 2px;
+.team .names {
+  color: var(--text-primary);
+  font-weight: 600;
 }
-.q-mark {
+.team .ang {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+/* Quote block */
+.quote-card {
   position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  left: 4.5cqw; right: 4.5cqw;
+  top: 42cqh;
+  padding: 4cqh 3cqw 4cqh 3.5cqw;
+  z-index: 4;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.2cqh;
+  gap: 2cqh;
+  animation: rise 900ms 620ms var(--spring-smooth) both;
 }
-.q-mark .dot {
-  width: 1cqw; height: 1cqw;
-  min-width: 12px; min-height: 12px;
-  border-radius: 50%;
-  background: var(--accent-cyan);
-  box-shadow: 0 0 0 0.4cqw rgba(14, 116, 144, 0.15);
-}
-.q-mark.transition .dot {
-  background: var(--accent-purple);
-  box-shadow: 0 0 0 0.45cqw rgba(126, 34, 206, 0.18);
-  width: 1.3cqw; height: 1.3cqw;
-}
-.q-mark.future .dot {
-  background: var(--accent-purple);
-  opacity: 0.6;
-}
-.q-mark .q-label {
+.quote-card::after {
+  content: "";
   position: absolute;
-  top: 1.8cqw;
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.8cqw;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  white-space: nowrap;
+  left: 0; top: 12%; bottom: 12%;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  z-index: 2;
 }
-.q-mark.transition .q-label { color: var(--accent-purple); font-weight: 600; }
-.q-mark .q-bottom {
-  position: absolute;
-  bottom: 1.6cqw;
+
+.quote-text {
   font-family: 'Geist', sans-serif;
-  font-size: 1.1cqw;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  font-size: 2.6cqw;
+  line-height: 1.2;
+  letter-spacing: -0.022em;
   color: var(--text-primary);
-  white-space: nowrap;
 }
-.q-mark.transition .q-bottom {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+.quote-text .em {
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.q-mark.future .q-bottom { color: var(--accent-purple); }
-
-/* Two-column */
-.compare {
-  position: absolute;
-  left: 4.5cqw; right: 4.5cqw;
-  top: 56cqh;
-  bottom: 5cqh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.2cqw;
-  z-index: 4;
-}
-
-.panel {
-  padding: 2.6cqh 2cqw;
-  border-radius: var(--radius-lg);
-  display: flex;
-  flex-direction: column;
-  gap: 1.4cqh;
-  animation: rise 900ms var(--spring-smooth) both;
-}
-.panel.what {
-  background: rgba(255,255,255,0.35);
-  border: 1px solid var(--border-light);
-  animation-delay: 640ms;
-}
-.panel.why {
-  position: relative;
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  border: 1px solid var(--glass-border);
-  box-shadow:
-    inset 0 1.5px 0 var(--edge-light-top),
-    inset 0 -1px 0 var(--edge-light-bottom),
-    0 12px 40px -10px rgba(126, 34, 206, 0.18);
-  overflow: hidden;
-  animation-delay: 760ms;
-}
-.panel.why::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.02) 45%, rgba(126,34,206,0.06) 100%);
-  pointer-events: none;
-  border-radius: inherit;
-  z-index: 0;
-}
-.panel.why > * { position: relative; z-index: 1; }
-
-.panel-label {
+.quote-attribution {
   font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.82cqw;
+  font-size: 0.85cqw;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
-.panel.why .panel-label { color: var(--accent-purple); }
+.quote-attribution strong { color: var(--text-secondary); font-weight: 600; }
 
-.panel-headline {
-  font-family: 'Geist', sans-serif;
-  font-weight: 600;
-  font-size: 2cqw;
-  line-height: 1.1;
-  letter-spacing: -0.022em;
-  color: var(--text-primary);
-}
-
-.panel-body {
-  font-family: 'Geist', sans-serif;
-  font-weight: 400;
-  font-size: 1.25cqw;
-  line-height: 1.45;
-  color: var(--text-secondary);
-  letter-spacing: -0.005em;
+/* Reframing line */
+.reframe {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  bottom: 5cqh;
+  padding-top: 2.6cqh;
+  border-top: 1px solid var(--border-light);
   display: flex;
-  flex-direction: column;
-  gap: 1cqh;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3cqw;
+  z-index: 4;
+  animation: rise 900ms 880ms var(--spring-smooth) both;
 }
-.panel-body strong { color: var(--text-primary); font-weight: 600; }
-.panel-body em {
-  font-style: italic;
-  color: var(--text-primary);
-  font-weight: 500;
-}
-.panel-body .stress {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-}
-.panel-body .pull {
-  margin-top: 0.4cqh;
+.reframe-text {
   font-family: 'Geist', sans-serif;
-  font-style: italic;
-  font-size: 1.4cqw;
   font-weight: 500;
+  font-size: 1.6cqw;
   line-height: 1.3;
-  color: var(--text-primary);
   letter-spacing: -0.012em;
+  color: var(--text-primary);
+  max-width: 70cqw;
 }
-.panel-body .pull .em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+.reframe-text .stress {
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: 600;
 }
+.reframe-text em { font-style: italic; color: var(--text-secondary); font-weight: 500; }
+.reframe-meta {
+  flex-shrink: 0;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: right;
+  line-height: 1.5;
+}
+.reframe-meta strong { color: var(--text-primary); }
 </style>
 </head>
 <body>
@@ -245,55 +183,31 @@
     <span class="folio-label">Slide</span>
     <span class="folio-num">09</span>
     <span class="folio-sep">/</span>
-    <span class="folio-total">19</span>
+    <span class="folio-total">17</span>
   </div>
 
   <div class="header">
-    <div class="kicker">Phase 1 · 2025 · Live Capital</div>
-    <h1 class="title">Our first live deployment.</h1>
+    <div class="kicker">Phase 2 · September 2025</div>
+    <h1 class="title">Intellectual reset <span class="em">with Andrew Ang.</span></h1>
   </div>
 
-  <div class="timeline">
-    <div class="timeline-track">
-      <div class="q-mark" style="left: 0%;">
-        <span class="q-bottom">L3 · PM approval</span>
-        <div class="dot"></div>
-        <span class="q-label">Q1</span>
-      </div>
-      <div class="q-mark" style="left: 22%;">
-        <div class="dot"></div>
-        <span class="q-label">Q2</span>
-      </div>
-      <div class="q-mark transition" style="left: 62%;">
-        <span class="q-bottom">Transition</span>
-        <div class="dot"></div>
-        <span class="q-label">Q3 2025</span>
-      </div>
-      <div class="q-mark future" style="left: 100%;">
-        <span class="q-bottom">L4 · monitoring</span>
-        <div class="dot"></div>
-        <span class="q-label">Q4 → 2026</span>
-      </div>
-    </div>
+  <div class="team">
+    Our team — <span class="names">Nazym, Andrey, Zhassulan</span> — and <span class="ang">Andrew Ang</span> published the L0–L5 framework you just saw.
   </div>
 
-  <div class="compare">
-    <div class="panel what">
-      <div class="panel-label">What We Ran</div>
-      <div class="panel-headline">A Level&nbsp;3 system, then L4.</div>
-      <div class="panel-body">
-        <div>US / China equities. Value approach. <strong>Conviction scoring</strong>, DCF modeling, sector-routed frameworks.</div>
-        <div>PM approval on every recommendation through Q3 — then we cut the cord. Transitioned to <strong>L4 monitoring</strong> for the rest of the year.</div>
-      </div>
-    </div>
+  <div class="quote-card glass">
+    <div class="quote-text">"The most binding constraint in institutional asset management is not data availability or model sophistication, but the <span class="em">finite bandwidth of human decision-makers</span>."</div>
+    <div class="quote-attribution"><strong>Ang et al.</strong> · 2025 · SSRN 5468687</div>
+  </div>
 
-    <div class="panel why">
-      <div class="panel-label">Why It Mattered</div>
-      <div class="panel-headline">Lived theory.</div>
-      <div class="panel-body">
-        <div>The <em>L3 → L4 transition</em> isn't theory from our paper — it's what we lived through in real time.</div>
-        <div class="pull">The first proof point that the framework <span class="em">describes something real.</span></div>
-      </div>
+  <div class="reframe">
+    <div class="reframe-text">
+      That <span class="stress">reframed everything.</span> Not less human involvement — <em>better</em> human involvement. Supervise more, more efficiently, with stronger governance.
+    </div>
+    <div class="reframe-meta">
+      Phase 3<br>
+      <strong>↓</strong><br>
+      Self-Driving Portfolio
     </div>
   </div>
 </div>

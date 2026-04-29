@@ -6,77 +6,74 @@
 <title>Slide 03 · V5 · Altbridge Brand</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="_base_v5.css">
 <style>
 .header {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
-  top: 16cqh;
+  top: 14cqh;
   z-index: 4;
 }
 .header .kicker {
-  margin-bottom: 2.2cqh;
+  margin-bottom: 1.4cqh;
+  color: var(--accent-purple);
   animation: rise 800ms 240ms var(--spring-smooth) both;
+}
+.header .kicker::before {
+  background: linear-gradient(90deg, var(--accent-purple), var(--brand-magenta));
 }
 .header .title {
   font-family: 'Geist', sans-serif;
   font-weight: 500;
-  font-size: 4.4cqw;
-  line-height: 1.02;
-  letter-spacing: -0.028em;
+  font-size: 4.2cqw;
+  line-height: 1.0;
+  letter-spacing: -0.032em;
   color: var(--text-primary);
-  max-width: 92cqw;
-  animation: rise 900ms 360ms var(--spring-smooth) both;
+  margin-bottom: 1.4cqh;
+  animation: rise 900ms 340ms var(--spring-smooth) both;
 }
-.header .title .em {
+.header .subtitle {
+  font-family: 'Geist', sans-serif;
   font-weight: 400;
+  font-size: 1.4cqw;
+  line-height: 1.35;
   color: var(--text-secondary);
+  letter-spacing: -0.008em;
+  max-width: 72cqw;
+  animation: rise 900ms 460ms var(--spring-smooth) both;
+}
+.header .subtitle em {
   font-style: italic;
-  letter-spacing: -0.028em;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
-/* Chat transcript */
-.transcript {
+/* Compact prompt block */
+.prompt-block {
   position: absolute;
-  left: 9cqw; right: 9cqw;
-  top: 40cqh;
-  display: flex;
-  flex-direction: column;
-  gap: 2.4cqh;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 33cqh;
   z-index: 4;
-}
-
-.msg {
   display: flex;
   flex-direction: column;
-  gap: 0.9cqh;
-  max-width: 74%;
+  align-items: flex-start;
+  gap: 0.8cqh;
+  animation: rise 900ms 540ms var(--spring-smooth) both;
 }
-.msg.user {
-  align-self: flex-start;
-  animation: rise 900ms 520ms var(--spring-smooth) both;
-}
-.msg.ai {
-  align-self: flex-end;
-  animation: rise 900ms 760ms var(--spring-smooth) both;
-}
-
-.msg-label {
-  display: flex;
-  align-items: center;
-  gap: 0.7cqw;
+.prompt-label {
   font-family: 'Geist Mono', 'Geist', monospace;
   font-size: 0.78cqw;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5cqw;
 }
-.msg.ai .msg-label { justify-content: flex-end; color: var(--accent-cyan); }
-.msg-label .sep { color: var(--text-faint); }
-.msg-label .tag {
-  padding: 0.35em 0.75em;
+.prompt-label .tag {
+  padding: 0.3em 0.7em;
   border: 1px solid var(--border-light);
   border-radius: 999px;
   color: var(--text-secondary);
@@ -84,125 +81,189 @@
   font-size: 0.7cqw;
   background: rgba(255, 255, 255, 0.3);
 }
-.msg.ai .msg-label .tag {
-  border-color: rgba(14, 116, 144, 0.3);
-  color: var(--accent-cyan);
-  background: rgba(14, 116, 144, 0.06);
-}
-
-.bubble {
-  padding: 2.6cqh 2.3cqw;
-}
-.msg.user .bubble { border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px; }
-.msg.ai .bubble   { border-radius: var(--radius-lg) var(--radius-lg) 4px var(--radius-lg); }
-
-.prompt-text {
+.prompt-bubble {
+  max-width: 70cqw;
+  padding: 1.6cqh 1.8cqw;
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px;
   font-family: 'Geist', sans-serif;
   font-weight: 400;
-  font-size: 2cqw;
-  line-height: 1.35;
+  font-size: 1.5cqw;
+  line-height: 1.4;
   color: var(--text-primary);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.012em;
 }
-.prompt-text::before {
+.prompt-bubble::before {
   content: "“";
   color: var(--accent-purple);
   font-weight: 500;
   margin-right: 0.15em;
 }
-.prompt-text::after {
+.prompt-bubble::after {
   content: "”";
   color: var(--accent-purple);
   font-weight: 500;
   margin-left: 0.1em;
 }
 
-.response-text {
-  font-family: 'Geist', sans-serif;
-  font-weight: 400;
-  font-size: 1.5cqw;
-  line-height: 1.5;
-  color: var(--text-secondary);
-  letter-spacing: -0.005em;
+/* Query grid */
+.queries {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 51cqh;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.4cqw;
+  z-index: 4;
 }
-.response-text strong {
-  color: var(--text-primary);
-  font-weight: 600;
+.query {
+  padding: 2.2cqh 1.4cqw;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+  text-align: center;
+  background: rgba(255,255,255,0.35);
+  border: 1px solid var(--border-light);
+  animation: rise 900ms var(--spring-smooth) both;
 }
-.response-text .fv {
+.query:nth-child(1) { animation-delay: 700ms; }
+.query:nth-child(2) { animation-delay: 780ms; }
+.query:nth-child(3) { animation-delay: 860ms; }
+.query:nth-child(4) { animation-delay: 940ms; }
+.query.actual {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1.5px 0 var(--edge-light-top),
+    inset 0 -1px 0 var(--edge-light-bottom),
+    0 8px 30px -10px rgba(14, 116, 144, 0.28);
+  animation-delay: 1020ms;
+  position: relative;
+  overflow: hidden;
+}
+.query.actual::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.02) 45%, rgba(14,116,144,0.08) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+}
+.query.actual > * { position: relative; z-index: 1; }
+.query.actual::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 8%; right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan) 30%, var(--accent-purple) 70%, transparent);
+  border-radius: 2px;
+  z-index: 2;
+}
+.query-label {
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.query.actual .query-label {
   color: var(--accent-cyan);
   font-weight: 600;
+}
+.query-value {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 3cqw;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  font-feature-settings: "tnum";
+}
+.query.actual .query-value {
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-weight: 600;
+}
+.query-delta {
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.85cqw;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.query.wrong .query-delta {
+  color: var(--brand-magenta);
+}
+.query.wrong .query-value {
+  color: #b03050;
+}
+.query.actual .query-delta {
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
 }
 
-/* Verdict bar */
-.verdict-bar {
+.queries-caption {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 75cqh;
+  font-family: 'Geist', sans-serif;
+  font-size: 0.95cqw;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: -0.005em;
+  text-align: center;
+  z-index: 4;
+  animation: fade 900ms 1140ms var(--spring-smooth) both;
+}
+.queries-caption strong { color: var(--text-secondary); font-weight: 600; }
+
+/* Verdict band */
+.verdict {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
   bottom: 5cqh;
+  padding: 2.4cqh 2.4cqw;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 3cqw;
   z-index: 4;
-  padding-top: 2.8cqh;
-  border-top: 1px solid var(--border-light);
-  animation: rise 900ms 1040ms var(--spring-smooth) both;
+  animation: rise 900ms 1220ms var(--spring-smooth) both;
 }
-.verdict {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7cqh;
-  max-width: 68cqw;
-}
-.verdict-primary {
+.verdict-text {
   font-family: 'Geist', sans-serif;
   font-weight: 500;
-  font-size: 2.4cqw;
-  line-height: 1.1;
-  letter-spacing: -0.024em;
-  color: var(--text-primary);
-}
-.verdict-secondary {
-  font-family: 'Geist', sans-serif;
-  font-weight: 400;
   font-size: 1.5cqw;
   line-height: 1.3;
-  letter-spacing: -0.008em;
-  color: var(--text-secondary);
+  letter-spacing: -0.012em;
+  color: var(--text-primary);
+  max-width: 70cqw;
 }
-.verdict-secondary .stress {
+.verdict-text strong {
   font-weight: 600;
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
-.next-chip {
+.verdict-meta {
   flex-shrink: 0;
-  padding: 1.4cqh 1.4cqw;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6cqw;
   font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.8cqw;
+  font-size: 0.78cqw;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--accent-cyan);
-  border-radius: 999px;
-  white-space: nowrap;
+  color: var(--text-muted);
+  text-align: right;
+  line-height: 1.5;
 }
-.next-chip .arrow {
-  font-family: 'Geist', sans-serif;
-  font-size: 1.1cqw;
-  letter-spacing: 0;
-  color: var(--accent-purple);
-}
+.verdict-meta strong { color: var(--text-primary); }
 </style>
 </head>
 <body>
@@ -234,46 +295,63 @@
     <span class="folio-label">Slide</span>
     <span class="folio-num">03</span>
     <span class="folio-sep">/</span>
-    <span class="folio-total">19</span>
+    <span class="folio-total">17</span>
   </div>
 
   <div class="header">
-    <div class="kicker">Try This Yourself · Claude · ChatGPT · Perplexity</div>
-    <h1 class="title">You've probably asked it <span class="em">something like this.</span></h1>
+    <div class="kicker">Try This Yourself · Failure Mode 1 of 3</div>
+    <h1 class="title">Confident confabulation.</h1>
+    <div class="subtitle">Same prompt. Run it five times. You get <em>different numbers</em> — each delivered with identical confidence.</div>
   </div>
 
-  <div class="transcript">
-    <div class="msg user">
-      <div class="msg-label">
-        <span class="tag">You</span>
-        <span>prompt</span>
-      </div>
-      <div class="bubble glass">
-        <div class="prompt-text">Analyze NVIDIA as an investment. Build a DCF. What's the fair value per share?</div>
-      </div>
+  <div class="prompt-block">
+    <div class="prompt-label">
+      <span class="tag">You</span>
+      <span>prompt to Claude / ChatGPT / Perplexity</span>
     </div>
+    <div class="prompt-bubble glass">Analyze NVIDIA as an investment. Build a DCF. What's the fair value per share?</div>
+  </div>
 
-    <div class="msg ai">
-      <div class="msg-label">
-        <span>response · truncated</span>
-        <span class="tag">LLM</span>
-      </div>
-      <div class="bubble glass">
-        <div class="response-text">
-          NVIDIA presents a compelling AI-infrastructure thesis. FY2025 data-center revenue reached <strong>~$115B</strong>, driven by the Hopper/Blackwell transition. Projecting <strong>25% CAGR</strong>, <strong>9% WACC</strong>, <strong>3% terminal growth</strong> — a 5-year DCF suggests a fair value of <span class="fv">$185 / share</span>, implying <strong>18% upside</strong>…
-        </div>
-      </div>
+  <div class="queries">
+    <div class="query">
+      <div class="query-label">Run 1</div>
+      <div class="query-value">$30.8B</div>
+      <div class="query-delta">+0.1%</div>
+    </div>
+    <div class="query wrong">
+      <div class="query-label">Run 2</div>
+      <div class="query-value">$28.5B</div>
+      <div class="query-delta">−7.4%</div>
+    </div>
+    <div class="query wrong">
+      <div class="query-label">Run 3</div>
+      <div class="query-value">$31.2B</div>
+      <div class="query-delta">+1.4%</div>
+    </div>
+    <div class="query">
+      <div class="query-label">Run 4</div>
+      <div class="query-value">$30.6B</div>
+      <div class="query-delta">−0.6%</div>
+    </div>
+    <div class="query actual">
+      <div class="query-label">Actual · 10-Q</div>
+      <div class="query-value">$30.77B</div>
+      <div class="query-delta">Source of truth</div>
     </div>
   </div>
 
-  <div class="verdict-bar">
-    <div class="verdict">
-      <div class="verdict-primary">Looks professional. Reads confident.</div>
-      <div class="verdict-secondary">Let me show you <span class="stress">three ways</span> this answer is structurally wrong.</div>
+  <div class="queries-caption">
+    NVIDIA data-center revenue, Q3 FY2025 · same prompt · multiple runs across <strong>Claude / ChatGPT / Perplexity</strong>
+  </div>
+
+  <div class="verdict glass">
+    <div class="verdict-text">
+      Two of these are wrong. <strong>You cannot tell which</strong> — the output never cites the 10-Q. The model sounds equally confident on every run.
     </div>
-    <div class="next-chip glass sm">
-      Failure Mode 1 of 3
-      <span class="arrow">→</span>
+    <div class="verdict-meta">
+      Hallucination<br>
+      <strong>≠ edge case.</strong><br>
+      Default behavior.
     </div>
   </div>
 </div>

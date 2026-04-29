@@ -9,197 +9,106 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="_base_v5.css">
 <style>
-.header {
+.kicker-block {
   position: absolute;
-  left: 4.5cqw; right: 4.5cqw;
-  top: 16cqh;
+  left: 4.5cqw; top: 16cqh;
   z-index: 4;
-}
-.header .kicker {
-  margin-bottom: 1.4cqh;
   animation: rise 800ms 240ms var(--spring-smooth) both;
 }
-.header .title {
-  font-family: 'Geist', sans-serif;
-  font-weight: 500;
-  font-size: 4.6cqw;
-  line-height: 1.0;
-  letter-spacing: -0.032em;
-  color: var(--text-primary);
-  margin-bottom: 1.4cqh;
-  animation: rise 900ms 340ms var(--spring-smooth) both;
-}
-.header .title .em {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-}
-.header .lead {
-  font-family: 'Geist', sans-serif;
-  font-weight: 400;
-  font-size: 1.4cqw;
-  line-height: 1.4;
-  color: var(--text-secondary);
-  letter-spacing: -0.005em;
-  max-width: 78cqw;
-  animation: rise 900ms 460ms var(--spring-smooth) both;
-}
-.header .lead .mono {
-  font-family: 'Geist Mono', monospace;
-  font-weight: 600;
-  color: var(--text-primary);
-  background: rgba(14, 116, 144, 0.08);
-  padding: 0.1cqh 0.4cqw;
-  border-radius: 6px;
-  font-size: 0.92em;
-}
-.header .lead .rei {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-}
 
-/* Two-column body */
-.layout {
+/* Hero number — center stage */
+.hero {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
-  top: 38cqh;
-  bottom: 14cqh;
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 2.6cqw;
+  top: 22cqh;
   z-index: 4;
-  align-items: stretch;
-}
-
-/* Video panel */
-.video-panel {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: #0a0e18;
-  box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.6),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.05),
-    0 12px 40px -10px rgba(14, 44, 108, 0.32);
-  border: 1px solid var(--glass-border);
-  animation: rise 900ms 540ms var(--spring-smooth) both;
-}
-.video-panel video, .video-panel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.video-panel::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.04), transparent 30%);
-  pointer-events: none;
-}
-.placeholder-badge {
-  position: absolute;
-  top: 1.4cqh;
-  right: 1cqw;
-  padding: 0.5cqh 0.9cqw;
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.72cqw;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
-  background: rgba(238, 58, 101, 0.85);
-  border-radius: 999px;
-  z-index: 5;
-  display: none;
-}
-/* Show the badge until the apex-demo.mp4 file exists.
-   Once dropped in, remove the line below or delete this whole rule. */
-.placeholder-badge { display: block; }
-
-/* Steps panel */
-.steps {
   display: flex;
   flex-direction: column;
-  gap: 1.4cqh;
-  animation: rise 900ms 720ms var(--spring-smooth) both;
+  align-items: flex-start;
+  gap: 1.6cqh;
+  animation: rise 1100ms 360ms var(--spring-smooth) both;
 }
-
-.step {
-  position: relative;
-  padding: 1.8cqh 1.5cqw;
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  gap: 1cqw;
-  background: rgba(255,255,255,0.4);
-  border: 1px solid var(--border-light);
-}
-.step.fix {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  border: 1px solid var(--glass-border);
-  box-shadow:
-    inset 0 1.5px 0 var(--edge-light-top),
-    inset 0 -1px 0 var(--edge-light-bottom),
-    0 8px 30px -10px rgba(14, 116, 144, 0.28);
-  overflow: hidden;
-}
-.step.fix::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.02) 45%, rgba(14,116,144,0.06) 100%);
-  pointer-events: none;
-  border-radius: inherit;
-  z-index: 0;
-}
-.step.fix > * { position: relative; z-index: 1; }
-
-.step-num {
-  flex-shrink: 0;
-  width: 2.6cqw; height: 2.6cqw;
-  min-width: 36px; min-height: 36px;
-  border-radius: 50%;
-  background: rgba(44, 36, 22, 0.06);
-  color: var(--text-muted);
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 1.1cqw;
+.hero-number {
+  font-family: 'Geist', sans-serif;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: -0.01em;
-}
-.step.fix .step-num {
+  font-size: 38cqw;
+  line-height: 0.82;
+  letter-spacing: -0.06em;
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
-  color: white;
-  box-shadow: 0 0 0.6cqw rgba(14, 116, 144, 0.4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-feature-settings: "tnum", "ss01";
+  margin-left: -0.05em;
+}
+.hero-label {
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 1.4cqw;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.hero-label strong {
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
-.step-text {
+/* Right-side narrative */
+.narrative {
+  position: absolute;
+  right: 4.5cqw;
+  top: 26cqh;
+  width: 38cqw;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  animation: rise 1100ms 720ms var(--spring-smooth) both;
+}
+
+.narr-card {
+  padding: 2.4cqh 1.8cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8cqh;
+}
+.narr-label {
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+.narr-text {
   font-family: 'Geist', sans-serif;
   font-weight: 400;
-  font-size: 1.25cqw;
-  line-height: 1.35;
+  font-size: 1.3cqw;
+  line-height: 1.4;
   color: var(--text-primary);
   letter-spacing: -0.008em;
 }
-.step-text strong { font-weight: 600; }
-.step-text .em {
+.narr-text strong { font-weight: 600; }
+.narr-text em { font-style: italic; color: var(--text-primary); font-weight: 500; }
+.narr-text .stress {
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: 600;
+  font-weight: 700;
+}
+.narr-fine {
+  font-family: 'Geist', sans-serif;
+  font-size: 1cqw;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  letter-spacing: -0.005em;
 }
 
-/* Closing line */
-.closing {
+/* L3 callout bottom */
+.l3-callout {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
   bottom: 5cqh;
@@ -208,27 +117,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2cqw;
+  gap: 3cqw;
   z-index: 4;
   animation: rise 900ms 980ms var(--spring-smooth) both;
 }
-.closing-text {
+.l3-text {
   font-family: 'Geist', sans-serif;
-  font-weight: 600;
-  font-size: 2cqw;
-  line-height: 1.15;
-  letter-spacing: -0.022em;
+  font-weight: 500;
+  font-size: 1.6cqw;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
   color: var(--text-primary);
 }
-.closing-text .em {
+.l3-text .em {
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 700;
 }
-.closing-meta {
-  flex-shrink: 0;
+.l3-meta {
   font-family: 'Geist Mono', 'Geist', monospace;
   font-size: 0.78cqw;
   font-weight: 500;
@@ -236,9 +144,9 @@
   text-transform: uppercase;
   color: var(--text-muted);
   text-align: right;
-  line-height: 1.5;
+  line-height: 1.6;
 }
-.closing-meta strong { color: var(--text-primary); }
+.l3-meta strong { color: var(--text-primary); }
 </style>
 </head>
 <body>
@@ -270,49 +178,33 @@
     <span class="folio-label">Slide</span>
     <span class="folio-num">15</span>
     <span class="folio-sep">/</span>
-    <span class="folio-total">19</span>
+    <span class="folio-total">17</span>
   </div>
 
-  <div class="header">
-    <div class="kicker">Architecture · Part 3 of 3</div>
-    <h1 class="title">REI <span class="em">Feedback Loop.</span></h1>
-    <div class="lead">Every agent and gate writes to <span class="mono">rei_log.jsonl</span> — <span class="rei">R</span>eflection. <span class="rei">E</span>rrors. <span class="rei">I</span>nsights. Powered by <strong>BARREL</strong> — Apex's skill evolver.</div>
+  <div class="kicker-block">
+    <div class="kicker">The Result · From Our September Paper</div>
   </div>
 
-  <div class="layout">
-    <div class="video-panel">
-      <!-- Drop the recorded Apex demo at conference-deck/apex-demo.mp4. Browser tries it first, falls back to rei-loop animation if not present yet. -->
-      <video autoplay loop muted playsinline preload="auto" poster="../rei-loop-reference.png">
-        <source src="../apex-demo.mp4" type="video/mp4">
-        <source src="../rei-loop-pp.mp4" type="video/mp4">
-        <img src="../rei-loop-reference.png" alt="Apex demo placeholder">
-      </video>
-      <div class="placeholder-badge">Apex Demo · Pending</div>
+  <div class="hero">
+    <div class="hero-number">47</div>
+    <div class="hero-label">Days <strong>before</strong> official disclosure.</div>
+  </div>
+
+  <div class="narrative">
+    <div class="narr-card glass">
+      <div class="narr-label">What the system flagged</div>
+      <div class="narr-text">A <strong>litigation threat</strong> affecting one external manager — surfaced <span class="stress">forty-seven days</span> before the official filing.</div>
     </div>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-text">Weekly pattern analysis <strong>scans the log.</strong></div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-text">Same error <strong>3+ times</strong> → a ticket is created.</div>
-      </div>
-      <div class="step fix">
-        <div class="step-num">3</div>
-        <div class="step-text">The fix is a <span class="em">new gate.</span> The mistake becomes <strong>technically impossible.</strong></div>
-      </div>
+    <div class="narr-card glass">
+      <div class="narr-label">Outcome</div>
+      <div class="narr-text">Exposure <strong>reduced.</strong> Losses <strong>avoided.</strong></div>
+      <div class="narr-fine">Other investors learned through traditional disclosure channels — weeks later.</div>
     </div>
   </div>
 
-  <div class="closing">
-    <div class="closing-text">Apex <span class="em">gets smarter</span> without us — BARREL writes the upgrades.</div>
-    <div class="closing-meta">
-      Every error<br>
-      <strong>↓</strong><br>
-      A wall it cannot cross.
-    </div>
+  <div class="l3-callout">
+    <div class="l3-text">This is <span class="em">L3 in action</span> — the AI giving the committee <em>47 days of additional reaction time.</em></div>
+    <div class="l3-meta">Augmentation, not replacement<br><strong>Better-informed · Sooner.</strong></div>
   </div>
 </div>
 </body>

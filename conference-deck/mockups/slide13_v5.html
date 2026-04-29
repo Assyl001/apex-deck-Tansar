@@ -16,17 +16,17 @@
   z-index: 4;
 }
 .header .kicker {
-  margin-bottom: 1.6cqh;
+  margin-bottom: 1.4cqh;
   animation: rise 800ms 240ms var(--spring-smooth) both;
 }
 .header .title {
   font-family: 'Geist', sans-serif;
   font-weight: 500;
-  font-size: 4.8cqw;
+  font-size: 4.6cqw;
   line-height: 1.0;
   letter-spacing: -0.032em;
   color: var(--text-primary);
-  margin-bottom: 1.2cqh;
+  margin-bottom: 1.4cqh;
   animation: rise 900ms 340ms var(--spring-smooth) both;
 }
 .header .title .em {
@@ -36,43 +36,110 @@
   background-clip: text;
   font-weight: 600;
 }
-.header .subtitle {
+.header .lead {
   font-family: 'Geist', sans-serif;
   font-weight: 400;
   font-size: 1.4cqw;
-  line-height: 1.3;
+  line-height: 1.4;
   color: var(--text-secondary);
-  letter-spacing: -0.008em;
+  letter-spacing: -0.005em;
+  max-width: 78cqw;
   animation: rise 900ms 460ms var(--spring-smooth) both;
 }
+.header .lead .mono {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: rgba(14, 116, 144, 0.08);
+  padding: 0.1cqh 0.4cqw;
+  border-radius: 6px;
+  font-size: 0.92em;
+}
+.header .lead .rei {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
 
-/* Two stat cards */
-.stats {
+/* Two-column body */
+.layout {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
-  top: 36cqh;
-  bottom: 18cqh;
+  top: 38cqh;
+  bottom: 14cqh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.4cqw;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2.6cqw;
   z-index: 4;
+  align-items: stretch;
 }
 
-.stat-card {
+/* Video panel */
+.video-panel {
   position: relative;
-  padding: 3.2cqh 2.4cqw;
   border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #0a0e18;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05),
+    0 12px 40px -10px rgba(14, 44, 108, 0.32);
+  border: 1px solid var(--glass-border);
+  animation: rise 900ms 540ms var(--spring-smooth) both;
+}
+.video-panel video, .video-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-panel::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.04), transparent 30%);
+  pointer-events: none;
+}
+.placeholder-badge {
+  position: absolute;
+  top: 1.4cqh;
+  right: 1cqw;
+  padding: 0.5cqh 0.9cqw;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.72cqw;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(238, 58, 101, 0.85);
+  border-radius: 999px;
+  z-index: 5;
+  display: none;
+}
+/* Show the badge until the apex-demo.mp4 file exists.
+   Once dropped in, remove the line below or delete this whole rule. */
+.placeholder-badge { display: block; }
+
+/* Steps panel */
+.steps {
   display: flex;
   flex-direction: column;
-  gap: 1.6cqh;
-  animation: rise 900ms var(--spring-smooth) both;
+  gap: 1.4cqh;
+  animation: rise 900ms 720ms var(--spring-smooth) both;
 }
-.stat-card.parity {
-  background: rgba(255,255,255,0.35);
+
+.step {
+  position: relative;
+  padding: 1.8cqh 1.5cqw;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  background: rgba(255,255,255,0.4);
   border: 1px solid var(--border-light);
-  animation-delay: 540ms;
 }
-.stat-card.win {
+.step.fix {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
@@ -80,155 +147,98 @@
   box-shadow:
     inset 0 1.5px 0 var(--edge-light-top),
     inset 0 -1px 0 var(--edge-light-bottom),
-    0 12px 40px -10px rgba(14, 116, 144, 0.28);
+    0 8px 30px -10px rgba(14, 116, 144, 0.28);
   overflow: hidden;
-  animation-delay: 660ms;
 }
-.stat-card.win::before {
+.step.fix::before {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.02) 45%, rgba(14,116,144,0.08) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.02) 45%, rgba(14,116,144,0.06) 100%);
   pointer-events: none;
   border-radius: inherit;
   z-index: 0;
 }
-.stat-card.win > * { position: relative; z-index: 1; }
-.stat-card.win::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 8%; right: 8%;
-  height: 2.5px;
-  background: linear-gradient(90deg, transparent, var(--accent-cyan) 25%, var(--accent-blue) 50%, var(--accent-purple) 75%, transparent);
-  border-radius: 2px;
-  z-index: 2;
+.step.fix > * { position: relative; z-index: 1; }
+
+.step-num {
+  flex-shrink: 0;
+  width: 2.6cqw; height: 2.6cqw;
+  min-width: 36px; min-height: 36px;
+  border-radius: 50%;
+  background: rgba(44, 36, 22, 0.06);
+  color: var(--text-muted);
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 1.1cqw;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.01em;
+}
+.step.fix .step-num {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  color: white;
+  box-shadow: 0 0 0.6cqw rgba(14, 116, 144, 0.4);
 }
 
-.stat-label {
+.step-text {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1.25cqw;
+  line-height: 1.35;
+  color: var(--text-primary);
+  letter-spacing: -0.008em;
+}
+.step-text strong { font-weight: 600; }
+.step-text .em {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+/* Closing line */
+.closing {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  bottom: 5cqh;
+  padding-top: 2.4cqh;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2cqw;
+  z-index: 4;
+  animation: rise 900ms 980ms var(--spring-smooth) both;
+}
+.closing-text {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600;
+  font-size: 2cqw;
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  color: var(--text-primary);
+}
+.closing-text .em {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+.closing-meta {
+  flex-shrink: 0;
   font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.85cqw;
+  font-size: 0.78cqw;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text-muted);
+  text-align: right;
+  line-height: 1.5;
 }
-.stat-card.win .stat-label { color: var(--accent-cyan); }
-
-.stat-value {
-  font-family: 'Geist', sans-serif;
-  font-weight: 500;
-  font-size: 12cqw;
-  line-height: 0.88;
-  letter-spacing: -0.05em;
-  color: var(--text-primary);
-  font-feature-settings: "tnum", "ss01";
-}
-.stat-card.win .stat-value {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-}
-
-.stat-meta {
-  font-family: 'Geist', sans-serif;
-  font-weight: 500;
-  font-size: 1.15cqw;
-  line-height: 1.3;
-  color: var(--text-secondary);
-  letter-spacing: -0.005em;
-}
-.stat-meta strong { color: var(--text-primary); font-weight: 600; }
-
-/* Comparison */
-.compare-row {
-  margin-top: auto;
-  padding-top: 1.8cqh;
-  border-top: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1cqw;
-  font-family: 'Geist', sans-serif;
-  font-size: 1.1cqw;
-  font-weight: 400;
-  letter-spacing: -0.005em;
-  color: var(--text-secondary);
-}
-.stat-card.win .compare-row { border-top-color: rgba(14, 116, 144, 0.2); }
-.compare-row .label {
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.78cqw;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-.compare-row .vs {
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.85cqw;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  color: var(--text-faint);
-}
-.compare-row .ref {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-feature-settings: "tnum";
-}
-.compare-row .ref-name {
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-/* Verdict */
-.verdict {
-  position: absolute;
-  left: 4.5cqw; right: 4.5cqw;
-  bottom: 5cqh;
-  padding: 2.4cqh 2.4cqw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 3cqw;
-  z-index: 4;
-  animation: rise 900ms 880ms var(--spring-smooth) both;
-}
-.verdict-text {
-  font-family: 'Geist', sans-serif;
-  font-weight: 500;
-  font-size: 1.6cqw;
-  line-height: 1.3;
-  letter-spacing: -0.012em;
-  color: var(--text-primary);
-}
-.verdict-text .em {
-  font-weight: 600;
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.crises {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.8cqw;
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.78cqw;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-.crisis {
-  padding: 0.6cqh 0.8cqw;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.45);
-  border: 1px solid var(--border-light);
-  color: var(--text-primary);
-  font-weight: 600;
-}
+.closing-meta strong { color: var(--text-primary); }
 </style>
 </head>
 <body>
@@ -260,47 +270,48 @@
     <span class="folio-label">Slide</span>
     <span class="folio-num">13</span>
     <span class="folio-sep">/</span>
-    <span class="folio-total">19</span>
+    <span class="folio-total">17</span>
   </div>
 
   <div class="header">
-    <div class="kicker">Phase 3 Validation · Backtest 1996–2026</div>
-    <h1 class="title">30-year <span class="em">academic validation.</span></h1>
-    <div class="subtitle">Self-Driving Portfolio vs. classic 60/40 — same return profile, materially better downside.</div>
+    <div class="kicker">Architecture · Part 3 of 3</div>
+    <h1 class="title">REI <span class="em">Feedback Loop.</span></h1>
+    <div class="lead">Every agent and gate writes to <span class="mono">rei_log.jsonl</span> — <span class="rei">R</span>eflection. <span class="rei">E</span>rrors. <span class="rei">I</span>nsights. Powered by <strong>BARREL</strong> — Apex's skill evolver.</div>
   </div>
 
-  <div class="stats">
-    <div class="stat-card parity">
-      <div class="stat-label">Sharpe Ratio</div>
-      <div class="stat-value">0.39</div>
-      <div class="stat-meta"><strong>Risk-adjusted return parity.</strong></div>
-      <div class="compare-row">
-        <span class="label">vs 60/40</span>
-        <span class="vs">·</span>
-        <span><span class="ref">0.41</span> <span class="ref-name">(60/40 benchmark)</span></span>
-      </div>
+  <div class="layout">
+    <div class="video-panel">
+      <!-- Drop the recorded Apex demo at conference-deck/apex-demo.mp4. Browser tries it first, falls back to rei-loop animation if not present yet. -->
+      <video autoplay loop muted playsinline preload="auto" poster="../rei-loop-reference.png">
+        <source src="../apex-demo.mp4" type="video/mp4">
+        <source src="../rei-loop-pp.mp4" type="video/mp4">
+        <img src="../rei-loop-reference.png" alt="Apex demo placeholder">
+      </video>
+      <div class="placeholder-badge">Apex Demo · Pending</div>
     </div>
 
-    <div class="stat-card win">
-      <div class="stat-label">Maximum Drawdown</div>
-      <div class="stat-value">−25.6%</div>
-      <div class="stat-meta"><strong>8.7 percentage points</strong> shallower than the benchmark.</div>
-      <div class="compare-row">
-        <span class="label">vs 60/40</span>
-        <span class="vs">·</span>
-        <span><span class="ref">−34.3%</span> <span class="ref-name">(60/40 benchmark)</span></span>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Weekly pattern analysis <strong>scans the log.</strong></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Same error <strong>3+ times</strong> → a ticket is created.</div>
+      </div>
+      <div class="step fix">
+        <div class="step-num">3</div>
+        <div class="step-text">The fix is a <span class="em">new gate.</span> The mistake becomes <strong>technically impossible.</strong></div>
       </div>
     </div>
   </div>
 
-  <div class="verdict glass">
-    <div class="verdict-text">
-      Materially better downside. <span class="em">Across multiple crises.</span>
-    </div>
-    <div class="crises">
-      <span class="crisis">Dot-com</span>
-      <span class="crisis">GFC</span>
-      <span class="crisis">COVID</span>
+  <div class="closing">
+    <div class="closing-text">Apex <span class="em">gets smarter</span> without us — BARREL writes the upgrades.</div>
+    <div class="closing-meta">
+      Every error<br>
+      <strong>↓</strong><br>
+      A wall it cannot cross.
     </div>
   </div>
 </div>

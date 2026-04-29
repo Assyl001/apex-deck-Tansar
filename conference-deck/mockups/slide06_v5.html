@@ -6,213 +6,277 @@
 <title>Slide 06 · V5 · Altbridge Brand</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="_base_v5.css">
 <style>
 .header {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
-  top: 16cqh;
+  top: 14cqh;
   z-index: 4;
 }
 .header .kicker {
-  margin-bottom: 1.4cqh;
-  color: var(--accent-purple);
+  margin-bottom: 1.6cqh;
   animation: rise 800ms 240ms var(--spring-smooth) both;
-}
-.header .kicker::before {
-  background: linear-gradient(90deg, var(--accent-purple), var(--brand-magenta));
 }
 .header .title {
   font-family: 'Geist', sans-serif;
   font-weight: 500;
-  font-size: 4.4cqw;
+  font-size: 4.6cqw;
   line-height: 1.0;
   letter-spacing: -0.032em;
   color: var(--text-primary);
   margin-bottom: 1.4cqh;
   animation: rise 900ms 340ms var(--spring-smooth) both;
 }
+.header .title .em {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
 .header .subtitle {
   font-family: 'Geist', sans-serif;
   font-weight: 400;
-  font-size: 1.4cqw;
-  line-height: 1.35;
+  font-size: 1.55cqw;
+  line-height: 1.3;
   color: var(--text-secondary);
   letter-spacing: -0.008em;
-  max-width: 78cqw;
+  max-width: 70cqw;
   animation: rise 900ms 460ms var(--spring-smooth) both;
 }
-.header .subtitle em {
-  font-style: italic;
-  color: var(--text-primary);
-  font-weight: 500;
-}
+.header .subtitle strong { color: var(--text-primary); font-weight: 600; }
 
-/* Two panels */
-.compare {
+/* Ladder */
+.ladder {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
-  top: 36cqh;
+  top: 38cqh;
   bottom: 18cqh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.2cqw;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1cqw;
   z-index: 4;
 }
 
-.panel {
-  padding: 2.4cqh 2cqw;
-  border-radius: var(--radius-lg);
+.step {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.4cqh;
-  animation: rise 900ms var(--spring-smooth) both;
+  padding: 2cqh 1cqw 1.8cqh;
+  border-radius: var(--radius-md);
+  animation: rise 800ms var(--spring-smooth) both;
 }
-.panel.reads {
+.step:nth-child(1) { animation-delay: 560ms; }
+.step:nth-child(2) { animation-delay: 620ms; }
+.step:nth-child(3) { animation-delay: 680ms; }
+.step:nth-child(4) { animation-delay: 740ms; }
+.step:nth-child(5) { animation-delay: 800ms; }
+.step:nth-child(6) { animation-delay: 860ms; }
+
+/* Dimmed steps (L0, L1, L2, L5) */
+.step.dim {
+  border-top: 1px solid var(--border-light);
+  opacity: 0.55;
+}
+
+/* L3 — Industry's credible level today */
+.step.is-industry {
+  border-top: 1px solid var(--border-light);
   background: rgba(255,255,255,0.35);
   border: 1px solid var(--border-light);
-  animation-delay: 540ms;
 }
-.panel.misses {
-  position: relative;
+.step.is-industry .step-label {
+  color: var(--text-secondary);
+}
+
+/* L4 — Altbridge today: full liquid glass */
+.step.is-altbridge {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
   border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
   box-shadow:
     inset 0 1.5px 0 var(--edge-light-top),
     inset 0 -1px 0 var(--edge-light-bottom),
-    0 10px 40px -10px rgba(126, 34, 206, 0.18);
+    0 8px 30px -10px rgba(14, 116, 144, 0.28);
   overflow: hidden;
-  animation-delay: 660ms;
+  transform: translateY(-1cqh);
 }
-.panel.misses::before {
+.step.is-altbridge::before {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.02) 45%, rgba(126,34,206,0.06) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.02) 45%, rgba(14,116,144,0.08) 100%);
   pointer-events: none;
   border-radius: inherit;
   z-index: 0;
 }
-.panel.misses > * { position: relative; z-index: 1; }
+.step.is-altbridge > * { position: relative; z-index: 1; }
+.step.is-altbridge::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 8%; right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan) 30%, var(--accent-purple) 70%, transparent);
+  border-radius: 2px;
+  z-index: 2;
+}
 
-.panel-label {
+.step-label {
   font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.8cqw;
+  font-size: 0.74cqw;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text-muted);
-}
-.panel.misses .panel-label { color: var(--accent-purple); }
-.panel-title {
-  font-family: 'Geist', sans-serif;
-  font-weight: 600;
-  font-size: 1.6cqw;
-  line-height: 1.15;
-  letter-spacing: -0.018em;
-  color: var(--text-primary);
-}
-
-/* Mono lists */
-.mono-list {
-  background: rgba(44, 36, 22, 0.04);
-  border: 1px solid rgba(44, 36, 22, 0.06);
-  border-radius: var(--radius-md);
-  padding: 1.8cqh 1.4cqw;
-  font-family: 'Geist Mono', monospace;
-  font-size: 1.05cqw;
-  line-height: 1.85;
-  font-feature-settings: "tnum";
+  margin-bottom: 0.9cqh;
   display: flex;
-  flex-direction: column;
-  gap: 0.3cqh;
+  align-items: center;
+  gap: 0.45em;
 }
-.mono-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: baseline;
-  gap: 1cqw;
+.step.is-altbridge .step-label {
+  color: var(--accent-cyan);
 }
-.mono-row .lbl { color: var(--text-muted); }
-.mono-row .val {
-  color: var(--text-primary);
+.step.is-altbridge .step-label .marker {
   font-weight: 600;
+  letter-spacing: 0.22em;
+}
+.marker-dot {
+  display: inline-block;
+  width: 0.5cqw; height: 0.5cqw;
+  min-width: 5px; min-height: 5px;
+  background: var(--accent-cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 0.7cqw rgba(14,116,144,0.55);
+}
+
+.step-num {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 4.6cqw;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  color: var(--text-primary);
+  margin-bottom: 1.4cqh;
   font-feature-settings: "tnum";
 }
-.mono-row.proj .val {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+.step.dim .step-num { color: var(--text-muted); }
+.step.is-industry .step-num { color: var(--text-secondary); }
+.step.is-altbridge .step-num {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-weight: 600;
 }
 
-.mono-row.add .val { color: var(--accent-green); }
-.mono-row.sub .val { color: var(--brand-magenta); }
-.mono-row.sum {
-  border-top: 1px solid rgba(44, 36, 22, 0.1);
-  padding-top: 0.6cqh;
-  margin-top: 0.2cqh;
-}
-.mono-row.sum .lbl { color: var(--text-secondary); font-weight: 500; }
-.mono-row.sum .val {
-  color: var(--text-primary);
-  font-weight: 700;
-}
-
-.panel-note {
+.step-name {
   font-family: 'Geist', sans-serif;
-  font-size: 1cqw;
-  font-weight: 400;
-  line-height: 1.45;
-  color: var(--text-secondary);
-  letter-spacing: -0.005em;
+  font-size: 1.1cqw;
+  font-weight: 600;
+  line-height: 1.18;
+  color: var(--text-primary);
+  letter-spacing: -0.014em;
+  margin-bottom: 0.7cqh;
 }
-.panel-note strong { color: var(--text-primary); font-weight: 600; }
-.panel-note .err {
-  background: linear-gradient(135deg, var(--brand-magenta), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 700;
+.step.dim .step-name { color: var(--text-secondary); }
+
+.step-desc {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.85cqw;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  letter-spacing: -0.002em;
+  margin-bottom: 1.1cqh;
+}
+.step.dim .step-desc { color: var(--text-muted); }
+
+.step-role {
+  margin-top: auto;
+  padding-top: 1cqh;
+  border-top: 1px solid var(--border-subtle);
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.68cqw;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+.step.is-altbridge .step-role {
+  color: var(--accent-cyan);
+  border-top-color: rgba(14, 116, 144, 0.25);
 }
 
-/* Verdict */
-.verdict {
+/* Cohort labels above ladder */
+.cohorts {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 33cqh;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+  gap: 1cqw;
+  z-index: 4;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  animation: fade 900ms 540ms var(--spring-smooth) both;
+}
+.cohort-label {
+  text-align: center;
+  padding: 0.6cqh 0;
+  border-radius: 999px;
+}
+.cohort-label.industry {
+  color: var(--text-secondary);
+  background: rgba(0,0,0,0.04);
+}
+.cohort-label.altbridge {
+  color: var(--accent-cyan);
+  background: rgba(14, 116, 144, 0.08);
+  font-weight: 700;
+}
+.cohort-label.theoretical {
+  color: var(--text-muted);
+}
+
+/* Bottom transition */
+.transition {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
   bottom: 5cqh;
-  padding: 2.4cqh 2.4cqw;
+  padding-top: 2.4cqh;
+  border-top: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 3cqw;
   z-index: 4;
-  animation: rise 900ms 880ms var(--spring-smooth) both;
+  animation: rise 900ms 1100ms var(--spring-smooth) both;
 }
-.verdict-text {
+.transition-text {
   font-family: 'Geist', sans-serif;
   font-weight: 500;
   font-size: 1.5cqw;
   line-height: 1.3;
   letter-spacing: -0.012em;
   color: var(--text-primary);
+  max-width: 70cqw;
 }
-.verdict-text em {
-  font-style: italic;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-.verdict-text .em {
-  font-style: normal;
+.transition-text .em {
   font-weight: 600;
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.verdict-meta {
+.transition-meta {
   flex-shrink: 0;
   font-family: 'Geist Mono', 'Geist', monospace;
   font-size: 0.78cqw;
@@ -223,7 +287,23 @@
   text-align: right;
   line-height: 1.5;
 }
-.verdict-meta strong { color: var(--text-primary); font-weight: 600; }
+.transition-meta strong { color: var(--text-primary); }
+
+/* Source line (bottom-left tucked under transition) */
+.source {
+  position: absolute;
+  left: 4.5cqw;
+  bottom: 1.5cqh;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.72cqw;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  z-index: 4;
+  animation: fade 800ms 1180ms var(--spring-smooth) both;
+}
+.source .sep { color: var(--text-faint); }
 </style>
 </head>
 <body>
@@ -255,70 +335,87 @@
     <span class="folio-label">Slide</span>
     <span class="folio-num">06</span>
     <span class="folio-sep">/</span>
-    <span class="folio-total">19</span>
+    <span class="folio-total">17</span>
   </div>
 
   <div class="header">
-    <div class="kicker">Failure Mode · 3 of 3</div>
-    <h1 class="title">No normalization.</h1>
-    <div class="subtitle">The LLM treats headline figures as <em>recurring</em>. Asset sales, restructuring charges, legal settlements — all roll straight into the forward projection.</div>
+    <div class="kicker">A Taxonomy of Autonomous Investing · Industry Position 2026</div>
+    <h1 class="title">The <span class="em">L0–L5</span> Framework — and where we sit.</h1>
+    <div class="subtitle">Six levels — from manual analysis to full autonomy. <strong>Most of the industry is L0–L2.</strong> Altbridge operates at <strong>L4</strong> today.</div>
   </div>
 
-  <div class="compare">
-    <div class="panel reads">
-      <div class="panel-label">What the LLM reads · Meta FY2024</div>
-      <div class="panel-title">Simple, clean, confident.</div>
-      <div class="mono-list">
-        <div class="mono-row">
-          <span class="lbl">Net income</span>
-          <span class="val">$62.4B</span>
-        </div>
-        <div class="mono-row">
-          <span class="lbl">Growth · 5-yr avg</span>
-          <span class="val">12%</span>
-        </div>
-        <div class="mono-row proj">
-          <span class="lbl">FY2026 projection</span>
-          <span class="val">$78.3B</span>
-        </div>
-      </div>
-      <div class="panel-note">Built from the income statement alone — no footnote reading.</div>
+  <div class="cohorts">
+    <div class="cohort-label industry">Industry "AI" — mostly here</div>
+    <div class="cohort-label industry">Today's credible</div>
+    <div class="cohort-label altbridge">Altbridge today</div>
+    <div class="cohort-label theoretical">Theoretical</div>
+  </div>
+
+  <div class="ladder">
+    <div class="step dim">
+      <div class="step-label">Level 00</div>
+      <div class="step-num">L0</div>
+      <div class="step-name">No Automation</div>
+      <div class="step-desc">All analysis manual.</div>
+      <div class="step-role">Full Control</div>
     </div>
 
-    <div class="panel misses">
-      <div class="panel-label">What the LLM missed · in the footnotes</div>
-      <div class="panel-title">One-time items, hiding in plain sight.</div>
-      <div class="mono-list">
-        <div class="mono-row add">
-          <span class="lbl">+ One-time tax benefit</span>
-          <span class="val">$4.2B</span>
-        </div>
-        <div class="mono-row add">
-          <span class="lbl">+ Legal settlement income</span>
-          <span class="val">$2.1B</span>
-        </div>
-        <div class="mono-row sub">
-          <span class="lbl">− Reality Labs impairment</span>
-          <span class="val">$3.8B</span>
-        </div>
-        <div class="mono-row sum">
-          <span class="lbl">= Net one-time items</span>
-          <span class="val">$2.5B</span>
-        </div>
-      </div>
-      <div class="panel-note"><strong>Normalized net income ≈ $59.9B.</strong> Projecting off the wrong base compounds — forward FCF off by <span class="err">~8%</span> over 5 years.</div>
+    <div class="step dim">
+      <div class="step-label">Level 01</div>
+      <div class="step-num">L1</div>
+      <div class="step-name">Investor Assistance</div>
+      <div class="step-desc">Single-task automation.</div>
+      <div class="step-role">Human-in-the-Loop</div>
+    </div>
+
+    <div class="step dim">
+      <div class="step-label">Level 02</div>
+      <div class="step-num">L2</div>
+      <div class="step-name">Partial Automation</div>
+      <div class="step-desc">Sentiment + valuation synthesized.</div>
+      <div class="step-role">Human Supervises</div>
+    </div>
+
+    <div class="step is-industry">
+      <div class="step-label">Level 03</div>
+      <div class="step-num">L3</div>
+      <div class="step-name">Conditional Automation</div>
+      <div class="step-desc">AI recommends within a defined domain.</div>
+      <div class="step-role">Human-on-the-Loop</div>
+    </div>
+
+    <div class="step is-altbridge">
+      <div class="step-label"><span class="marker-dot"></span><span class="marker">Altbridge · Today</span></div>
+      <div class="step-num">L4</div>
+      <div class="step-name">High Automation</div>
+      <div class="step-desc">Full autonomy within a defined operational domain.</div>
+      <div class="step-role">Human-out-of-the-Loop</div>
+    </div>
+
+    <div class="step dim">
+      <div class="step-label">Level 05</div>
+      <div class="step-num">L5</div>
+      <div class="step-name">Full Autonomy</div>
+      <div class="step-desc">All market conditions. Theoretical.</div>
+      <div class="step-role">Policy-only</div>
     </div>
   </div>
 
-  <div class="verdict glass">
-    <div class="verdict-text">
-      Headline net income is a <em>result</em>, not a <span class="em">baseline</span>. The LLM's "recurring earnings" include items that by definition <span class="em">will not recur</span>.
+  <div class="transition">
+    <div class="transition-text">
+      Most "AI in finance" today is <strong>L1–L2</strong>. <span class="em">L4 is rare.</span> Let me tell you our journey here.
     </div>
-    <div class="verdict-meta">
-      Three failures<br>
-      <strong>↓</strong><br>
-      Three gates · next.
+    <div class="transition-meta">
+      Phase 1<br>
+      <strong>2025</strong><br>
+      ↓
     </div>
+  </div>
+
+  <div class="source">
+    <span>Source</span>
+    <span class="sep">—</span>
+    <span>SSRN 5468687 · September 2025</span>
   </div>
 </div>
 </body>

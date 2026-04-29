@@ -9,230 +9,228 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="_base_v5.css">
 <style>
-/* Equity curve background */
-.equity-bg {
-  position: absolute;
-  inset: 30cqh 0 0 0;
-  width: 100%;
-  height: 70cqh;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0.55;
-  animation: curveRise 1600ms 500ms var(--spring-smooth) both;
-}
-@keyframes curveRise {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 0.55; transform: translateY(0); }
-}
-@keyframes drawPath {
-  from { stroke-dashoffset: 4000; }
-  to { stroke-dashoffset: 0; }
-}
-.equity-bg .curve {
-  stroke-dasharray: 4000;
-  animation: drawPath 2400ms 600ms var(--spring-smooth) forwards;
-}
-
 .header {
   position: absolute;
   left: 4.5cqw; right: 4.5cqw;
   top: 16cqh;
   z-index: 4;
-  display: flex;
-  flex-direction: column;
-  gap: 1.4cqh;
 }
 .header .kicker {
+  margin-bottom: 1.6cqh;
   animation: rise 800ms 240ms var(--spring-smooth) both;
 }
 .header .title {
   font-family: 'Geist', sans-serif;
   font-weight: 500;
-  font-size: 4.6cqw;
+  font-size: 5.2cqw;
   line-height: 1.0;
-  letter-spacing: -0.032em;
+  letter-spacing: -0.034em;
   color: var(--text-primary);
   animation: rise 900ms 340ms var(--spring-smooth) both;
 }
-
-/* Hero stat */
-.hero {
-  position: absolute;
-  left: 4.5cqw;
-  top: 36cqh;
-  z-index: 4;
-  animation: rise 900ms 440ms var(--spring-smooth) both;
-}
-.hero-number {
-  font-family: 'Geist', sans-serif;
-  font-weight: 500;
-  font-size: 20cqw;
-  line-height: 0.85;
-  letter-spacing: -0.055em;
+.header .title .em {
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-feature-settings: "tnum", "ss01";
+  font-weight: 600;
 }
-.hero-number .plus {
-  font-weight: 400;
+
+/* Main content: agent swarm + description */
+.layout {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 33cqh;
+  bottom: 14cqh;
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 3cqw;
+  z-index: 4;
+  align-items: center;
 }
-.hero-label {
-  margin-top: 2cqh;
+
+/* Agent visualization */
+.swarm {
+  position: relative;
+  aspect-ratio: 1;
+  max-width: 38cqw;
+  justify-self: center;
+  animation: rise 1100ms 540ms var(--spring-smooth) both;
+}
+.swarm svg { width: 100%; height: 100%; display: block; }
+
+.agent {
+  fill: var(--accent-cyan);
+  opacity: 0.7;
+}
+.agent.cyan { fill: var(--accent-cyan); }
+.agent.blue { fill: var(--accent-blue); }
+.agent.purple { fill: var(--accent-purple); }
+
+.swarm-link {
+  stroke: rgba(44, 36, 22, 0.08);
+  stroke-width: 0.8;
+  fill: none;
+}
+
+.ips-core {
+  fill: url(#ipsGrad);
+  stroke: rgba(255, 255, 255, 0.6);
+  stroke-width: 1.5;
+}
+.ips-glow {
+  fill: url(#ipsGlow);
+  opacity: 0.35;
+}
+.ips-label {
   font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 1cqw;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  fill: white;
+  text-anchor: middle;
+}
+.ips-sublabel {
+  font-family: 'Geist', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  fill: rgba(255, 255, 255, 0.85);
+  text-anchor: middle;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.swarm-caption {
+  position: absolute;
+  bottom: -6cqh;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
-.hero-label .sep { color: var(--text-faint); margin: 0 0.5em; }
-
-/* Right column — facts + growth */
-.right-col {
-  position: absolute;
-  right: 4.5cqw;
-  top: 36cqh;
-  width: 38cqw;
-  display: flex;
-  flex-direction: column;
-  gap: 2.2cqh;
-  z-index: 4;
-}
-.fact-card {
-  padding: 2.2cqh 1.8cqw;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4cqh;
-  animation: rise 900ms var(--spring-smooth) both;
-}
-.fact-card.a { animation-delay: 540ms; }
-.fact-card.b { animation-delay: 640ms; }
-.fact-label {
-  font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.78cqw;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.fact-value {
-  font-family: 'Geist', sans-serif;
-  font-weight: 500;
-  font-size: 3.2cqw;
-  line-height: 1;
-  letter-spacing: -0.028em;
+.swarm-caption strong {
   color: var(--text-primary);
-  font-feature-settings: "tnum";
+  font-weight: 700;
+}
+
+/* Description card */
+.body {
   display: flex;
-  align-items: baseline;
-  gap: 0.3em;
+  flex-direction: column;
+  gap: 2.4cqh;
+  animation: rise 900ms 720ms var(--spring-smooth) both;
 }
-.fact-value .arrow {
-  font-weight: 300;
-  font-size: 0.75em;
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.fact-suffix {
+.body-lede {
   font-family: 'Geist', sans-serif;
-  font-size: 1.05cqw;
   font-weight: 400;
-  color: var(--text-secondary);
-  letter-spacing: -0.005em;
-  margin-top: 0.3cqh;
-}
-.fact-bullets {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6cqh;
-  font-family: 'Geist', sans-serif;
-  font-size: 1.15cqw;
-  font-weight: 500;
-  line-height: 1.25;
+  font-size: 1.7cqw;
+  line-height: 1.4;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
 }
-.fact-bullets .bullet {
-  display: flex;
-  align-items: center;
-  gap: 0.6cqw;
-}
-.fact-bullets .bullet::before {
-  content: "";
-  display: inline-block;
-  width: 0.4cqw; height: 0.4cqw;
-  min-width: 6px; min-height: 6px;
-  background: var(--accent-cyan);
-  border-radius: 50%;
-  box-shadow: 0 0 0.7cqw rgba(14,116,144,0.4);
-  flex-shrink: 0;
-}
-.fact-bullets .bullet:nth-child(2)::before { background: var(--accent-blue); box-shadow: 0 0 0.7cqw rgba(3,105,161,0.4); }
-.fact-bullets .bullet:nth-child(3)::before { background: var(--accent-purple); box-shadow: 0 0 0.7cqw rgba(126,34,206,0.4); }
-
-/* Satellites row */
-.satellites {
-  position: absolute;
-  left: 4.5cqw; right: 4.5cqw;
-  bottom: 5.2cqh;
-  padding-top: 2.6cqh;
-  border-top: 1px solid var(--border-light);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.6cqw;
-  z-index: 4;
-  animation: rise 900ms 780ms var(--spring-smooth) both;
-}
-.sat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6cqh;
-}
-.sat-num {
-  font-family: 'Geist', sans-serif;
-  font-weight: 500;
-  font-size: 3.4cqw;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--text-primary);
-  font-feature-settings: "tnum";
-  display: flex;
-  align-items: baseline;
-  gap: 0.05em;
-}
-.sat-num .unit {
-  font-size: 0.45em;
-  font-weight: 500;
-  color: var(--text-muted);
-  letter-spacing: 0;
-}
-.sat-num .gradient {
+.body-lede strong { font-weight: 600; }
+.body-lede .stress {
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 600;
 }
-.sat-label {
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8cqw 1.4cqw;
+}
+.action {
+  display: flex;
+  align-items: center;
+  gap: 0.6cqw;
+  font-family: 'Geist', sans-serif;
+  font-size: 1.2cqw;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: -0.008em;
+}
+.action::before {
+  content: "";
+  display: inline-block;
+  width: 0.45cqw; height: 0.45cqw;
+  min-width: 6px; min-height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.action:nth-child(1)::before { background: var(--accent-cyan); }
+.action:nth-child(2)::before { background: var(--accent-blue); }
+.action:nth-child(3)::before { background: var(--accent-purple); }
+.action:nth-child(4)::before {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+}
+
+.governance {
+  position: relative;
+  padding: 2cqh 1.8cqw;
+  border-radius: var(--radius-md);
+  background: rgba(44, 36, 22, 0.04);
+  border-left: 3px solid;
+  border-image: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple)) 1;
+  font-family: 'Geist', sans-serif;
+  font-size: 1.2cqw;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-primary);
+  letter-spacing: -0.008em;
+}
+.governance strong {
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Footer */
+.footer {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  bottom: 5cqh;
+  padding-top: 2.4cqh;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 4;
+  animation: fade 900ms 980ms var(--spring-smooth) both;
+}
+.footer-level {
+  font-family: 'Geist', sans-serif;
+  font-style: italic;
+  font-size: 1.3cqw;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+}
+.footer-level strong {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+.footer-source {
   font-family: 'Geist Mono', 'Geist', monospace;
-  font-size: 0.82cqw;
+  font-size: 0.78cqw;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
-.sat-note {
-  font-family: 'Geist', sans-serif;
-  font-size: 0.92cqw;
-  font-weight: 400;
-  color: var(--text-secondary);
-  letter-spacing: -0.003em;
-  margin-top: 0.4cqh;
-}
+.footer-source strong { color: var(--text-secondary); }
 </style>
 </head>
 <body>
@@ -240,24 +238,6 @@
   <div class="ambient cyan"></div>
   <div class="ambient purple"></div>
   <div class="ambient blue"></div>
-
-  <!-- Equity curve decorative -->
-  <svg class="equity-bg" viewBox="0 0 1920 700" preserveAspectRatio="none" aria-hidden="true">
-    <defs>
-      <linearGradient id="eqline" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
-        <stop offset="15%" stop-color="#0e7490" stop-opacity="0.7"/>
-        <stop offset="55%" stop-color="#0369a1" stop-opacity="0.85"/>
-        <stop offset="100%" stop-color="#7e22ce" stop-opacity="1"/>
-      </linearGradient>
-      <linearGradient id="eqarea" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#0369a1" stop-opacity="0.18"/>
-        <stop offset="100%" stop-color="#0369a1" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
-    <path d="M 40,560 L 200,540 L 360,548 L 510,505 L 660,520 L 810,460 L 960,472 L 1110,380 L 1260,400 L 1400,290 L 1560,225 L 1720,150 L 1880,72 L 1880,700 L 40,700 Z" fill="url(#eqarea)"/>
-    <path class="curve" d="M 40,560 L 200,540 L 360,548 L 510,505 L 660,520 L 810,460 L 960,472 L 1110,380 L 1260,400 L 1400,290 L 1560,225 L 1720,150 L 1880,72" stroke="url(#eqline)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
 
   <div class="brand">
     <svg class="logo-mark" viewBox="550 264 394 372" xmlns="http://www.w3.org/2000/svg" aria-label="Altbridge">
@@ -282,62 +262,121 @@
     <span class="folio-label">Slide</span>
     <span class="folio-num">10</span>
     <span class="folio-sep">/</span>
-    <span class="folio-total">19</span>
+    <span class="folio-total">17</span>
   </div>
 
   <div class="header">
-    <div class="kicker">Phase 1 Results · 2025 Full Year</div>
-    <h1 class="title">Apex Value — full-year performance.</h1>
+    <div class="kicker">Phase 3 · April 2026</div>
+    <h1 class="title">The <span class="em">Self-Driving Portfolio.</span></h1>
   </div>
 
-  <div class="hero">
-    <div class="hero-number"><span class="plus">+</span>33%</div>
-    <div class="hero-label">2025 Gross Return<span class="sep">·</span>Jan–Dec<span class="sep">·</span>Live Capital</div>
-  </div>
+  <div class="layout">
+    <div class="swarm">
+      <svg viewBox="-200 -200 400 400" id="swarmSvg">
+        <defs>
+          <radialGradient id="ipsGrad" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%" stop-color="#0e7490"/>
+            <stop offset="60%" stop-color="#0369a1"/>
+            <stop offset="100%" stop-color="#7e22ce"/>
+          </radialGradient>
+          <radialGradient id="ipsGlow" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%" stop-color="#0369a1" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#0369a1" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <g id="links"></g>
+        <circle class="ips-glow" cx="0" cy="0" r="62"/>
+        <circle class="ips-core" cx="0" cy="0" r="42"/>
+        <text class="ips-label" x="0" y="-3">IPS</text>
+        <text class="ips-sublabel" x="0" y="14">Policy</text>
+        <g id="agents"></g>
+      </svg>
+    </div>
 
-  <div class="right-col">
-    <div class="fact-card glass a">
-      <div class="fact-label">Capital Grew</div>
-      <div class="fact-value">
-        <span>$490K</span>
-        <span class="arrow">→</span>
-        <span>$650K</span>
+    <div class="body">
+      <div class="body-lede">
+        Architecture built on <span class="stress">~50 specialized AI agents</span> — each with a defined role.
       </div>
-      <div class="fact-suffix">over the year — no outside capital.</div>
-    </div>
 
-    <div class="fact-card glass b">
-      <div class="fact-label">Constraints</div>
-      <div class="fact-bullets">
-        <div class="bullet">Live brokerage account · statements available.</div>
-        <div class="bullet">No leverage. No derivatives.</div>
-        <div class="bullet">US / China equities · value approach.</div>
+      <div class="actions">
+        <div class="action">They debate.</div>
+        <div class="action">They critique.</div>
+        <div class="action">They vote.</div>
+        <div class="action">A meta-agent rewrites their code.</div>
+      </div>
+
+      <div class="governance">
+        All governed by the <strong>Investment Policy Statement</strong> — the same document that constrains a human portfolio manager.
       </div>
     </div>
   </div>
 
-  <div class="satellites">
-    <div class="sat">
-      <div class="sat-num"><span class="gradient">2.28</span></div>
-      <div class="sat-label">Sharpe Ratio</div>
-      <div class="sat-note">Above most L/S hedge funds.</div>
-    </div>
-    <div class="sat">
-      <div class="sat-num">−5<span class="unit">%</span></div>
-      <div class="sat-label">Max Drawdown</div>
-      <div class="sat-note">Contained by the structured pipeline.</div>
-    </div>
-    <div class="sat">
-      <div class="sat-num">+14<span class="unit">pp</span></div>
-      <div class="sat-label">vs S&amp;P 500 · 19%</div>
-      <div class="sat-note">Net alpha, same period.</div>
-    </div>
-    <div class="sat">
-      <div class="sat-num">+23<span class="unit">pp</span></div>
-      <div class="sat-label">vs Citadel · 10%</div>
-      <div class="sat-note">Disciplined pipeline — not a black box.</div>
-    </div>
+  <div class="footer">
+    <div class="footer-level"><em>In our framework, this is a</em> <strong>Level 3–4 system.</strong></div>
+    <div class="footer-source"><strong>Ang · Azimbayev · Kim</strong> · arXiv 2604.02279 · April 2026</div>
   </div>
 </div>
+
+<script>
+  // Render 50 agents in two concentric rings around the IPS core
+  const agentsG = document.getElementById('agents');
+  const linksG = document.getElementById('links');
+  const palette = ['cyan', 'blue', 'purple'];
+  const inner = 18;
+  const outer = 32;
+  const innerR = 95;
+  const outerR = 150;
+
+  function place(count, radius, offset, ring) {
+    const items = [];
+    for (let i = 0; i < count; i++) {
+      const a = (i / count) * Math.PI * 2 + offset;
+      const x = Math.cos(a) * radius;
+      const y = Math.sin(a) * radius;
+      items.push({ x, y, ring });
+    }
+    return items;
+  }
+
+  const all = [
+    ...place(inner, innerR, 0, 0),
+    ...place(outer, outerR, Math.PI / outer, 1)
+  ];
+
+  // Links from each inner agent to IPS, plus some inner-outer links
+  all.forEach((p, i) => {
+    if (p.ring === 0) {
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('class', 'swarm-link');
+      line.setAttribute('x1', 0); line.setAttribute('y1', 0);
+      line.setAttribute('x2', p.x); line.setAttribute('y2', p.y);
+      linksG.appendChild(line);
+    }
+  });
+
+  // Random outer-to-inner connections (sparse)
+  const outerStart = inner;
+  for (let i = 0; i < outer; i++) {
+    if (i % 2 === 0) {
+      const o = all[outerStart + i];
+      const innerIdx = Math.floor(((i / outer) * inner) + 0.5) % inner;
+      const innerP = all[innerIdx];
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('class', 'swarm-link');
+      line.setAttribute('x1', innerP.x); line.setAttribute('y1', innerP.y);
+      line.setAttribute('x2', o.x); line.setAttribute('y2', o.y);
+      linksG.appendChild(line);
+    }
+  }
+
+  all.forEach((p, i) => {
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', p.x);
+    c.setAttribute('cy', p.y);
+    c.setAttribute('r', p.ring === 0 ? 7 : 5);
+    c.setAttribute('class', 'agent ' + palette[i % palette.length]);
+    agentsG.appendChild(c);
+  });
+</script>
 </body>
 </html>
