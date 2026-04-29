@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 07 · V5 · Altbridge Brand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base_v5.css">
+<style>
+.header {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 16cqh;
+  z-index: 4;
+}
+.header .kicker {
+  margin-bottom: 2cqh;
+  animation: rise 800ms 240ms var(--spring-smooth) both;
+}
+.header .title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 4.8cqw;
+  line-height: 1.0;
+  letter-spacing: -0.032em;
+  color: var(--text-primary);
+  margin-bottom: 1.4cqh;
+  animation: rise 900ms 340ms var(--spring-smooth) both;
+}
+.header .title .em {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+.header .subtitle {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1.6cqw;
+  line-height: 1.3;
+  color: var(--text-secondary);
+  letter-spacing: -0.008em;
+  max-width: 62cqw;
+  animation: rise 900ms 460ms var(--spring-smooth) both;
+}
+.header .subtitle strong { color: var(--text-primary); font-weight: 600; }
+
+/* Ladder */
+.ladder {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 44cqh;
+  bottom: 14cqh;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.1cqw;
+  z-index: 4;
+}
+
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 2.4cqh 1.2cqw 2.2cqh;
+  border-radius: var(--radius-md);
+  animation: rise 800ms var(--spring-smooth) both;
+}
+.step:nth-child(1) { animation-delay: 560ms; }
+.step:nth-child(2) { animation-delay: 620ms; }
+.step:nth-child(3) { animation-delay: 680ms; }
+.step:nth-child(4) { animation-delay: 740ms; }
+.step:nth-child(5) { animation-delay: 800ms; }
+.step:nth-child(6) { animation-delay: 860ms; }
+
+/* Non-current: subtle card with thin border */
+.step:not(.is-current) {
+  border-top: 1px solid var(--border-light);
+}
+
+/* Current step — L3: full liquid glass */
+.step.is-current {
+  padding: 2.4cqh 1.4cqw 2.2cqh;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow:
+    inset 0 1.5px 0 var(--edge-light-top),
+    inset 0 -1px 0 var(--edge-light-bottom),
+    0 8px 30px -10px rgba(14, 116, 144, 0.28);
+  overflow: hidden;
+  transform: translateY(-1.2cqh);
+}
+.step.is-current::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.02) 45%, rgba(14,116,144,0.08) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+}
+.step.is-current > * { position: relative; z-index: 1; }
+.step.is-current::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 8%; right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan) 30%, var(--accent-purple) 70%, transparent);
+  border-radius: 2px;
+  z-index: 2;
+}
+
+.step-label {
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1cqh;
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+}
+.step.is-current .step-label {
+  color: var(--accent-cyan);
+}
+.step.is-current .step-label .today {
+  font-weight: 600;
+  letter-spacing: 0.22em;
+}
+.marker-dot {
+  display: inline-block;
+  width: 0.5cqw; height: 0.5cqw;
+  min-width: 5px; min-height: 5px;
+  background: var(--accent-cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 0.7cqw rgba(14,116,144,0.55);
+}
+
+.step-num {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 5.4cqw;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  color: var(--text-primary);
+  margin-bottom: 1.6cqh;
+  font-feature-settings: "tnum";
+}
+.step:not(.is-current) .step-num { color: var(--text-secondary); }
+.step.is-current .step-num {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+.step-name {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.25cqw;
+  font-weight: 600;
+  line-height: 1.18;
+  color: var(--text-primary);
+  letter-spacing: -0.014em;
+  margin-bottom: 0.9cqh;
+}
+
+.step-desc {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.95cqw;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  letter-spacing: -0.002em;
+  margin-bottom: 1.3cqh;
+}
+
+.step-role {
+  margin-top: auto;
+  padding-top: 1.2cqh;
+  border-top: 1px solid var(--border-subtle);
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.72cqw;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+.step.is-current .step-role {
+  color: var(--accent-cyan);
+  border-top-color: rgba(14, 116, 144, 0.25);
+}
+
+/* Anchor callout */
+.anchor-callout {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  bottom: 5.5cqh;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.1cqw;
+  z-index: 4;
+  animation: rise 900ms 960ms var(--spring-smooth) both;
+}
+.anchor-slot {
+  grid-column: 4 / 7;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+}
+.connector {
+  width: 1px;
+  height: 2cqh;
+  margin-left: 0.6cqw;
+  background: linear-gradient(to bottom, var(--accent-cyan), rgba(14,116,144,0.05));
+}
+.callout-body {
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  font-family: 'Geist', sans-serif;
+  font-size: 1.35cqw;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+}
+.callout-body strong { color: var(--text-primary); font-weight: 600; }
+.callout-body em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+.here-chip {
+  flex-shrink: 0;
+  padding: 1cqh 1.2cqw;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5cqw;
+}
+
+/* Source line bottom-left */
+.source {
+  position: absolute;
+  left: 4.5cqw;
+  bottom: 5.5cqh;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  z-index: 4;
+  animation: fade 800ms 1080ms var(--spring-smooth) both;
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+}
+.source .sep { color: var(--text-faint); }
+</style>
+</head>
+<body>
+<div class="slide grid-bg">
+  <div class="ambient cyan"></div>
+  <div class="ambient purple"></div>
+  <div class="ambient blue"></div>
+
+  <div class="brand">
+    <svg class="logo-mark" viewBox="550 264 394 372" xmlns="http://www.w3.org/2000/svg" aria-label="Altbridge">
+      <defs>
+        <linearGradient gradientTransform="matrix(325.187,0,0,300.71,585.481,295.253)" gradientUnits="userSpaceOnUse" x2="1" id="g1">
+          <stop stop-color="#ee3a65" offset="0"/>
+          <stop stop-color="#a7237b" offset="1"/>
+        </linearGradient>
+        <linearGradient gradientTransform="matrix(213.557,107.505,-122.141,242.631,657.866,467.538)" gradientUnits="userSpaceOnUse" x2="1" id="g2">
+          <stop stop-color="#000000" offset="0"/>
+          <stop stop-color="#0f2c6c" offset=".564"/>
+          <stop stop-color="#194bb9" offset="1"/>
+        </linearGradient>
+      </defs>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g1)"/>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g2)"/>
+    </svg>
+    <span class="wordmark">Altbridge</span>
+  </div>
+
+  <div class="folio-chip glass">
+    <span class="folio-label">Slide</span>
+    <span class="folio-num">07</span>
+    <span class="folio-sep">/</span>
+    <span class="folio-total">19</span>
+  </div>
+
+  <div class="header">
+    <div class="kicker">A Taxonomy of Autonomous Investing</div>
+    <h1 class="title">The <span class="em">L0–L5</span> Framework.</h1>
+    <div class="subtitle">Six levels — from manual analysis to full autonomy.</div>
+  </div>
+
+  <div class="ladder">
+    <div class="step">
+      <div class="step-label">Level 00</div>
+      <div class="step-num">L0</div>
+      <div class="step-name">No Automation</div>
+      <div class="step-desc">All analysis manual. AI as tools only.</div>
+      <div class="step-role">Full Control</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label">Level 01</div>
+      <div class="step-num">L1</div>
+      <div class="step-name">Investor Assistance</div>
+      <div class="step-desc">Single-task automation. Data collection, alerts.</div>
+      <div class="step-role">Human-in-the-Loop</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label">Level 02</div>
+      <div class="step-num">L2</div>
+      <div class="step-name">Partial Automation</div>
+      <div class="step-desc">Integrated analysis. Sentiment + valuation synthesized.</div>
+      <div class="step-role">Human Supervises</div>
+    </div>
+
+    <div class="step is-current">
+      <div class="step-label"><span class="marker-dot"></span><span class="today">Level 03 · Today</span></div>
+      <div class="step-num">L3</div>
+      <div class="step-name">Conditional Automation</div>
+      <div class="step-desc">AI recommends buy/sell within a defined domain.</div>
+      <div class="step-role">Human-on-the-Loop</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label">Level 04</div>
+      <div class="step-num">L4</div>
+      <div class="step-name">High Automation</div>
+      <div class="step-desc">Full autonomy within a defined operational domain.</div>
+      <div class="step-role">Human-out-of-the-Loop</div>
+    </div>
+
+    <div class="step">
+      <div class="step-label">Level 05</div>
+      <div class="step-num">L5</div>
+      <div class="step-name">Full Autonomy</div>
+      <div class="step-desc">All market conditions. Theoretical.</div>
+      <div class="step-role">Policy-only</div>
+    </div>
+  </div>
+
+  <div class="source">
+    <span>Source</span>
+    <span class="sep">—</span>
+    <span>SSRN 5468687 · September 2025</span>
+  </div>
+
+  <div class="anchor-callout">
+    <div class="anchor-slot">
+      <div class="connector"></div>
+      <div class="callout-body">
+        <span class="here-chip">You are here</span>
+        <span><strong>L3</strong> is where the industry can <em>credibly</em> be today.</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

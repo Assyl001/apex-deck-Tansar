@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <title>AI in Investment Activities — Apex / Altbridge</title>
+
+  <!-- reveal.js core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
+  <!-- Clean white theme as base — we override heavily below -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/white.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy-deep: #0a1a4a;
+      --navy: #0f2c6c;
+      --blue: #194bb9;
+      --blue-light: #4575d1;
+      --magenta: #ee3a65;
+      --purple: #a7237b;
+      --white: #ffffff;
+      --off-white: #fafbfc;
+      --gray-100: #f7fafc;
+      --gray-300: #e2e8f0;
+      --gray-500: #718096;
+      --gray-700: #2d3748;
+      --gray-900: #1a202c;
+    }
+
+    .reveal {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      color: var(--gray-900);
+      background: var(--white);
+    }
+
+    .reveal .slides {
+      text-align: left;
+    }
+
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: 'Inter', sans-serif;
+      color: var(--navy-deep);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: none;
+      margin-bottom: 0.4em;
+      overflow-wrap: balance;
+      max-width: 100%;
+    }
+
+    .reveal h1 { font-size: 3.2em; line-height: 1.05; max-width: 22ch; }
+    .reveal h2 { font-size: 2.2em; line-height: 1.1; max-width: 26ch; }
+    .reveal h3 { font-size: 1.6em; color: var(--navy); }
+    .reveal h4 { font-size: 1.2em; color: var(--gray-700); font-weight: 500; }
+
+    .reveal p { font-size: 1.1em; line-height: 1.55; color: var(--gray-700); }
+    .reveal em { color: var(--magenta); font-style: normal; font-weight: 600; }
+    .reveal strong { color: var(--navy-deep); font-weight: 700; }
+
+    .reveal .subtitle {
+      font-size: 1em;
+      color: var(--gray-500);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1em;
+    }
+
+    .reveal .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Slide backgrounds */
+    .reveal .slide-bg-navy { background: var(--navy-deep) !important; color: var(--white) !important; }
+    .reveal .slide-bg-navy h1, .reveal .slide-bg-navy h2, .reveal .slide-bg-navy h3 { color: var(--white); }
+    .reveal .slide-bg-navy p { color: rgba(255,255,255,0.85); }
+    .reveal .slide-bg-navy strong { color: var(--magenta); }
+
+    /* Pill / tag */
+    .pill {
+      display: inline-block;
+      padding: 6px 14px;
+      background: var(--navy-deep);
+      color: var(--white);
+      border-radius: 24px;
+      font-size: 0.65em;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .pill-magenta { background: var(--magenta); }
+    .pill-ghost { background: transparent; border: 2px solid var(--gray-300); color: var(--gray-700); }
+
+    /* Stat / metric */
+    .stat {
+      font-size: 6em;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--navy-deep);
+      letter-spacing: -0.04em;
+      font-family: 'Inter', sans-serif;
+    }
+    .stat-magenta { color: var(--magenta); }
+    .stat-label {
+      font-size: 0.9em;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 12px;
+    }
+
+    /* Quote */
+    .big-quote {
+      font-size: 2em;
+      font-weight: 300;
+      line-height: 1.35;
+      color: var(--navy-deep);
+      letter-spacing: -0.015em;
+      margin: 0.6em 0;
+    }
+    .quote-attribution {
+      font-size: 0.85em;
+      color: var(--gray-500);
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      margin-top: 24px;
+    }
+
+    /* Framework table (L0-L5) */
+    .framework-table {
+      width: 100%;
+      font-size: 0.68em;
+      border-collapse: collapse;
+      font-family: 'Inter', sans-serif;
+    }
+    .framework-table th {
+      background: var(--navy-deep);
+      color: var(--white);
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 0.9em;
+    }
+    .framework-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--gray-300);
+      vertical-align: top;
+    }
+    .framework-table tr:nth-child(even) td { background: var(--off-white); }
+    .framework-table .lvl {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--navy);
+      font-weight: 700;
+      width: 60px;
+    }
+    .framework-table .l-name { font-weight: 600; color: var(--navy-deep); width: 200px; }
+    .framework-table tr.highlight { background: rgba(238, 58, 101, 0.05) !important; }
+    .framework-table tr.highlight .lvl { color: var(--magenta); }
+
+    /* Timeline */
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-top: 40px;
+      font-size: 0.72em;
+    }
+    .timeline .node {
+      flex: 1;
+      position: relative;
+    }
+    .timeline .dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--navy-deep);
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .timeline .dot-highlight { background: var(--magenta); width: 32px; height: 32px; margin-left: -4px; }
+    .timeline .date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+      color: var(--gray-500);
+      margin-bottom: 8px;
+    }
+    .timeline .phase-title {
+      font-weight: 700;
+      color: var(--navy-deep);
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+    .timeline .phase-desc {
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+    .timeline-line {
+      position: absolute;
+      top: 12px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gray-300);
+      z-index: -1;
+    }
+
+    /* Component grid */
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 40px;
+    }
+    .component-card {
+      padding: 32px;
+      background: var(--off-white);
+      border-left: 4px solid var(--navy);
+      border-radius: 0 8px 8px 0;
+    }
+    .component-card.magenta { border-left-color: var(--magenta); }
+    .component-card.blue { border-left-color: var(--blue); }
+    .component-card h3 { font-size: 1.4em; }
+    .component-card .badge {
+      display: inline-block;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--navy-deep);
+      color: var(--white);
+      text-align: center;
+      line-height: 48px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.4em;
+      margin-bottom: 16px;
+    }
+    .component-card .badge.m { background: var(--magenta); }
+    .component-card .badge.b { background: var(--blue); }
+    .component-card p { font-size: 0.85em; }
+
+    /* Footer */
+    .slide-footer {
+      position: absolute;
+      bottom: 24px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.55em;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--gray-500);
+      letter-spacing: 0.05em;
+    }
+
+    /* Diagram placeholder */
+    .diagram-placeholder {
+      background: var(--off-white);
+      border: 2px dashed var(--gray-300);
+      padding: 80px;
+      text-align: center;
+      color: var(--gray-500);
+      font-size: 0.9em;
+      margin-top: 40px;
+    }
+
+    /* Three columns */
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    /* Ask section */
+    .asks {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 40px 0;
+    }
+    .ask {
+      text-align: center;
+      padding: 32px 20px;
+      background: var(--off-white);
+      border-radius: 12px;
+    }
+    .ask-num {
+      font-size: 2.5em;
+      font-weight: 800;
+      color: var(--magenta);
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.05em;
+    }
+    .ask-title {
+      font-size: 1em;
+      font-weight: 700;
+      color: var(--navy-deep);
+      margin-top: 8px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .ask-desc {
+      font-size: 0.75em;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+
+    /* Dim text for secondary info */
+    .dim { color: var(--gray-500); }
+
+    /* Tweaks for reveal.js */
+    .reveal .slides section {
+      padding: 60px 80px;
+      text-align: left;
+    }
+
+    .reveal .progress {
+      color: var(--magenta);
+    }
+
+    .reveal .controls {
+      color: var(--navy);
+    }
+
+    /* Large number slide */
+    .big-number-slide {
+      text-align: center !important;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .big-number-slide > * {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    .big-number-slide .stat { font-size: 8.5em; }
+
+    /* Page-load stagger — applied to direct children of present slide.
+       Reveal.js sets .present on the currently visible slide. */
+    @keyframes apex-rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal .slides section.present > * {
+      animation: apex-rise 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .reveal .slides section.present > *:nth-child(1) { animation-delay: 40ms; }
+    .reveal .slides section.present > *:nth-child(2) { animation-delay: 120ms; }
+    .reveal .slides section.present > *:nth-child(3) { animation-delay: 200ms; }
+    .reveal .slides section.present > *:nth-child(4) { animation-delay: 280ms; }
+    .reveal .slides section.present > *:nth-child(5) { animation-delay: 340ms; }
+    .reveal .slides section.present > *:nth-child(n+6) { animation-delay: 400ms; }
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal .slides section.present > * { animation: none; }
+    }
+
+    /* Title slide generative canvas: sits behind content, faint, ambient. */
+    .title-slide { position: relative; }
+    .title-slide > canvas.title-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      animation: none !important; /* exempt from stagger */
+    }
+    .title-slide > *:not(canvas) {
+      position: relative;
+      z-index: 1;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ============================================ -->
+    <!-- SLIDE 1 — TITLE -->
+    <!-- ============================================ -->
+    <section class="title-slide">
+      <canvas class="title-bg" id="title-bg"></canvas>
+      <span class="pill">Investors Annual Meeting · 2026</span>
+      <h1>AI in Investment Activities</h1>
+      <h4 style="margin-top: 24px; font-weight: 400; font-size: 1.5em; color: var(--gray-700);">
+        Our Two-Year Journey from L1 to L4
+      </h4>
+      <div style="margin-top: 80px; font-family: 'JetBrains Mono', monospace; font-size: 0.8em; color: var(--gray-500);">
+        ASSYL · CHIEF PRODUCT OFFICER · ALTBRIDGE<br>
+        May 6, 2026 · Swissôtel Almaty
+      </div>
+      <aside class="notes">
+        Walk slowly to center stage. Pause 3 seconds. Look at the room — front-left, front-right, back.
+        Timing: 30 seconds. Set the tone. Start Section 1 (OPEN WITH ANG) on slide 2.
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 2 — ANG HOOK QUOTE -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill pill-ghost">Opening</span>
+      <p class="dim" style="font-size: 0.9em; margin-bottom: 20px;">Six months ago, my co-author wrote this on LinkedIn.</p>
+      <div class="big-quote">
+        "How is adopting AI in investments — like driverless cars?"
+      </div>
+      <div class="quote-attribution">
+        — <strong>Andrew Ang</strong><br>
+        Chief Strategist, Altbridge<br>
+        Former Head of Systematic Investing, BlackRock<br>
+        Columbia Business School · 34,000+ academic citations
+      </div>
+      <aside class="notes">
+        [SECTION 1 — OPEN WITH ANG, 2 min]
+
+        Say verbatim: "Six months ago, my co-author wrote a question on LinkedIn that I want to start with.
+
+        [PAUSE] 'How is adopting AI in investments — like driverless cars?' [PAUSE]
+
+        That co-author is Andrew Ang. Former Head of Systematic Investing at BlackRock. Adjunct Professor at Columbia.
+
+        He has spent thirty years building the factor models that the largest asset managers in the world use today.
+
+        For the last year, he has been working with our team at Altbridge on two questions. One — what does it actually mean for AI to operate inside an institutional investment process? Two — how do we build systems that institutional investors and regulators can trust?
+
+        That collaboration produced two papers. One published in September. One published this April."
+
+        [NAME-DROP: slight head nod toward Tony Ashraf if he's seated]
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 3 — DEMO "YOU'VE TRIED THIS" -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">The current state of AI in investing</span>
+      <h2 style="margin-top: 12px;">You've probably tried this already.</h2>
+
+      <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: stretch;">
+        <!-- LEFT: user prompt -->
+        <div style="padding: 28px; background: var(--off-white); border-radius: 12px; border-left: 4px solid var(--blue);">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.65em; color: var(--blue); margin-bottom: 14px; font-weight: 700; letter-spacing: 0.08em;">YOU · IN CLAUDE / CHATGPT / PERPLEXITY</div>
+          <p style="font-size: 1.1em; color: var(--navy-deep); line-height: 1.45; margin: 0;">
+            "Analyze NVIDIA as an investment. Build a DCF. What's fair value per share?"
+          </p>
+        </div>
+
+        <!-- RIGHT: AI response preview -->
+        <div style="padding: 28px; background: var(--navy-deep); color: var(--white); border-radius: 12px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.65em; color: var(--magenta); margin-bottom: 14px; font-weight: 700; letter-spacing: 0.08em;">AI RESPONSE · TRUNCATED</div>
+          <p style="font-size: 0.92em; line-height: 1.55; margin: 0; color: rgba(255,255,255,0.92);">
+            NVIDIA presents a compelling AI infrastructure thesis. FY2025 data center revenue reached ~$115B driven by Hopper/Blackwell transition. Projecting 25% CAGR, 9% WACC, 3% terminal growth — 5-year DCF suggests fair value of <strong style="color: var(--magenta);">$185/share</strong>, implying 18% upside...
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 44px; text-align: center;">
+        <p style="font-size: 1.35em; color: var(--navy-deep); margin-bottom: 8px;">
+          <strong>Looks professional. Reads confident.</strong>
+        </p>
+        <p style="font-size: 1.1em; color: var(--magenta); margin: 0;">
+          Let me show you three ways this answer is <em>structurally wrong</em>.
+        </p>
+      </div>
+
+      <aside class="notes">
+        [NEW — SECTION 1.5, 1.5 min — sets up the 3 failure cases]
+
+        Say: "Before I tell you where the industry actually is — I want to start with something you have probably already tried yourselves.
+
+        Ask Claude, ChatGPT, or Perplexity to analyze a stock. Build a DCF. Tell you the fair value.
+
+        [GESTURE to right side of slide]
+
+        You get back something that looks like this. Professional. Confident. Specific numbers. A recommendation.
+
+        Most people read this and move on. My team spent eighteen months taking it apart.
+
+        [PAUSE]
+
+        Let me show you three ways this kind of answer is structurally wrong. Not edge cases — defaults."
+
+        Transition to Case 1.
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 4 — CASE 1 · NUMERICAL HALLUCINATION -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill pill-magenta">Failure mode · 1 of 3</span>
+      <h2 style="margin-top: 12px;">Confident confabulation.</h2>
+
+      <p style="margin-top: 20px; font-size: 1.1em; color: var(--gray-700); max-width: 1500px; line-height: 1.45;">
+        Ask the same question five times. You get <em>subtly different numbers</em> — each delivered with identical confidence.
+      </p>
+
+      <div style="margin-top: 32px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;">
+        <div style="padding: 22px 14px; background: var(--off-white); border-radius: 8px; text-align: center;">
+          <div class="mono" style="font-size: 0.7em; color: var(--gray-500); margin-bottom: 10px; letter-spacing: 0.08em;">QUERY 1</div>
+          <div style="font-size: 1.7em; font-weight: 800; color: var(--navy-deep); letter-spacing: -0.03em;">$30.8B</div>
+        </div>
+        <div style="padding: 22px 14px; background: var(--off-white); border-radius: 8px; text-align: center;">
+          <div class="mono" style="font-size: 0.7em; color: var(--gray-500); margin-bottom: 10px; letter-spacing: 0.08em;">QUERY 2</div>
+          <div style="font-size: 1.7em; font-weight: 800; color: var(--navy-deep); letter-spacing: -0.03em;">$28.5B</div>
+        </div>
+        <div style="padding: 22px 14px; background: var(--off-white); border-radius: 8px; text-align: center;">
+          <div class="mono" style="font-size: 0.7em; color: var(--gray-500); margin-bottom: 10px; letter-spacing: 0.08em;">QUERY 3</div>
+          <div style="font-size: 1.7em; font-weight: 800; color: var(--navy-deep); letter-spacing: -0.03em;">$31.2B</div>
+        </div>
+        <div style="padding: 22px 14px; background: var(--off-white); border-radius: 8px; text-align: center;">
+          <div class="mono" style="font-size: 0.7em; color: var(--gray-500); margin-bottom: 10px; letter-spacing: 0.08em;">QUERY 4</div>
+          <div style="font-size: 1.7em; font-weight: 800; color: var(--navy-deep); letter-spacing: -0.03em;">$30.6B</div>
+        </div>
+        <div style="padding: 22px 14px; background: rgba(238, 58, 101, 0.08); border-radius: 8px; text-align: center; border: 2px solid var(--magenta);">
+          <div class="mono" style="font-size: 0.7em; color: var(--magenta); margin-bottom: 10px; letter-spacing: 0.08em; font-weight: 700;">ACTUAL · 10-Q</div>
+          <div style="font-size: 1.7em; font-weight: 800; color: var(--magenta); letter-spacing: -0.03em;">$30.77B</div>
+        </div>
+      </div>
+
+      <p style="margin-top: 16px; font-size: 0.85em; color: var(--gray-500); text-align: center;">
+        NVIDIA data center revenue, Q3 FY2025 <span class="dim">· illustrative — [user to verify exact queries before conference]</span>
+      </p>
+
+      <div style="margin-top: 36px; padding: 24px 28px; background: var(--navy-deep); color: var(--white); border-radius: 12px;">
+        <p style="margin: 0; font-size: 1.1em; line-height: 1.5;">
+          Two of five answers are wrong. <strong style="color: var(--magenta);">You cannot tell which</strong> — the output does not cite the 10-Q. In a DCF with 200 input cells, a 1% hallucination rate means <strong style="color: var(--magenta);">two fabricated numbers per valuation</strong>.
+        </p>
+      </div>
+
+      <aside class="notes">
+        [SECTION 1.5, Case 1 — 2 min]
+
+        ⚠️ BEFORE PRESENTING: Run 5 queries in Claude/ChatGPT yourself. Replace illustrative numbers with real ones you collected. Keep the pattern: 4 slightly different + 1 actual from 10-Q.
+
+        Say: "Ask Claude — the same question — five times. 'What was NVIDIA's data center revenue in Q3 of fiscal twenty-twenty-five?'
+
+        You will get five subtly different answers. Each delivered with identical confidence. None of them cite the source filing.
+
+        [POINT to actual number in magenta]
+
+        The real number — from the 10-Q — is thirty point seven-seven billion.
+
+        Two of the five answers are wrong by hundreds of millions of dollars. You cannot tell which without reading the 10-Q yourself.
+
+        At portfolio scale this compounds. A mid-cap DCF has roughly two hundred input cells. If one percent are hallucinated, that is two fabricated numbers in every valuation you produce.
+
+        Not edge case. Default."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 5 — CASE 2 · CORNER CUTTING (DATA GAPS) -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill pill-magenta">Failure mode · 2 of 3</span>
+      <h2 style="margin-top: 12px;">Corner cutting on data.</h2>
+
+      <p style="margin-top: 20px; font-size: 1.1em; color: var(--gray-700); max-width: 1500px; line-height: 1.45;">
+        A 10-K is 200 pages. The LLM 'reads' 8–12. The rest is filled with <em>plausible defaults</em> — and the output never tells you which cells came from source vs. inference.
+      </p>
+
+      <div style="margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: stretch;">
+        <!-- LEFT: 200-page grid visualization -->
+        <div style="padding: 28px; background: var(--off-white); border-radius: 12px;">
+          <div class="mono" style="font-size: 0.7em; color: var(--gray-500); margin-bottom: 14px; letter-spacing: 0.08em; font-weight: 700;">NVIDIA FY2025 10-K · 200 PAGES</div>
+          <div style="display: grid; grid-template-columns: repeat(20, 1fr); gap: 3px;">
+            <!-- Generate 200 page squares — first 12 highlighted blue (LLM read), rest gray -->
+            <!-- Pages 1-12: read (blue) -->
+            <div style="aspect-ratio: 1; background: var(--blue);"></div>
+            <div style="aspect-ratio: 1; background: var(--blue);"></div>
+            <div style="aspect-ratio: 1; background: var(--blue);"></div>
+            <div style="aspect-ratio: 1; background: var(--blue);"></div>
+            <div style="aspect-ratio: 1; background: var(--blue);"></div>
+            <div style="aspect-ratio: 1; background: var(--blue);"></div>
+            <div style="aspect-ratio: 1; background: var(--blue);"></div>
+            <div style="aspect-ratio: 1; background: var(--blue);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--blue);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--blue);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--blue);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <!-- Rows 2-10: mostly gray with occasional blue -->
+            <script>/*rows*/</script>
+          </div>
+          <!-- Render remaining 180 via repeat -->
+          <div style="display: grid; grid-template-columns: repeat(20, 1fr); gap: 3px; margin-top: 3px;">
+            <!-- 180 gray squares with 2 scattered blue -->
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--blue);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--blue);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+            <div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div><div style="aspect-ratio: 1; background: var(--gray-300);"></div>
+          </div>
+          <div style="margin-top: 16px; display: flex; gap: 20px; font-size: 0.7em; color: var(--gray-700);">
+            <span><span style="display: inline-block; width: 12px; height: 12px; background: var(--blue); margin-right: 6px; vertical-align: middle;"></span>Actually read (~12)</span>
+            <span><span style="display: inline-block; width: 12px; height: 12px; background: var(--gray-300); margin-right: 6px; vertical-align: middle;"></span>Skipped · defaulted</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: concrete example -->
+        <div style="padding: 28px; background: rgba(238, 58, 101, 0.05); border-radius: 12px; border-left: 4px solid var(--magenta);">
+          <div class="mono" style="font-size: 0.7em; color: var(--magenta); margin-bottom: 14px; letter-spacing: 0.08em; font-weight: 700;">WHERE IT BREAKS · ONE EXAMPLE</div>
+          <p style="font-size: 0.95em; line-height: 1.5; color: var(--gray-700); margin: 0 0 14px 0;">
+            Working capital trajectory, FY2024:
+          </p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.8em; line-height: 1.8; background: var(--white); padding: 16px; border-radius: 6px;">
+            <div>Q1: <span style="color: var(--magenta); font-weight: 700;">inferred</span> · no source</div>
+            <div>Q2: <span style="color: var(--blue); font-weight: 700;">from 10-Q</span> · $2.1B</div>
+            <div>Q3: <span style="color: var(--magenta); font-weight: 700;">interpolated</span> · "between"</div>
+            <div>Q4: <span style="color: var(--blue); font-weight: 700;">from 10-K</span> · $3.4B</div>
+          </div>
+          <p style="margin-top: 16px; font-size: 0.9em; color: var(--navy-deep); line-height: 1.45;">
+            <strong>What was in Q1 (missed):</strong> $200M inventory writedown disclosed in MD&A footnote. LLM's <em>interpolation</em> assumed smooth trajectory. The real one was discontinuous.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top: 32px; font-size: 1.1em; color: var(--navy-deep); text-align: center;">
+        The DCF looks complete. <strong style="color: var(--magenta);">It is not sourced.</strong>
+      </p>
+
+      <aside class="notes">
+        [SECTION 1.5, Case 2 — 2.5 min — this is our current pain point, speak with conviction]
+
+        ⚠️ BEFORE PRESENTING: Replace the working-capital example with an ACTUAL internal case from the team's DCF debugging work. Use a company we've analyzed, a real footnote, real delta. This lands harder than a synthetic example.
+
+        Say: "The second failure is what we see every day in our own work.
+
+        A ten-K is two hundred pages. We have measured this — when you ask an LLM to build a DCF, it actually reads between eight and twelve pages. The income statement. The balance sheet. Maybe management discussion.
+
+        Everything else — footnotes, segment data, supplementary schedules, risk factors — it skips.
+
+        [POINT to grid on slide]
+
+        And it does not tell you what it skipped. The gaps are filled with reasonable defaults. Interpolation. Sector averages. Plausible patterns.
+
+        [POINT to right-side example]
+
+        Here is a real example. Working capital, quarter by quarter. The LLM had Q2 and Q4 from the filings. It interpolated Q1 and Q3.
+
+        Q1 had a two-hundred-million-dollar inventory writedown — disclosed in a footnote the LLM never opened. The real trajectory was discontinuous. The interpolation hid it.
+
+        Your DCF output looks clean. Every cell is filled. But you cannot tell — from looking at the output — which cells came from the source document and which came from the LLM's imagination.
+
+        This is the failure my team is working on right now."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 6 — CASE 3 · ONE-TIME BLINDNESS -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill pill-magenta">Failure mode · 3 of 3</span>
+      <h2 style="margin-top: 12px;">No normalization.</h2>
+
+      <p style="margin-top: 20px; font-size: 1.1em; color: var(--gray-700); max-width: 1500px; line-height: 1.45;">
+        The LLM treats headline figures as <em>recurring</em>. Asset sales, restructuring charges, legal settlements — all roll straight into the forward projection.
+      </p>
+
+      <div style="margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 36px;">
+        <!-- LEFT: what LLM reads -->
+        <div style="padding: 28px; background: var(--off-white); border-radius: 12px;">
+          <div class="mono" style="font-size: 0.7em; color: var(--gray-500); margin-bottom: 14px; letter-spacing: 0.08em; font-weight: 700;">WHAT THE LLM READS · META FY2024</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 1em; line-height: 2;">
+            <div><span class="dim">Net income:</span> <strong style="color: var(--navy-deep);">$62.4B</strong></div>
+            <div><span class="dim">Growth (5yr avg):</span> <strong style="color: var(--navy-deep);">12%</strong></div>
+            <div><span class="dim">FY2026 projection:</span> <strong style="color: var(--navy-deep);">$78.3B</strong></div>
+          </div>
+          <p style="margin-top: 18px; font-size: 0.85em; color: var(--gray-500); line-height: 1.5;">
+            Simple, clean, confident. Built from the income statement alone.
+          </p>
+        </div>
+
+        <!-- RIGHT: what the LLM missed -->
+        <div style="padding: 28px; background: rgba(238, 58, 101, 0.05); border-radius: 12px; border-left: 4px solid var(--magenta);">
+          <div class="mono" style="font-size: 0.7em; color: var(--magenta); margin-bottom: 14px; letter-spacing: 0.08em; font-weight: 700;">WHAT THE LLM MISSED · IN THE FOOTNOTES</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.95em; line-height: 1.9;">
+            <div>+ <strong style="color: var(--magenta);">$4.2B</strong> one-time tax benefit</div>
+            <div>+ <strong style="color: var(--magenta);">$2.1B</strong> legal settlement income</div>
+            <div>− <strong style="color: var(--magenta);">$3.8B</strong> Reality Labs impairment</div>
+            <div>= <strong style="color: var(--navy-deep);">$2.5B</strong> net one-time items</div>
+          </div>
+          <p style="margin-top: 18px; font-size: 0.9em; color: var(--navy-deep); line-height: 1.45;">
+            <strong>Normalized net income: ~$59.9B.</strong> Projecting off the wrong base compounds over 5 years: forward FCF off by <strong style="color: var(--magenta);">~8%</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 36px; padding: 24px 28px; background: var(--navy-deep); color: var(--white); border-radius: 12px;">
+        <p style="margin: 0; font-size: 1.1em; line-height: 1.5;">
+          Headline net income is a <em>result</em>, not a <em>baseline</em>. Without normalizing one-time items, the LLM's "recurring earnings" include items that by definition <strong style="color: var(--magenta);">will not recur</strong>.
+        </p>
+      </div>
+
+      <aside class="notes">
+        [SECTION 1.5, Case 3 — 2 min]
+
+        ⚠️ BEFORE PRESENTING: Verify Meta FY2024 one-time items with actual 10-K numbers. Illustrative numbers above — replace with real after team fact-checks.
+
+        Say: "Third failure. Normalization.
+
+        Ask the LLM to project free cash flow for Meta. It takes net income off the income statement — sixty-two point four billion for fiscal twenty-twenty-four. Growth rate twelve percent. Project forward.
+
+        What the LLM missed — sitting in the footnotes:
+
+        A four-point-two billion one-time tax benefit. A two-point-one billion legal settlement. A three-point-eight billion Reality Labs impairment charge going the other way.
+
+        Net one-time items — roughly two and a half billion on the positive side.
+
+        Normalized net income is not sixty-two billion. It is closer to sixty.
+
+        [PAUSE]
+
+        On a single year, that is a three percent error. Compounded over five years of projection — the forward cash flow is off by eight percent or more.
+
+        Headline net income is a result. It is not a baseline. Without reading the footnotes and normalizing out the one-time items — the LLM's 'recurring earnings' include items that by definition will not recur.
+
+        [TRANSITION to Ang / L0-L5]
+
+        These three failures are not edge cases. They are the defaults of generic LLM-based analysis. My co-author and I have been thinking about how to solve them at institutional scale for the last two years. Let me show you the language we developed for this."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 7 — L0-L5 TABLE -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">September 2025 · SSRN 5468687</span>
+      <h3 style="margin-bottom: 20px; margin-top: 10px; max-width: 28ch;">The L0–L5 Framework<br>Six levels of autonomous investing</h3>
+      <table class="framework-table">
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Name</th>
+            <th>Behavior</th>
+            <th>Human Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lvl">L0</td>
+            <td class="l-name">No Automation</td>
+            <td>All analysis manual. AI tools only support.</td>
+            <td>Full control</td>
+          </tr>
+          <tr>
+            <td class="lvl">L1</td>
+            <td class="l-name">Investor Assistance</td>
+            <td>Single-task automation. Data collection. Alerts.</td>
+            <td>Human-in-the-loop</td>
+          </tr>
+          <tr>
+            <td class="lvl">L2</td>
+            <td class="l-name">Partial Automation</td>
+            <td>Integrated analysis. Sentiment + valuation. AI synthesizes.</td>
+            <td>Human supervises</td>
+          </tr>
+          <tr class="highlight">
+            <td class="lvl">L3</td>
+            <td class="l-name">Conditional Automation</td>
+            <td>AI recommends buy/sell within defined domain.</td>
+            <td>Human-on-the-loop</td>
+          </tr>
+          <tr>
+            <td class="lvl">L4</td>
+            <td class="l-name">High Automation</td>
+            <td>Full autonomy within defined operational domain.</td>
+            <td>Human-out-of-the-loop</td>
+          </tr>
+          <tr>
+            <td class="lvl">L5</td>
+            <td class="l-name">Full Autonomy</td>
+            <td>Across all market conditions. Theoretical.</td>
+            <td>Policy-only</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 28px; font-size: 0.85em;"><em>L3 is where the institutional industry can credibly be today.</em></p>
+      <aside class="notes">
+        [SECTION 2 — L0-L5 FRAMEWORK, 4 min — slide 1 of 2]
+
+        OPEN: "In our September paper — Investing in AI for Investing — we adapted the SAE J3016 standard. The same six-level taxonomy that classifies Tesla, Waymo, and GM self-driving systems — applied to investment management."
+
+        Then walk through all 6 levels clearly. Spend 3-4 seconds per level:
+
+        - L0-L2: most of industry today. "AI as marketing" and "AI-assist tools."
+        - L3: achievable now with proper architecture.
+        - L4: high automation in defined domain. Altbridge is here today.
+        - L5: theoretical. Raises systemic risk and AI alignment questions.
+
+        CLOSE: "Three things matter about this framework. First — it gives the industry a shared language. Second — at every level, there is a clearly defined operational design domain. Third — most of the industry today is at L0-L2. Almost nobody is credibly at L3-L4."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 8 — WHERE INDUSTRY IS -->
+    <!-- ============================================ -->
+    <section>
+      <h2 style="margin-bottom: 40px;">Where the industry is today</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+        <div style="padding: 32px; background: var(--off-white); border-top: 4px solid var(--gray-500); border-radius: 0 0 8px 8px;">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--gray-500); font-size: 0.9em; margin-bottom: 8px;">L0 – L2</div>
+          <h4 style="color: var(--navy-deep); margin-bottom: 12px;">Most of the industry</h4>
+          <p style="font-size: 0.85em; margin: 0;">AI as marketing. ChatGPT wrappers. Factor-model black boxes. "AI-powered" rebranding.</p>
+        </div>
+        <div style="padding: 32px; background: rgba(238, 58, 101, 0.05); border-top: 4px solid var(--magenta); border-radius: 0 0 8px 8px;">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--magenta); font-size: 0.9em; margin-bottom: 8px;">L3 – L4</div>
+          <h4 style="color: var(--magenta); margin-bottom: 12px;">Achievable now</h4>
+          <p style="font-size: 0.85em; margin: 0;">Rare. Requires architectural discipline. <strong>Altbridge operates at L4.</strong></p>
+        </div>
+        <div style="padding: 32px; background: var(--off-white); border-top: 4px solid var(--navy); border-radius: 0 0 8px 8px;">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--navy); font-size: 0.9em; margin-bottom: 8px;">L5</div>
+          <h4 style="color: var(--navy-deep); margin-bottom: 12px;">Theoretical</h4>
+          <p style="font-size: 0.85em; margin: 0;">Full autonomy — no human in the loop. Systemic risk questions. Decades away.</p>
+        </div>
+      </div>
+      <p style="margin-top: 48px; font-size: 1.1em; color: var(--gray-700);">Let me tell you our own journey through these levels.</p>
+      <aside class="notes">
+        [SECTION 2, slide 3 of 3 — closes L0-L5 setup, transitions to our journey]
+
+        Emphasize the middle column. Say: "Most industry is at L0-L2. L5 is decades away — theoretical. The interesting, achievable work sits at L3-L4. Altbridge operates at L4 today — AI runs the process end-to-end, the portfolio manager monitors. Let me tell you how we got there."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 9 — PHASE 1 · FIRST LIVE DEPLOYMENT -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Phase 1 · 2025</span>
+      <h2>Our first live deployment</h2>
+      <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+        <div>
+          <h4 style="color: var(--navy);">What we ran</h4>
+          <p>A <strong>Level 3 system</strong>. US/China equities, value approach. Conviction scoring, DCF modeling, sector-routed frameworks.</p>
+          <p>PM approval through Q3. Transitioned to <strong>L4 monitoring</strong> after.</p>
+        </div>
+        <div>
+          <h4 style="color: var(--navy);">Why it mattered</h4>
+          <p>The <em>L3 → L4 transition</em> isn't theory from our paper — it's what we lived through in real time.</p>
+          <p style="font-style: italic; color: var(--magenta); font-size: 1.1em;">The first proof point that the framework describes something real.</p>
+        </div>
+      </div>
+      <aside class="notes">
+        [SECTION 3 — OUR JOURNEY, ~8 min total — Phase 1 is 2 min]
+
+        OPEN (sets up the whole section): "Two years. Three phases. One architecture. Let me walk you through it."
+
+        Then say: "Phase one — twenty-twenty-five. We ran our first live deployment.
+
+        A Level 3 system — in the language of our paper. Conviction scoring. DCF modeling. Sector-routed frameworks. US/China equities, value approach. Human portfolio manager approved every recommendation through the third quarter.
+
+        Then something important happened. In Q3, we transitioned — from L3 to L4. The PM stopped approving each recommendation and started monitoring the system instead.
+
+        That transition — from approval to monitoring — is the exact step the Autonomous Investing paper describes in theory. We lived it in real time. It's the first proof point that the framework describes something real."
+
+        Transition: "The result over the full year..."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 10 — PHASE 1 RESULTS (BIG NUMBERS) -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill pill-magenta">Phase 1 results · 2025 full year</span>
+      <h3 style="margin-bottom: 48px;">Apex value strategy performance</h3>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;">
+        <div>
+          <div class="stat stat-magenta" style="font-size: 3.4em;">+33<span style="font-size: 0.5em;">%</span></div>
+          <div class="stat-label">2025 gross return</div>
+        </div>
+        <div>
+          <div class="stat" style="color: var(--navy); font-size: 3.4em;">2.28</div>
+          <div class="stat-label">Sharpe ratio</div>
+        </div>
+        <div>
+          <div class="stat" style="color: var(--navy); font-size: 3.4em;">−5<span style="font-size: 0.5em;">%</span></div>
+          <div class="stat-label">Max drawdown</div>
+        </div>
+        <div>
+          <div class="stat" style="color: var(--navy); font-size: 3.4em;">+12.6<span style="font-size: 0.5em;">pp</span></div>
+          <div class="stat-label">vs S&P 500 TR</div>
+        </div>
+      </div>
+      <p style="margin-top: 40px; font-size: 1.15em; color: var(--navy-deep);">
+        <strong>Live capital. Audited brokerage account. No leverage.</strong> Capital grew <span style="font-family: 'JetBrains Mono', monospace; color: var(--navy);">$490K → $650K</span> over the year. A small team, in Almaty, using AI as augmentation — not a black box.
+      </p>
+      <div class="slide-footer">
+        <span>US/China equities · value approach · Jan–Dec 2025</span>
+        <span>Phase 1 · Proof point</span>
+      </div>
+      <aside class="notes">
+        [SECTION 3, Phase 1 results — the money slide. Slow down here.]
+
+        Say: "The result over twenty-twenty-five — full year:
+
+        Plus thirty-three percent gross return. S&P five hundred — total return — plus twenty point four percent.
+
+        We outperformed the S&P by twelve point six percentage points. Sharpe ratio two point two eight. Maximum drawdown — minus five percent.
+
+        [PAUSE — let the numbers land — count to 4]
+
+        Live capital. Audited brokerage account. No leverage. Capital grew from four hundred ninety thousand to six hundred fifty thousand over the year.
+
+        This is our proof point that the foundation works. A small team, in Almaty, using AI as augmentation — beating large institutional benchmarks consistently."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 11 — PHASE 2 · L0-L5 PAPER -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Phase 2 · September 2025</span>
+      <h2 style="margin-top: 12px;">Intellectual reset<br>with Andrew Ang</h2>
+      <p style="margin-top: 20px; font-size: 1.15em;">
+        Our team — Nazym, Andrey, Zhassulan — and Andrew Ang published the L0–L5 framework you just saw.
+      </p>
+      <blockquote style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.15em; color: var(--navy-deep); line-height: 1.35; border-left: 4px solid var(--magenta); padding-left: 24px; margin: 24px 0;">
+        "The most binding constraint in institutional asset management is not data availability or model sophistication, but the <em>finite bandwidth of human decision-makers</em>."
+        <div style="font-size: 0.6em; color: var(--gray-500); margin-top: 10px; font-weight: 400;">
+          — Ang et al., 2025
+        </div>
+      </blockquote>
+      <p style="margin-top: 16px; font-size: 1em;">
+        <strong>That reframed everything.</strong> We needed to redesign our system so humans could supervise <em>more, more efficiently, with stronger governance</em>. Not less human involvement. Better human involvement.
+      </p>
+      <aside class="notes">
+        [SECTION 3, Phase 2, 2 min]
+
+        Say: "In September of last year, our team at Altbridge — Nazym, Andrey, Zhassulan — and Andrew Ang published the L0 to L5 framework you just saw.
+
+        This was not a marketing exercise. It was an intellectual reset.
+
+        We needed common language. We needed clearly defined operational design domains. We needed a way to articulate — to LPs, to regulators, to ourselves — exactly what our system did and did not do.
+
+        The key insight from the paper: 'The most binding constraint in institutional asset management is not data availability or model sophistication, but the finite bandwidth of human decision-makers.'
+
+        What that meant for us practically — was that we needed to redesign our system so that humans could supervise more, more efficiently, with stronger governance. Not less human involvement. Better human involvement."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 12 — PHASE 3 · SELF-DRIVING PORTFOLIO -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Phase 3 · April 2026</span>
+      <h2>The Self-Driving Portfolio</h2>
+      <p style="margin-top: 32px; font-size: 1.2em;">
+        Architecture for institutional asset management built on <strong>~50 specialized AI agents</strong>. Each has a defined role. They debate. They critique each other. They vote. A meta-agent rewrites their own code.
+      </p>
+      <p style="font-size: 1.2em;">
+        All governed by the <strong>Investment Policy Statement</strong> — the same document that constrains a human PM.
+      </p>
+      <p style="margin-top: 24px;"><em>In our framework, this is a Level 3–4 system.</em></p>
+      <div style="margin-top: 40px; font-family: 'JetBrains Mono', monospace; font-size: 0.7em; color: var(--gray-500); letter-spacing: 0.03em;">
+        ANG, AZIMBAYEV, KIM · ARXIV 2604.02279 · APRIL 2026
+      </div>
+      <aside class="notes">
+        [SECTION 3, Phase 3, 1.5 min]
+
+        Say: "Last month, our team and Andrew Ang published a second paper — The Self-Driving Portfolio.
+
+        It describes an architecture for institutional asset management built on roughly fifty specialized AI agents. Each agent has a defined role. They produce capital market assumptions. They build candidate portfolios using twenty-plus methods in parallel. They critique each other. They vote. A meta-agent reads past performance and rewrites their own code.
+
+        All of it — governed by the Investment Policy Statement. The same document that constrains a human portfolio manager — now constrains the agents.
+
+        In our framework, this is a Level three to four system."
+
+        Next slide = backtest numbers.
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 13 — BACKTEST NUMBERS -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill pill-magenta">Phase 3 validation · Backtest 1996–2026</span>
+      <h3 style="margin-bottom: 48px;">30-year academic validation</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+        <div style="padding: 40px; background: var(--off-white); border-radius: 12px; text-align: center;">
+          <div class="stat-label" style="margin-bottom: 16px;">Sharpe Ratio</div>
+          <div style="font-size: 3em; font-weight: 800; color: var(--navy-deep); line-height: 1;">0.39</div>
+          <div style="margin-top: 12px; color: var(--gray-500); font-size: 0.9em;">Self-Driving Portfolio</div>
+          <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--gray-300); font-size: 0.9em; color: var(--gray-700);">
+            vs <strong>0.41</strong> for 60/40 portfolio
+          </div>
+        </div>
+        <div style="padding: 40px; background: rgba(238, 58, 101, 0.05); border-radius: 12px; text-align: center;">
+          <div class="stat-label" style="margin-bottom: 16px;">Maximum Drawdown</div>
+          <div style="font-size: 3em; font-weight: 800; color: var(--magenta); line-height: 1;">-25.6%</div>
+          <div style="margin-top: 12px; color: var(--gray-500); font-size: 0.9em;">Self-Driving Portfolio</div>
+          <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--gray-300); font-size: 0.9em; color: var(--gray-700);">
+            vs <strong>-34.3%</strong> for 60/40 portfolio
+          </div>
+        </div>
+      </div>
+      <p style="margin-top: 48px; font-size: 1.15em;"><strong>Materially better downside.</strong> Across multiple crises — dot-com, GFC, COVID.</p>
+      <aside class="notes">
+        [SECTION 3, Phase 3 results slide. Slow delivery.]
+
+        Say: "The paper includes a backtest from nineteen-ninety-six to twenty-twenty-six. Thirty years.
+
+        Sharpe ratio of zero point three nine — versus a sixty-forty portfolio's zero point four one. Almost identical risk-adjusted return.
+
+        But here is the critical difference.
+
+        Maximum drawdown of minus twenty-five point six percent — versus the sixty-forty's minus thirty-four point three percent.
+
+        [PAUSE — let it land]
+
+        Materially better downside. Across multiple crises — including the dot-com crash, the global financial crisis, COVID."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 14 — HOW APEX SOLVES THIS (SIMPLIFIED ARCHITECTURE) -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">How Apex solves the three failures</span>
+      <h2 style="margin-top: 10px; margin-bottom: 28px;">LLM way <span style="color: var(--gray-500); font-weight: 300;">vs</span> Apex way</h2>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: stretch;">
+        <!-- LEFT: LLM way -->
+        <div style="padding: 26px; background: var(--off-white); border-radius: 12px; border-top: 4px solid var(--gray-500);">
+          <div class="mono" style="font-size: 0.65em; color: var(--gray-500); margin-bottom: 14px; letter-spacing: 0.1em; font-weight: 700;">LLM WAY</div>
+          <div style="display: flex; align-items: center; gap: 16px; padding: 20px; background: var(--white); border-radius: 8px; margin-bottom: 16px;">
+            <div style="flex-shrink: 0; width: 60px; height: 60px; background: var(--gray-900); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 1em; font-weight: 700;">?</div>
+            <div>
+              <div style="font-size: 0.75em; color: var(--gray-500); margin-bottom: 4px;">Input: documents</div>
+              <div style="font-weight: 700; color: var(--navy-deep); font-size: 1em;">Black box</div>
+              <div style="font-size: 0.75em; color: var(--gray-500); margin-top: 4px;">Output: "Fair value = $185"</div>
+            </div>
+          </div>
+          <div style="font-size: 0.85em; line-height: 1.55; color: var(--gray-700);">
+            <div style="margin-bottom: 6px;"><span style="color: var(--magenta); font-weight: 700;">✕</span> No source anchor per cell</div>
+            <div style="margin-bottom: 6px;"><span style="color: var(--magenta); font-weight: 700;">✕</span> No completeness check</div>
+            <div><span style="color: var(--magenta); font-weight: 700;">✕</span> No normalization validator</div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Apex way -->
+        <div style="padding: 26px; background: rgba(238, 58, 101, 0.05); border-radius: 12px; border-top: 4px solid var(--magenta);">
+          <div class="mono" style="font-size: 0.65em; color: var(--magenta); margin-bottom: 14px; letter-spacing: 0.1em; font-weight: 700;">APEX WAY</div>
+          <div style="padding: 18px 20px; background: var(--white); border-radius: 8px; margin-bottom: 16px;">
+            <div style="font-size: 0.75em; color: var(--gray-500); margin-bottom: 8px;">DCF decomposed into <strong style="color: var(--navy-deep);">~200 atomic JSON rows</strong></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7em; background: var(--navy-deep); color: var(--white); padding: 12px; border-radius: 6px; line-height: 1.5;">
+<span style="color: var(--gray-500);">{ "row": "revenue_2024_Q3",</span><br>
+<span style="color: var(--gray-500);">  "value":</span> <span style="color: var(--magenta);">30.77</span>,<br>
+<span style="color: var(--gray-500);">  "source":</span> <span style="color: rgba(255,255,255,0.85);">"10-Q p.14"</span>,<br>
+<span style="color: var(--gray-500);">  "validator":</span> <span style="color: rgba(255,255,255,0.85);">"pass" }</span>
+            </div>
+          </div>
+          <div style="font-size: 0.85em; line-height: 1.55; color: var(--gray-700);">
+            <div style="margin-bottom: 6px;"><span style="color: var(--blue); font-weight: 700;">✓</span> Every cell anchored to source passage</div>
+            <div style="margin-bottom: 6px;"><span style="color: var(--blue); font-weight: 700;">✓</span> Gates block incomplete pipelines</div>
+            <div><span style="color: var(--blue); font-weight: 700;">✓</span> Retry loop until all validators pass</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom: 3-failure mapping -->
+      <div style="margin-top: 28px; padding: 22px 28px; background: var(--navy-deep); color: var(--white); border-radius: 12px;">
+        <div class="mono" style="font-size: 0.65em; color: var(--magenta); margin-bottom: 14px; letter-spacing: 0.1em; font-weight: 700;">THE THREE FAILURES · SOLVED BY SPECIFIC GATES</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; font-size: 0.88em; line-height: 1.45;">
+          <div>
+            <strong style="color: var(--magenta);">Hallucination</strong> <span style="color: rgba(255,255,255,0.7);">→</span><br>
+            <span style="color: rgba(255,255,255,0.9);">source anchor validator</span>
+          </div>
+          <div>
+            <strong style="color: var(--magenta);">Corner cutting</strong> <span style="color: rgba(255,255,255,0.7);">→</span><br>
+            <span style="color: rgba(255,255,255,0.9);">completeness gate</span>
+          </div>
+          <div>
+            <strong style="color: var(--magenta);">No normalization</strong> <span style="color: rgba(255,255,255,0.7);">→</span><br>
+            <span style="color: rgba(255,255,255,0.9);">one-time items validator</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="notes">
+        [SECTION 4 — ARCHITECTURE, 3 min — payoff to the three failure cases]
+
+        BRIDGE INTO THIS SLIDE: "You've seen the three failures. Here's how we solve them — without the architectural complexity of a generic LLM pipeline."
+
+        Say: "On the left — the LLM way. A black box. Documents in. A number out. No way to trace which cells came from source versus which came from the model's imagination. This is what produces all three of the failures I just showed you.
+
+        On the right — the Apex way. We decompose every DCF into roughly two hundred atomic rows. Each row is a JSON object. Each object carries three things: the value, a pointer to the exact source passage in the 10-K, and a validator that checks it.
+
+        A cell that does not have a source — fails the validator. A cell that cannot be traced to a specific passage in a specific document — the pipeline stops. Not 'flags a warning.' Stops.
+
+        [POINT to bottom panel]
+
+        And here is the direct mapping.
+
+        Hallucination — caught by the source anchor validator. A cell without a verified citation cannot pass.
+
+        Corner cutting — caught by the completeness gate. If the LLM only read twelve of two hundred pages, the missing rows will not have sources. The gate blocks the pipeline before it renders an output.
+
+        No normalization — caught by a dedicated validator that flags one-time items. If reported net income includes an asset sale the LLM ignored, the validator catches it before it lands in the forward projection.
+
+        [PAUSE]
+
+        Every failure you saw — has a specific gate that makes it technically impossible in this architecture."
+
+        Transition to REI loop slide: "And here is the part I am most proud of..."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 15 — REI FEEDBACK LOOP -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Architecture · Part 3 of 3</span>
+      <h2 style="font-size: 1.8em; margin-bottom: 8px;">REI Feedback Loop</h2>
+
+      <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; margin-top: 20px; align-items: center;">
+
+        <!-- LEFT: VIDEO (REI loop — Kling 3.0 source, ffmpeg ping-pong for seamless playback) -->
+        <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; background: #0a0e18; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+          <video autoplay loop muted playsinline preload="auto" poster="rei-loop-reference.png" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <source src="rei-loop-pp.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <!-- RIGHT: COMPRESSED TEXT -->
+        <div>
+          <p style="font-size: 0.95em; line-height: 1.45; margin-bottom: 18px;">
+            Every agent and gate writes to <span class="mono"><strong>rei_log.jsonl</strong></span>.
+            <strong>R</strong>eflection. <strong>E</strong>rrors. <strong>I</strong>nsights.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="padding: 12px 16px; background: var(--off-white); border-radius: 8px; font-size: 0.9em; line-height: 1.4;">
+              <span class="pill pill-ghost" style="margin-right: 10px;">1</span>
+              Weekly pattern analysis scans the log.
+            </div>
+            <div style="padding: 12px 16px; background: var(--off-white); border-radius: 8px; font-size: 0.9em; line-height: 1.4;">
+              <span class="pill pill-ghost" style="margin-right: 10px;">2</span>
+              Same error <strong>3+ times</strong> → ticket created.
+            </div>
+            <div style="padding: 12px 16px; background: rgba(238, 58, 101, 0.06); border-radius: 8px; border: 2px solid var(--magenta); font-size: 0.9em; line-height: 1.4;">
+              <span class="pill pill-magenta" style="margin-right: 10px;">3</span>
+              <strong>The fix is a new gate.</strong> The mistake becomes <em>technically impossible</em>.
+            </div>
+          </div>
+
+          <p style="margin-top: 18px; font-size: 1.05em; color: var(--navy-deep); line-height: 1.4;">
+            <strong>Apex gets smarter without us.</strong>
+          </p>
+        </div>
+      </div>
+      <aside class="notes">
+        [SECTION 4 Part 3 — REI Loop. THIS is what distinguishes Apex. Slow down.]
+
+        Say: "Now — here is the part I am most proud of.
+
+        Every agent and every gate writes to one log file. We call it REI — Reflection, Errors, Insights.
+
+        Once a week — automated pattern analysis scans the log.
+
+        If the same error happens three or more times — the system creates a ticket.
+
+        But the fix is not a process change. It is not a memo. It is not training.
+
+        The fix is a new gate. A new validator. A new hook. The kind of mistake that triggered the ticket — becomes technically impossible to repeat.
+
+        [PAUSE — let it land]
+
+        Apex gets smarter without us. Every error in the system's history is now a wall the system cannot cross.
+
+        That is the architecture."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 16 — SWF CASE INTRO -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">One real case · From our September paper</span>
+      <h2>Sovereign Wealth Fund<br>Manager Oversight</h2>
+      <div style="margin-top: 40px; font-size: 1.2em; line-height: 1.7; color: var(--gray-700);">
+        <p><strong>The challenge:</strong> managing relationships with <strong>75 external managers</strong>. Quarterly reviews too slow. Insufficient early warning. Manual data compilation delayed decisions.</p>
+        <p><strong>The implementation:</strong> an <strong>L3 monitoring system</strong>. Daily ingestion of performance, holdings, risk metrics across all 75 managers. Anomaly detection. Unified dashboard.</p>
+      </div>
+      <aside class="notes">
+        [SECTION 5 — CASE STUDY, 3 min — setup]
+
+        Say: "Let me share one example from our September paper. The third case study.
+
+        A sovereign wealth fund. Managing relationships with seventy-five external investment managers. Traditional quarterly review processes. Insufficient early warning. Manual data compilation slowing strategic decisions.
+
+        The fund implemented an L3 monitoring system. Daily ingestion of performance data, holdings, risk metrics — across all seventy-five managers. Real-time view of the entire portfolio. Anomaly detection. Standardized risk metrics across different strategies."
+
+        Pause before flipping to next slide (the punchline).
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 17 — SWF CASE PUNCHLINE (BIG NUMBER) -->
+    <!-- ============================================ -->
+    <section class="big-number-slide">
+      <span class="pill pill-magenta">The result</span>
+      <div class="stat stat-magenta" style="font-size: 6em; line-height: 1;">47</div>
+      <div class="stat-label" style="font-size: 0.95em; margin-top: 4px;">DAYS BEFORE OFFICIAL DISCLOSURE</div>
+      <p style="margin-top: 20px; font-size: 1.1em; max-width: 900px; line-height: 1.4;">
+        The system flagged a <strong>litigation threat</strong> affecting one external manager —
+        <em>forty-seven days</em> before the official disclosure.
+      </p>
+      <p style="margin-top: 12px; font-size: 0.9em; color: var(--gray-500); max-width: 800px;">
+        Exposure reduced. Losses avoided. Other investors learned through traditional channels.
+      </p>
+      <p style="margin-top: 16px; font-size: 1em; color: var(--navy-deep); max-width: 900px;">
+        <strong>This is L3 in action.</strong> The AI giving the committee <em>47 days of additional reaction time</em>.
+      </p>
+      <aside class="notes">
+        [SECTION 5 — PUNCHLINE. Pause 4 seconds before saying the number.]
+
+        Say: "Here is what happened.
+
+        [PAUSE]
+
+        The system flagged a litigation threat affecting one external manager — forty-seven days before the official disclosure.
+
+        [PAUSE — let it land]
+
+        Forty-seven days.
+
+        The sovereign fund reduced exposure. Avoided losses that affected every other investor who learned through traditional disclosure channels.
+
+        This is L3 in action. Not the AI replacing the investment committee. The AI giving the investment committee forty-seven days of additional reaction time.
+
+        That is what augmentation looks like at this level. Not faster decisions. Better-informed decisions, sooner."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 18 — THREE SENTENCES CLOSE -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">In closing</span>
+      <h3 style="margin-bottom: 24px;">Three sentences.</h3>
+      <div style="margin-top: 20px;">
+        <div style="padding: 16px 0; border-bottom: 1px solid var(--gray-300);">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--magenta); font-size: 0.85em; margin-bottom: 6px; font-weight: 700;">ONE</div>
+          <p style="font-size: 1.1em; color: var(--navy-deep); margin: 0; line-height: 1.4;">AI in investing today is mostly L1. There is a credible path to L3 — <em>and our team has been walking it for two years</em>.</p>
+        </div>
+        <div style="padding: 16px 0; border-bottom: 1px solid var(--gray-300);">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--magenta); font-size: 0.85em; margin-bottom: 6px; font-weight: 700;">TWO</div>
+          <p style="font-size: 1.1em; color: var(--navy-deep); margin: 0; line-height: 1.4;">The journey produced three things — a <strong>live track record</strong>, a <strong>framework co-published with BlackRock's most senior alumnus</strong>, and an <strong>architecture rolling into production</strong>.</p>
+        </div>
+        <div style="padding: 16px 0;">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--magenta); font-size: 0.85em; margin-bottom: 6px; font-weight: 700;">THREE</div>
+          <p style="font-size: 1.1em; color: var(--navy-deep); margin: 0; line-height: 1.4;">The next step is regional. Built from Almaty. <strong>With this room.</strong></p>
+        </div>
+      </div>
+      <aside class="notes">
+        [SECTION 7 — CLOSE, 2 min — this is the summary]
+
+        Say with emphasis on each sentence, pause between: "Three sentences to summarize.
+
+        One. AI in investing today is mostly L1. Most of what gets called 'AI' is marketing or opacity. There is a credible path to L3 — and our team has been walking it for two years.
+
+        Two. The journey produced three things — a live track record, a framework co-published with one of BlackRock's most senior alumni, and an architecture rolling into production. That triple — track record, framework, architecture — is unusual. We think it matters.
+
+        Three. The next step is regional. Built from Almaty. With this room. And we want to build it together."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 19 — FINAL / THANK YOU -->
+    <!-- ============================================ -->
+    <section>
+      <div style="text-align: center; padding: 60px 0;">
+        <h1 style="font-size: 3em; margin-bottom: 24px;">
+          From Level 2 — through Level 3 — toward Level 4.
+        </h1>
+        <p style="font-size: 1.4em; color: var(--gray-700); margin-top: 16px; max-width: 1200px; margin-left: auto; margin-right: auto;">
+          Built from Almaty. With Andrew Ang. For institutional capital that demands more than <em>"trust the box."</em>
+        </p>
+        <div style="margin-top: 80px; font-size: 2em; color: var(--navy-deep); font-weight: 300;">
+          Thank you.
+        </div>
+        <div style="margin-top: 60px; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; color: var(--gray-500); letter-spacing: 0.05em;">
+          ASSYL · <a href="mailto:assyl@altbridge.ai" style="color: var(--magenta); text-decoration: none;">assyl@altbridge.ai</a> · ALTBRIDGE
+        </div>
+      </div>
+      <aside class="notes">
+        [SECTION 7 — Final close]
+
+        Say with strong emphasis, looking up at the audience: "From Level two — through Level three — toward Level four. Built from Almaty. With Andrew Ang. For institutional capital that demands more than 'trust the box.'
+
+        Thank you."
+
+        [GESTURE — small bow / acknowledge applause]
+
+        After applause settles — smile — say: "I would love to take your questions."
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<!-- reveal.js -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/notes/notes.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    center: false,
+    transition: 'slide',
+    transitionSpeed: 'fast',
+    width: 1920,
+    height: 1080,
+    margin: 0.04,
+    minScale: 0.2,
+    maxScale: 2.0,
+    plugins: [RevealNotes]
+  });
+</script>
+
+<script>
+  // Title-slide generative background.
+  // Concept: "Convergence through discipline" — noise-driven drift toward order.
+  // Deterministic seed → same composition every time.
+  (function () {
+    const canvas = document.getElementById('title-bg');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const NAVY = [10, 26, 74];
+    const MAGENTA = [238, 58, 101];
+
+    let W = 0, H = 0, particles = [], raf = null, startedAt = 0;
+    const PARTICLE_COUNT = 140;
+    const DURATION_MS = 12000; // animation settles over 12s
+
+    // Deterministic 2D value noise (cheap smooth field).
+    function mulberry32(a) {
+      return function () {
+        a |= 0; a = a + 0x6D2B79F5 | 0;
+        let t = Math.imul(a ^ a >>> 15, 1 | a);
+        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      };
+    }
+    const rand = mulberry32(4242);
+    const GRID = 96;
+    const noiseGrid = [];
+    for (let i = 0; i < GRID * GRID; i++) noiseGrid[i] = rand() * Math.PI * 2;
+    function angleAt(x, y) {
+      const gx = ((x / W) * GRID) | 0;
+      const gy = ((y / H) * GRID) | 0;
+      const i = Math.max(0, Math.min(GRID * GRID - 1, gy * GRID + gx));
+      return noiseGrid[i];
+    }
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = rect.width; H = rect.height;
+      canvas.width = Math.floor(W * dpr);
+      canvas.height = Math.floor(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function spawn() {
+      particles.length = 0;
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: rand() * W,
+          y: rand() * H,
+          len: 0.6 + rand() * 1.6,
+          accent: rand() < 0.12, // ~12% magenta accents
+        });
+      }
+    }
+
+    function draw(ts) {
+      if (!startedAt) startedAt = ts;
+      const t = Math.min(1, (ts - startedAt) / DURATION_MS);
+      // fade prior frame gently — persistent trails that mute over time
+      ctx.fillStyle = `rgba(255,255,255,${0.04 + 0.06 * t})`;
+      ctx.fillRect(0, 0, W, H);
+
+      for (const p of particles) {
+        const a = angleAt(p.x, p.y);
+        // dampen speed as the animation settles — convergence toward stillness
+        const speed = (1 - t * 0.92) * 0.8 + 0.04;
+        const nx = p.x + Math.cos(a) * speed * p.len;
+        const ny = p.y + Math.sin(a) * speed * p.len;
+
+        const [r, g, b] = p.accent ? MAGENTA : NAVY;
+        const alpha = p.accent ? 0.16 : 0.08;
+        ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
+        ctx.lineWidth = p.accent ? 0.7 : 0.5;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(nx, ny);
+        ctx.stroke();
+
+        // wrap
+        p.x = (nx + W) % W;
+        p.y = (ny + H) % H;
+      }
+
+      if (t < 1) raf = requestAnimationFrame(draw);
+    }
+
+    function start() {
+      cancelAnimationFrame(raf);
+      resize();
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, W, H);
+      spawn();
+      startedAt = 0;
+      raf = requestAnimationFrame(draw);
+    }
+
+    function stop() { cancelAnimationFrame(raf); raf = null; }
+
+    // Honor reduced motion: render a single static frame.
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    window.addEventListener('resize', () => { if (raf) start(); });
+
+    // Start when title slide becomes visible; stop when leaving.
+    Reveal.on('slidechanged', (e) => {
+      const isTitle = e.currentSlide && e.currentSlide.classList.contains('title-slide');
+      if (isTitle) { reduced ? (resize(), spawn(), draw(DURATION_MS)) : start(); }
+      else { stop(); }
+    });
+    Reveal.on('ready', (e) => {
+      const isTitle = e.currentSlide && e.currentSlide.classList.contains('title-slide');
+      if (isTitle) { reduced ? (resize(), spawn(), draw(DURATION_MS)) : start(); }
+    });
+  })();
+</script>
+
+</body>
+</html>

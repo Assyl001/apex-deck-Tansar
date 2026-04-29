@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 03 · V5 · Altbridge Brand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base_v5.css">
+<style>
+.header {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 16cqh;
+  z-index: 4;
+}
+.header .kicker {
+  margin-bottom: 2.2cqh;
+  animation: rise 800ms 240ms var(--spring-smooth) both;
+}
+.header .title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 4.4cqw;
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  color: var(--text-primary);
+  max-width: 92cqw;
+  animation: rise 900ms 360ms var(--spring-smooth) both;
+}
+.header .title .em {
+  font-weight: 400;
+  color: var(--text-secondary);
+  font-style: italic;
+  letter-spacing: -0.028em;
+}
+
+/* Chat transcript */
+.transcript {
+  position: absolute;
+  left: 9cqw; right: 9cqw;
+  top: 40cqh;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4cqh;
+  z-index: 4;
+}
+
+.msg {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9cqh;
+  max-width: 74%;
+}
+.msg.user {
+  align-self: flex-start;
+  animation: rise 900ms 520ms var(--spring-smooth) both;
+}
+.msg.ai {
+  align-self: flex-end;
+  animation: rise 900ms 760ms var(--spring-smooth) both;
+}
+
+.msg-label {
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.msg.ai .msg-label { justify-content: flex-end; color: var(--accent-cyan); }
+.msg-label .sep { color: var(--text-faint); }
+.msg-label .tag {
+  padding: 0.35em 0.75em;
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  letter-spacing: 0.18em;
+  font-size: 0.7cqw;
+  background: rgba(255, 255, 255, 0.3);
+}
+.msg.ai .msg-label .tag {
+  border-color: rgba(14, 116, 144, 0.3);
+  color: var(--accent-cyan);
+  background: rgba(14, 116, 144, 0.06);
+}
+
+.bubble {
+  padding: 2.6cqh 2.3cqw;
+}
+.msg.user .bubble { border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px; }
+.msg.ai .bubble   { border-radius: var(--radius-lg) var(--radius-lg) 4px var(--radius-lg); }
+
+.prompt-text {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 2cqw;
+  line-height: 1.35;
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+}
+.prompt-text::before {
+  content: "“";
+  color: var(--accent-purple);
+  font-weight: 500;
+  margin-right: 0.15em;
+}
+.prompt-text::after {
+  content: "”";
+  color: var(--accent-purple);
+  font-weight: 500;
+  margin-left: 0.1em;
+}
+
+.response-text {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1.5cqw;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+}
+.response-text strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.response-text .fv {
+  color: var(--accent-cyan);
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Verdict bar */
+.verdict-bar {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  bottom: 5cqh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3cqw;
+  z-index: 4;
+  padding-top: 2.8cqh;
+  border-top: 1px solid var(--border-light);
+  animation: rise 900ms 1040ms var(--spring-smooth) both;
+}
+.verdict {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7cqh;
+  max-width: 68cqw;
+}
+.verdict-primary {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 2.4cqw;
+  line-height: 1.1;
+  letter-spacing: -0.024em;
+  color: var(--text-primary);
+}
+.verdict-secondary {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1.5cqw;
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+  color: var(--text-secondary);
+}
+.verdict-secondary .stress {
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.next-chip {
+  flex-shrink: 0;
+  padding: 1.4cqh 1.4cqw;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6cqw;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.8cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.next-chip .arrow {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.1cqw;
+  letter-spacing: 0;
+  color: var(--accent-purple);
+}
+</style>
+</head>
+<body>
+<div class="slide grid-bg">
+  <div class="ambient cyan"></div>
+  <div class="ambient purple"></div>
+  <div class="ambient blue"></div>
+
+  <div class="brand">
+    <svg class="logo-mark" viewBox="550 264 394 372" xmlns="http://www.w3.org/2000/svg" aria-label="Altbridge">
+      <defs>
+        <linearGradient gradientTransform="matrix(325.187,0,0,300.71,585.481,295.253)" gradientUnits="userSpaceOnUse" x2="1" id="g1">
+          <stop stop-color="#ee3a65" offset="0"/>
+          <stop stop-color="#a7237b" offset="1"/>
+        </linearGradient>
+        <linearGradient gradientTransform="matrix(213.557,107.505,-122.141,242.631,657.866,467.538)" gradientUnits="userSpaceOnUse" x2="1" id="g2">
+          <stop stop-color="#000000" offset="0"/>
+          <stop stop-color="#0f2c6c" offset=".564"/>
+          <stop stop-color="#194bb9" offset="1"/>
+        </linearGradient>
+      </defs>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g1)"/>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g2)"/>
+    </svg>
+    <span class="wordmark">Altbridge</span>
+  </div>
+
+  <div class="folio-chip glass">
+    <span class="folio-label">Slide</span>
+    <span class="folio-num">03</span>
+    <span class="folio-sep">/</span>
+    <span class="folio-total">19</span>
+  </div>
+
+  <div class="header">
+    <div class="kicker">Try This Yourself · Claude · ChatGPT · Perplexity</div>
+    <h1 class="title">You've probably asked it <span class="em">something like this.</span></h1>
+  </div>
+
+  <div class="transcript">
+    <div class="msg user">
+      <div class="msg-label">
+        <span class="tag">You</span>
+        <span>prompt</span>
+      </div>
+      <div class="bubble glass">
+        <div class="prompt-text">Analyze NVIDIA as an investment. Build a DCF. What's the fair value per share?</div>
+      </div>
+    </div>
+
+    <div class="msg ai">
+      <div class="msg-label">
+        <span>response · truncated</span>
+        <span class="tag">LLM</span>
+      </div>
+      <div class="bubble glass">
+        <div class="response-text">
+          NVIDIA presents a compelling AI-infrastructure thesis. FY2025 data-center revenue reached <strong>~$115B</strong>, driven by the Hopper/Blackwell transition. Projecting <strong>25% CAGR</strong>, <strong>9% WACC</strong>, <strong>3% terminal growth</strong> — a 5-year DCF suggests a fair value of <span class="fv">$185 / share</span>, implying <strong>18% upside</strong>…
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict-bar">
+    <div class="verdict">
+      <div class="verdict-primary">Looks professional. Reads confident.</div>
+      <div class="verdict-secondary">Let me show you <span class="stress">three ways</span> this answer is structurally wrong.</div>
+    </div>
+    <div class="next-chip glass sm">
+      Failure Mode 1 of 3
+      <span class="arrow">→</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

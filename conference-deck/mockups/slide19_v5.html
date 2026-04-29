@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 19 · V5 · Altbridge Brand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base_v5.css">
+<style>
+.center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14cqh 6cqw 12cqh;
+  z-index: 4;
+  text-align: center;
+}
+
+.arc-line {
+  position: relative;
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 5.4cqw;
+  line-height: 1.06;
+  letter-spacing: -0.034em;
+  color: var(--text-primary);
+  max-width: 88cqw;
+  animation: rise 1100ms 360ms var(--spring-smooth) both;
+}
+.arc-line .step {
+  display: inline-block;
+  padding: 0 0.05em;
+}
+.arc-line .arrow {
+  display: inline-block;
+  margin: 0 0.18em;
+  font-weight: 300;
+  color: var(--text-faint);
+  transform: translateY(-0.05em);
+}
+.arc-line .l3 {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+.arc-line .l4 {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin-top: 4.6cqh;
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1.7cqw;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  letter-spacing: -0.008em;
+  max-width: 76cqw;
+  animation: rise 900ms 600ms var(--spring-smooth) both;
+}
+.subtitle strong { color: var(--text-primary); font-weight: 600; }
+.subtitle em { font-style: italic; color: var(--text-primary); font-weight: 500; }
+
+.thanks {
+  margin-top: 8cqh;
+  font-family: 'Geist', sans-serif;
+  font-weight: 300;
+  font-size: 4.2cqw;
+  line-height: 1;
+  letter-spacing: -0.028em;
+  color: var(--text-primary);
+  animation: rise 1100ms 880ms var(--spring-smooth) both;
+}
+.thanks .em {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 500;
+}
+
+/* Contact strip */
+.contact {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  bottom: 5cqh;
+  padding-top: 2.4cqh;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2cqw;
+  z-index: 4;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.95cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  animation: fade 900ms 1080ms var(--spring-smooth) both;
+}
+.contact .left {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7cqw;
+}
+.contact .name {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.contact .sep { color: var(--text-faint); }
+.contact .email {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+.contact .right {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7cqw;
+}
+</style>
+</head>
+<body>
+<div class="slide grid-bg">
+  <div class="ambient cyan"></div>
+  <div class="ambient purple"></div>
+  <div class="ambient blue"></div>
+
+  <div class="brand">
+    <svg class="logo-mark" viewBox="550 264 394 372" xmlns="http://www.w3.org/2000/svg" aria-label="Altbridge">
+      <defs>
+        <linearGradient gradientTransform="matrix(325.187,0,0,300.71,585.481,295.253)" gradientUnits="userSpaceOnUse" x2="1" id="g1">
+          <stop stop-color="#ee3a65" offset="0"/>
+          <stop stop-color="#a7237b" offset="1"/>
+        </linearGradient>
+        <linearGradient gradientTransform="matrix(213.557,107.505,-122.141,242.631,657.866,467.538)" gradientUnits="userSpaceOnUse" x2="1" id="g2">
+          <stop stop-color="#000000" offset="0"/>
+          <stop stop-color="#0f2c6c" offset=".564"/>
+          <stop stop-color="#194bb9" offset="1"/>
+        </linearGradient>
+      </defs>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g1)"/>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g2)"/>
+    </svg>
+    <span class="wordmark">Altbridge</span>
+  </div>
+
+  <div class="folio-chip glass">
+    <span class="folio-label">Slide</span>
+    <span class="folio-num">19</span>
+    <span class="folio-sep">/</span>
+    <span class="folio-total">19</span>
+  </div>
+
+  <div class="center">
+    <div class="arc-line">
+      From <span class="step">Assisted</span><span class="arrow">—</span>through <span class="step l3">Agentic</span><span class="arrow">—</span>toward <span class="step l4">Autonomous.</span>
+    </div>
+    <div class="subtitle">Built with <strong>Andrew Ang</strong>. For <strong>institutional capital</strong> that demands more than <em>"trust the box."</em></div>
+    <div class="thanks"><span class="em">Thank you.</span></div>
+  </div>
+
+  <div class="contact">
+    <div class="left">
+      <span class="name">Assyl Akhmet</span>
+      <span class="sep">·</span>
+      <span class="email">assyl@altbridge.ai</span>
+    </div>
+    <div class="right">
+      <span>Altbridge</span>
+      <span class="sep">·</span>
+      <span>Almaty · 2026</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

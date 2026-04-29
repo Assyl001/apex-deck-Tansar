@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 11 · V5 · Altbridge Brand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base_v5.css">
+<style>
+.header {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 16cqh;
+  z-index: 4;
+}
+.header .kicker {
+  margin-bottom: 1.6cqh;
+  animation: rise 800ms 240ms var(--spring-smooth) both;
+}
+.header .title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 4.6cqw;
+  line-height: 1.0;
+  letter-spacing: -0.032em;
+  color: var(--text-primary);
+  animation: rise 900ms 340ms var(--spring-smooth) both;
+}
+.header .title .em {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+.team {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 30cqh;
+  z-index: 4;
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1.5cqw;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  letter-spacing: -0.008em;
+  max-width: 70cqw;
+  animation: rise 900ms 480ms var(--spring-smooth) both;
+}
+.team .names {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.team .ang {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+/* Quote block */
+.quote-card {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 42cqh;
+  padding: 4cqh 3cqw 4cqh 3.5cqw;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  animation: rise 900ms 620ms var(--spring-smooth) both;
+}
+.quote-card::after {
+  content: "";
+  position: absolute;
+  left: 0; top: 12%; bottom: 12%;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  z-index: 2;
+}
+
+.quote-text {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 2.6cqw;
+  line-height: 1.2;
+  letter-spacing: -0.022em;
+  color: var(--text-primary);
+}
+.quote-text .em {
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.quote-attribution {
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.85cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.quote-attribution strong { color: var(--text-secondary); font-weight: 600; }
+
+/* Reframing line */
+.reframe {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  bottom: 5cqh;
+  padding-top: 2.6cqh;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3cqw;
+  z-index: 4;
+  animation: rise 900ms 880ms var(--spring-smooth) both;
+}
+.reframe-text {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 1.6cqw;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: var(--text-primary);
+  max-width: 70cqw;
+}
+.reframe-text .stress {
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.reframe-text em { font-style: italic; color: var(--text-secondary); font-weight: 500; }
+.reframe-meta {
+  flex-shrink: 0;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: right;
+  line-height: 1.5;
+}
+.reframe-meta strong { color: var(--text-primary); }
+</style>
+</head>
+<body>
+<div class="slide grid-bg">
+  <div class="ambient cyan"></div>
+  <div class="ambient purple"></div>
+  <div class="ambient blue"></div>
+
+  <div class="brand">
+    <svg class="logo-mark" viewBox="550 264 394 372" xmlns="http://www.w3.org/2000/svg" aria-label="Altbridge">
+      <defs>
+        <linearGradient gradientTransform="matrix(325.187,0,0,300.71,585.481,295.253)" gradientUnits="userSpaceOnUse" x2="1" id="g1">
+          <stop stop-color="#ee3a65" offset="0"/>
+          <stop stop-color="#a7237b" offset="1"/>
+        </linearGradient>
+        <linearGradient gradientTransform="matrix(213.557,107.505,-122.141,242.631,657.866,467.538)" gradientUnits="userSpaceOnUse" x2="1" id="g2">
+          <stop stop-color="#000000" offset="0"/>
+          <stop stop-color="#0f2c6c" offset=".564"/>
+          <stop stop-color="#194bb9" offset="1"/>
+        </linearGradient>
+      </defs>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g1)"/>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g2)"/>
+    </svg>
+    <span class="wordmark">Altbridge</span>
+  </div>
+
+  <div class="folio-chip glass">
+    <span class="folio-label">Slide</span>
+    <span class="folio-num">11</span>
+    <span class="folio-sep">/</span>
+    <span class="folio-total">19</span>
+  </div>
+
+  <div class="header">
+    <div class="kicker">Phase 2 · September 2025</div>
+    <h1 class="title">Intellectual reset <span class="em">with Andrew Ang.</span></h1>
+  </div>
+
+  <div class="team">
+    Our team — <span class="names">Nazym, Andrey, Zhassulan</span> — and <span class="ang">Andrew Ang</span> published the L0–L5 framework you just saw.
+  </div>
+
+  <div class="quote-card glass">
+    <div class="quote-text">"The most binding constraint in institutional asset management is not data availability or model sophistication, but the <span class="em">finite bandwidth of human decision-makers</span>."</div>
+    <div class="quote-attribution"><strong>Ang et al.</strong> · 2025 · SSRN 5468687</div>
+  </div>
+
+  <div class="reframe">
+    <div class="reframe-text">
+      That <span class="stress">reframed everything.</span> Not less human involvement — <em>better</em> human involvement. Supervise more, more efficiently, with stronger governance.
+    </div>
+    <div class="reframe-meta">
+      Phase 3<br>
+      <strong>↓</strong><br>
+      Self-Driving Portfolio
+    </div>
+  </div>
+</div>
+</body>
+</html>

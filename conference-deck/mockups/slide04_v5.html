@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 04 · V5 · Altbridge Brand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base_v5.css">
+<style>
+.header {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 16cqh;
+  z-index: 4;
+}
+.header .kicker {
+  margin-bottom: 1.6cqh;
+  color: var(--accent-purple);
+  animation: rise 800ms 240ms var(--spring-smooth) both;
+}
+.header .kicker::before {
+  background: linear-gradient(90deg, var(--accent-purple), var(--brand-magenta));
+}
+.header .title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 4.6cqw;
+  line-height: 1.0;
+  letter-spacing: -0.032em;
+  color: var(--text-primary);
+  margin-bottom: 1.6cqh;
+  animation: rise 900ms 340ms var(--spring-smooth) both;
+}
+.header .subtitle {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1.55cqw;
+  line-height: 1.35;
+  color: var(--text-secondary);
+  letter-spacing: -0.008em;
+  max-width: 72cqw;
+  animation: rise 900ms 460ms var(--spring-smooth) both;
+}
+.header .subtitle em {
+  font-style: italic;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Query grid */
+.queries {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 38cqh;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.4cqw;
+  z-index: 4;
+}
+.query {
+  padding: 2.6cqh 1.4cqw;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+  text-align: center;
+  background: rgba(255,255,255,0.35);
+  border: 1px solid var(--border-light);
+  animation: rise 900ms var(--spring-smooth) both;
+}
+.query:nth-child(1) { animation-delay: 560ms; }
+.query:nth-child(2) { animation-delay: 640ms; }
+.query:nth-child(3) { animation-delay: 720ms; }
+.query:nth-child(4) { animation-delay: 800ms; }
+.query.actual {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1.5px 0 var(--edge-light-top),
+    inset 0 -1px 0 var(--edge-light-bottom),
+    0 8px 30px -10px rgba(14, 116, 144, 0.28);
+  animation-delay: 880ms;
+  position: relative;
+  overflow: hidden;
+}
+.query.actual::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.02) 45%, rgba(14,116,144,0.08) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+}
+.query.actual > * { position: relative; z-index: 1; }
+.query.actual::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 8%; right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan) 30%, var(--accent-purple) 70%, transparent);
+  border-radius: 2px;
+  z-index: 2;
+}
+.query-label {
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.query.actual .query-label {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+.query-value {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 3.4cqw;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  font-feature-settings: "tnum";
+}
+.query.actual .query-value {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+.query-delta {
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.85cqw;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.query.wrong .query-delta {
+  color: var(--brand-magenta);
+}
+.query.wrong .query-value {
+  color: #b03050;
+}
+.query.actual .query-delta {
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.queries-caption {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 67cqh;
+  font-family: 'Geist', sans-serif;
+  font-size: 1cqw;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: -0.005em;
+  text-align: center;
+  z-index: 4;
+  animation: fade 900ms 1000ms var(--spring-smooth) both;
+}
+.queries-caption strong { color: var(--text-secondary); font-weight: 600; }
+
+/* Verdict band */
+.verdict {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  bottom: 5cqh;
+  padding: 2.6cqh 2.4cqw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3cqw;
+  z-index: 4;
+  animation: rise 900ms 1080ms var(--spring-smooth) both;
+}
+.verdict-text {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 1.55cqw;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: var(--text-primary);
+  max-width: 70cqw;
+}
+.verdict-text strong {
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.verdict-text .num {
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-feature-settings: "tnum";
+}
+.verdict-meta {
+  flex-shrink: 0;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: right;
+  line-height: 1.5;
+}
+.verdict-meta strong { color: var(--text-primary); }
+</style>
+</head>
+<body>
+<div class="slide grid-bg">
+  <div class="ambient cyan"></div>
+  <div class="ambient purple"></div>
+  <div class="ambient blue"></div>
+
+  <div class="brand">
+    <svg class="logo-mark" viewBox="550 264 394 372" xmlns="http://www.w3.org/2000/svg" aria-label="Altbridge">
+      <defs>
+        <linearGradient gradientTransform="matrix(325.187,0,0,300.71,585.481,295.253)" gradientUnits="userSpaceOnUse" x2="1" id="g1">
+          <stop stop-color="#ee3a65" offset="0"/>
+          <stop stop-color="#a7237b" offset="1"/>
+        </linearGradient>
+        <linearGradient gradientTransform="matrix(213.557,107.505,-122.141,242.631,657.866,467.538)" gradientUnits="userSpaceOnUse" x2="1" id="g2">
+          <stop stop-color="#000000" offset="0"/>
+          <stop stop-color="#0f2c6c" offset=".564"/>
+          <stop stop-color="#194bb9" offset="1"/>
+        </linearGradient>
+      </defs>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g1)"/>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g2)"/>
+    </svg>
+    <span class="wordmark">Altbridge</span>
+  </div>
+
+  <div class="folio-chip glass">
+    <span class="folio-label">Slide</span>
+    <span class="folio-num">04</span>
+    <span class="folio-sep">/</span>
+    <span class="folio-total">19</span>
+  </div>
+
+  <div class="header">
+    <div class="kicker">Failure Mode · 1 of 3</div>
+    <h1 class="title">Confident confabulation.</h1>
+    <div class="subtitle">Ask the same question five times. You get <em>subtly different numbers</em> — each delivered with identical confidence.</div>
+  </div>
+
+  <div class="queries">
+    <div class="query">
+      <div class="query-label">Query 1</div>
+      <div class="query-value">$30.8B</div>
+      <div class="query-delta">+0.1%</div>
+    </div>
+    <div class="query wrong">
+      <div class="query-label">Query 2</div>
+      <div class="query-value">$28.5B</div>
+      <div class="query-delta">−7.4%</div>
+    </div>
+    <div class="query wrong">
+      <div class="query-label">Query 3</div>
+      <div class="query-value">$31.2B</div>
+      <div class="query-delta">+1.4%</div>
+    </div>
+    <div class="query">
+      <div class="query-label">Query 4</div>
+      <div class="query-value">$30.6B</div>
+      <div class="query-delta">−0.6%</div>
+    </div>
+    <div class="query actual">
+      <div class="query-label">Actual · 10-Q</div>
+      <div class="query-value">$30.77B</div>
+      <div class="query-delta">Source of truth</div>
+    </div>
+  </div>
+
+  <div class="queries-caption">
+    NVIDIA data-center revenue, Q3 FY2025 · same prompt · five runs · <strong>Claude / ChatGPT / Perplexity</strong>
+  </div>
+
+  <div class="verdict glass">
+    <div class="verdict-text">
+      Two of five answers are wrong. <strong>You cannot tell which</strong> — the output never cites the 10-Q. In a DCF with 200 input cells, a 1% hallucination rate means <span class="num">two fabricated numbers</span> in every valuation.
+    </div>
+    <div class="verdict-meta">
+      Hallucination<br>
+      <strong>≠ edge case.</strong><br>
+      Default behavior.
+    </div>
+  </div>
+</div>
+</body>
+</html>

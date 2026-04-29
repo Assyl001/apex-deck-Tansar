@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Claude local settings (user-specific overrides)
+.claude/settings.local.json
+
+# Python
+__pycache__/
+*.pyc
+
+# QA snapshots (regenerated)
+conference-deck/qa/current/*.png
+conference-deck/qa/diff/

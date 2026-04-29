@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <title>AI in Investment Activities — Apex / Altbridge</title>
+
+  <!-- reveal.js core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
+  <!-- Clean white theme as base — we override heavily below -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/white.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy-deep: #0a1a4a;
+      --navy: #0f2c6c;
+      --blue: #194bb9;
+      --blue-light: #4575d1;
+      --magenta: #ee3a65;
+      --purple: #a7237b;
+      --white: #ffffff;
+      --off-white: #fafbfc;
+      --gray-100: #f7fafc;
+      --gray-300: #e2e8f0;
+      --gray-500: #718096;
+      --gray-700: #2d3748;
+      --gray-900: #1a202c;
+    }
+
+    .reveal {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      color: var(--gray-900);
+      background: var(--white);
+    }
+
+    .reveal .slides {
+      text-align: left;
+    }
+
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: 'Inter', sans-serif;
+      color: var(--navy-deep);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: none;
+      margin-bottom: 0.4em;
+    }
+
+    .reveal h1 { font-size: 3.4em; line-height: 1.05; }
+    .reveal h2 { font-size: 2.4em; line-height: 1.1; }
+    .reveal h3 { font-size: 1.6em; color: var(--navy); }
+    .reveal h4 { font-size: 1.2em; color: var(--gray-700); font-weight: 500; }
+
+    .reveal p { font-size: 1.1em; line-height: 1.55; color: var(--gray-700); }
+    .reveal em { color: var(--magenta); font-style: normal; font-weight: 600; }
+    .reveal strong { color: var(--navy-deep); font-weight: 700; }
+
+    .reveal .subtitle {
+      font-size: 1em;
+      color: var(--gray-500);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1em;
+    }
+
+    .reveal .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Slide backgrounds */
+    .reveal .slide-bg-navy { background: var(--navy-deep) !important; color: var(--white) !important; }
+    .reveal .slide-bg-navy h1, .reveal .slide-bg-navy h2, .reveal .slide-bg-navy h3 { color: var(--white); }
+    .reveal .slide-bg-navy p { color: rgba(255,255,255,0.85); }
+    .reveal .slide-bg-navy strong { color: var(--magenta); }
+
+    /* Pill / tag */
+    .pill {
+      display: inline-block;
+      padding: 6px 14px;
+      background: var(--navy-deep);
+      color: var(--white);
+      border-radius: 24px;
+      font-size: 0.65em;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .pill-magenta { background: var(--magenta); }
+    .pill-ghost { background: transparent; border: 2px solid var(--gray-300); color: var(--gray-700); }
+
+    /* Stat / metric */
+    .stat {
+      font-size: 6em;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--navy-deep);
+      letter-spacing: -0.04em;
+      font-family: 'Inter', sans-serif;
+    }
+    .stat-magenta { color: var(--magenta); }
+    .stat-label {
+      font-size: 0.9em;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 12px;
+    }
+
+    /* Quote */
+    .big-quote {
+      font-size: 2em;
+      font-weight: 300;
+      line-height: 1.35;
+      color: var(--navy-deep);
+      letter-spacing: -0.015em;
+      margin: 0.6em 0;
+    }
+    .quote-attribution {
+      font-size: 0.85em;
+      color: var(--gray-500);
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      margin-top: 24px;
+    }
+
+    /* Framework table (L0-L5) */
+    .framework-table {
+      width: 100%;
+      font-size: 0.68em;
+      border-collapse: collapse;
+      font-family: 'Inter', sans-serif;
+    }
+    .framework-table th {
+      background: var(--navy-deep);
+      color: var(--white);
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 0.9em;
+    }
+    .framework-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--gray-300);
+      vertical-align: top;
+    }
+    .framework-table tr:nth-child(even) td { background: var(--off-white); }
+    .framework-table .lvl {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--navy);
+      font-weight: 700;
+      width: 60px;
+    }
+    .framework-table .l-name { font-weight: 600; color: var(--navy-deep); width: 200px; }
+    .framework-table tr.highlight { background: rgba(238, 58, 101, 0.05) !important; }
+    .framework-table tr.highlight .lvl { color: var(--magenta); }
+
+    /* Timeline */
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-top: 40px;
+      font-size: 0.72em;
+    }
+    .timeline .node {
+      flex: 1;
+      position: relative;
+    }
+    .timeline .dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--navy-deep);
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .timeline .dot-highlight { background: var(--magenta); width: 32px; height: 32px; margin-left: -4px; }
+    .timeline .date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+      color: var(--gray-500);
+      margin-bottom: 8px;
+    }
+    .timeline .phase-title {
+      font-weight: 700;
+      color: var(--navy-deep);
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+    .timeline .phase-desc {
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+    .timeline-line {
+      position: absolute;
+      top: 12px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gray-300);
+      z-index: -1;
+    }
+
+    /* Component grid */
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 40px;
+    }
+    .component-card {
+      padding: 32px;
+      background: var(--off-white);
+      border-left: 4px solid var(--navy);
+      border-radius: 0 8px 8px 0;
+    }
+    .component-card.magenta { border-left-color: var(--magenta); }
+    .component-card.blue { border-left-color: var(--blue); }
+    .component-card h3 { font-size: 1.4em; }
+    .component-card .badge {
+      display: inline-block;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--navy-deep);
+      color: var(--white);
+      text-align: center;
+      line-height: 48px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.4em;
+      margin-bottom: 16px;
+    }
+    .component-card .badge.m { background: var(--magenta); }
+    .component-card .badge.b { background: var(--blue); }
+    .component-card p { font-size: 0.85em; }
+
+    /* Footer */
+    .slide-footer {
+      position: absolute;
+      bottom: 24px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.55em;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--gray-500);
+      letter-spacing: 0.05em;
+    }
+
+    /* Diagram placeholder */
+    .diagram-placeholder {
+      background: var(--off-white);
+      border: 2px dashed var(--gray-300);
+      padding: 80px;
+      text-align: center;
+      color: var(--gray-500);
+      font-size: 0.9em;
+      margin-top: 40px;
+    }
+
+    /* Three columns */
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    /* Ask section */
+    .asks {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 40px 0;
+    }
+    .ask {
+      text-align: center;
+      padding: 32px 20px;
+      background: var(--off-white);
+      border-radius: 12px;
+    }
+    .ask-num {
+      font-size: 2.5em;
+      font-weight: 800;
+      color: var(--magenta);
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.05em;
+    }
+    .ask-title {
+      font-size: 1em;
+      font-weight: 700;
+      color: var(--navy-deep);
+      margin-top: 8px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .ask-desc {
+      font-size: 0.75em;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+
+    /* Dim text for secondary info */
+    .dim { color: var(--gray-500); }
+
+    /* Tweaks for reveal.js */
+    .reveal .slides section {
+      padding: 60px 80px;
+      text-align: left;
+    }
+
+    .reveal .progress {
+      color: var(--magenta);
+    }
+
+    .reveal .controls {
+      color: var(--navy);
+    }
+
+    /* Large number slide */
+    .big-number-slide {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 70vh;
+    }
+    .big-number-slide .stat { font-size: 10em; }
+
+  </style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ============================================ -->
+    <!-- SLIDE 1 — TITLE -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Investors Annual Meeting · 2026</span>
+      <h1>AI in Investment Activities</h1>
+      <h4 style="margin-top: 24px; font-weight: 400; font-size: 1.5em; color: var(--gray-700);">
+        Our Two-Year Journey from L1 to L4
+      </h4>
+      <div style="margin-top: 80px; font-family: 'JetBrains Mono', monospace; font-size: 0.8em; color: var(--gray-500);">
+        ASSYL · CHIEF PRODUCT OFFICER · ALTBRIDGE<br>
+        May 6, 2026 · Swissôtel Almaty
+      </div>
+      <aside class="notes">
+        Walk slowly to center stage. Pause 3 seconds. Look at the room — front-left, front-right, back.
+        Timing: 30 seconds. Set the tone. Start Section 1 (OPEN WITH ANG) on slide 2.
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 2 — ANG HOOK QUOTE -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill pill-ghost">Opening</span>
+      <p class="dim" style="font-size: 0.9em; margin-bottom: 20px;">Six months ago, my co-author wrote this on LinkedIn.</p>
+      <div class="big-quote">
+        "How is adopting AI in investments — like driverless cars?"
+      </div>
+      <div class="quote-attribution">
+        — <strong>Andrew Ang</strong><br>
+        Chief Strategist, Altbridge<br>
+        Former Head of Systematic Investing, BlackRock<br>
+        Columbia Business School · 34,000+ academic citations
+      </div>
+      <aside class="notes">
+        [SECTION 1 — OPEN WITH ANG, 2 min]
+
+        Say verbatim: "Six months ago, my co-author wrote a question on LinkedIn that I want to start with.
+
+        [PAUSE] 'How is adopting AI in investments — like driverless cars?' [PAUSE]
+
+        That co-author is Andrew Ang. Former Head of Systematic Investing at BlackRock. Adjunct Professor at Columbia.
+
+        He has spent thirty years building the factor models that the largest asset managers in the world use today.
+
+        For the last year, he has been working with our team at Altbridge on two questions. One — what does it actually mean for AI to operate inside an institutional investment process? Two — how do we build systems that institutional investors and regulators can trust?
+
+        That collaboration produced two papers. One published in September. One published this April."
+
+        [NAME-DROP: slight head nod toward Tony Ashraf if he's seated]
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 3 — L0-L5 TABLE -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">September 2025 · SSRN 5468687</span>
+      <h3 style="margin-bottom: 20px; margin-top: 10px;">The L0–L5 Framework — six levels of autonomous investing</h3>
+      <table class="framework-table">
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Name</th>
+            <th>Behavior</th>
+            <th>Human Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lvl">L0</td>
+            <td class="l-name">No Automation</td>
+            <td>All analysis manual. AI tools only support.</td>
+            <td>Full control</td>
+          </tr>
+          <tr>
+            <td class="lvl">L1</td>
+            <td class="l-name">Investor Assistance</td>
+            <td>Single-task automation. Data collection. Alerts.</td>
+            <td>Human-in-the-loop</td>
+          </tr>
+          <tr>
+            <td class="lvl">L2</td>
+            <td class="l-name">Partial Automation</td>
+            <td>Integrated analysis. Sentiment + valuation. AI synthesizes.</td>
+            <td>Human supervises</td>
+          </tr>
+          <tr class="highlight">
+            <td class="lvl">L3</td>
+            <td class="l-name">Conditional Automation</td>
+            <td>AI recommends buy/sell within defined domain.</td>
+            <td>Human-on-the-loop</td>
+          </tr>
+          <tr>
+            <td class="lvl">L4</td>
+            <td class="l-name">High Automation</td>
+            <td>Full autonomy within defined operational domain.</td>
+            <td>Human-out-of-the-loop</td>
+          </tr>
+          <tr>
+            <td class="lvl">L5</td>
+            <td class="l-name">Full Autonomy</td>
+            <td>Across all market conditions. Theoretical.</td>
+            <td>Policy-only</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 28px; font-size: 0.85em;"><em>L3 is where the institutional industry can credibly be today.</em></p>
+      <aside class="notes">
+        [SECTION 2 — L0-L5 FRAMEWORK, 4 min — slide 1 of 2]
+
+        OPEN: "In our September paper — Investing in AI for Investing — we adapted the SAE J3016 standard. The same six-level taxonomy that classifies Tesla, Waymo, and GM self-driving systems — applied to investment management."
+
+        Then walk through all 6 levels clearly. Spend 3-4 seconds per level:
+
+        - L0-L2: most of industry today. "AI as marketing" and "AI-assist tools."
+        - L3: achievable now with proper architecture.
+        - L4: high automation in defined domain. Altbridge is here today.
+        - L5: theoretical. Raises systemic risk and AI alignment questions.
+
+        CLOSE: "Three things matter about this framework. First — it gives the industry a shared language. Second — at every level, there is a clearly defined operational design domain. Third — most of the industry today is at L0-L2. Almost nobody is credibly at L3-L4."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 4 — WHERE INDUSTRY IS -->
+    <!-- ============================================ -->
+    <section>
+      <h2 style="margin-bottom: 40px;">Where the industry is today</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+        <div style="padding: 32px; background: var(--off-white); border-top: 4px solid var(--gray-500); border-radius: 0 0 8px 8px;">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--gray-500); font-size: 0.9em; margin-bottom: 8px;">L0 – L2</div>
+          <h4 style="color: var(--navy-deep); margin-bottom: 12px;">Most of the industry</h4>
+          <p style="font-size: 0.85em; margin: 0;">AI as marketing. ChatGPT wrappers. Factor-model black boxes. "AI-powered" rebranding.</p>
+        </div>
+        <div style="padding: 32px; background: rgba(238, 58, 101, 0.05); border-top: 4px solid var(--magenta); border-radius: 0 0 8px 8px;">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--magenta); font-size: 0.9em; margin-bottom: 8px;">L3 – L4</div>
+          <h4 style="color: var(--magenta); margin-bottom: 12px;">Achievable now</h4>
+          <p style="font-size: 0.85em; margin: 0;">Rare. Requires architectural discipline. <strong>Altbridge operates at L4.</strong></p>
+        </div>
+        <div style="padding: 32px; background: var(--off-white); border-top: 4px solid var(--navy); border-radius: 0 0 8px 8px;">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--navy); font-size: 0.9em; margin-bottom: 8px;">L5</div>
+          <h4 style="color: var(--navy-deep); margin-bottom: 12px;">Theoretical</h4>
+          <p style="font-size: 0.85em; margin: 0;">Full autonomy — no human in the loop. Systemic risk questions. Decades away.</p>
+        </div>
+      </div>
+      <p style="margin-top: 48px; font-size: 1.1em; color: var(--gray-700);">Let me tell you our own journey through these levels.</p>
+      <aside class="notes">
+        [SECTION 2, slide 3 of 3 — closes L0-L5 setup, transitions to our journey]
+
+        Emphasize the middle column. Say: "Most industry is at L0-L2. L5 is decades away — theoretical. The interesting, achievable work sits at L3-L4. Altbridge operates at L4 today — AI runs the process end-to-end, the portfolio manager monitors. Let me tell you how we got there."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 5 — PHASE 1 · FIRST LIVE DEPLOYMENT -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Phase 1 · 2025</span>
+      <h2>Our first live deployment</h2>
+      <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+        <div>
+          <h4 style="color: var(--navy);">What we ran</h4>
+          <p>A <strong>Level 3 system</strong>. US/China equities, value approach. Conviction scoring, DCF modeling, sector-routed frameworks.</p>
+          <p>PM approval through Q3. Transitioned to <strong>L4 monitoring</strong> after.</p>
+        </div>
+        <div>
+          <h4 style="color: var(--navy);">Why it mattered</h4>
+          <p>The <em>L3 → L4 transition</em> isn't theory from our paper — it's what we lived through in real time.</p>
+          <p style="font-style: italic; color: var(--magenta); font-size: 1.1em;">The first proof point that the framework describes something real.</p>
+        </div>
+      </div>
+      <aside class="notes">
+        [SECTION 3 — OUR JOURNEY, ~8 min total — Phase 1 is 2 min]
+
+        OPEN (sets up the whole section): "Two years. Three phases. One architecture. Let me walk you through it."
+
+        Then say: "Phase one — twenty-twenty-five. We ran our first live deployment.
+
+        A Level 3 system — in the language of our paper. Conviction scoring. DCF modeling. Sector-routed frameworks. US/China equities, value approach. Human portfolio manager approved every recommendation through the third quarter.
+
+        Then something important happened. In Q3, we transitioned — from L3 to L4. The PM stopped approving each recommendation and started monitoring the system instead.
+
+        That transition — from approval to monitoring — is the exact step the Autonomous Investing paper describes in theory. We lived it in real time. It's the first proof point that the framework describes something real."
+
+        Transition: "The result over the full year..."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 6 — PHASE 1 RESULTS (BIG NUMBERS) -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill pill-magenta">Phase 1 results · 2025 full year</span>
+      <h3 style="margin-bottom: 48px;">Apex value strategy performance</h3>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;">
+        <div>
+          <div class="stat stat-magenta" style="font-size: 2.8em;">+33<span style="font-size: 0.55em;">%</span></div>
+          <div class="stat-label">2025 gross return</div>
+        </div>
+        <div>
+          <div class="stat" style="color: var(--navy); font-size: 2.8em;">2.28</div>
+          <div class="stat-label">Sharpe ratio</div>
+        </div>
+        <div>
+          <div class="stat" style="color: var(--navy); font-size: 2.8em;">−5<span style="font-size: 0.55em;">%</span></div>
+          <div class="stat-label">Max drawdown</div>
+        </div>
+        <div>
+          <div class="stat" style="color: var(--navy); font-size: 2.8em;">+12.6<span style="font-size: 0.55em;">pp</span></div>
+          <div class="stat-label">vs S&P 500 TR</div>
+        </div>
+        <div>
+          <div class="stat" style="color: var(--gray-700); font-size: 2.2em;">$490K<span style="font-size: 0.55em;"> → </span>$650K</div>
+          <div class="stat-label">Capital grown</div>
+        </div>
+      </div>
+      <p style="margin-top: 48px; font-size: 1.2em; color: var(--navy-deep);">
+        <strong>Live capital. Audited brokerage account. No leverage.</strong> A small team, in Almaty, using AI as augmentation — not a black box.
+      </p>
+      <div class="slide-footer">
+        <span>US/China equities · value approach · Jan–Dec 2025</span>
+        <span>Phase 1 · Proof point</span>
+      </div>
+      <aside class="notes">
+        [SECTION 3, Phase 1 results — the money slide. Slow down here.]
+
+        Say: "The result over twenty-twenty-five — full year:
+
+        Plus thirty-three percent gross return. S&P five hundred — total return — plus twenty point four percent.
+
+        We outperformed the S&P by twelve point six percentage points. Sharpe ratio two point two eight. Maximum drawdown — minus five percent.
+
+        [PAUSE — let the numbers land — count to 4]
+
+        Live capital. Audited brokerage account. No leverage. Capital grew from four hundred ninety thousand to six hundred fifty thousand over the year.
+
+        This is our proof point that the foundation works. A small team, in Almaty, using AI as augmentation — beating large institutional benchmarks consistently."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 7 — PHASE 2 · L0-L5 PAPER -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Phase 2 · September 2025</span>
+      <h2 style="margin-top: 12px;">Intellectual reset<br>with Andrew Ang</h2>
+      <p style="margin-top: 20px; font-size: 1.15em;">
+        Our team — Nazym, Andrey, Zhassulan — and Andrew Ang published the L0–L5 framework you just saw.
+      </p>
+      <blockquote style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.15em; color: var(--navy-deep); line-height: 1.35; border-left: 4px solid var(--magenta); padding-left: 24px; margin: 24px 0;">
+        "The most binding constraint in institutional asset management is not data availability or model sophistication, but the <em>finite bandwidth of human decision-makers</em>."
+        <div style="font-size: 0.6em; color: var(--gray-500); margin-top: 10px; font-weight: 400;">
+          — Ang et al., 2025
+        </div>
+      </blockquote>
+      <p style="margin-top: 16px; font-size: 1em;">
+        <strong>That reframed everything.</strong> We needed to redesign our system so humans could supervise <em>more, more efficiently, with stronger governance</em>. Not less human involvement. Better human involvement.
+      </p>
+      <aside class="notes">
+        [SECTION 3, Phase 2, 2 min]
+
+        Say: "In September of last year, our team at Altbridge — Nazym, Andrey, Zhassulan — and Andrew Ang published the L0 to L5 framework you just saw.
+
+        This was not a marketing exercise. It was an intellectual reset.
+
+        We needed common language. We needed clearly defined operational design domains. We needed a way to articulate — to LPs, to regulators, to ourselves — exactly what our system did and did not do.
+
+        The key insight from the paper: 'The most binding constraint in institutional asset management is not data availability or model sophistication, but the finite bandwidth of human decision-makers.'
+
+        What that meant for us practically — was that we needed to redesign our system so that humans could supervise more, more efficiently, with stronger governance. Not less human involvement. Better human involvement."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 8 — PHASE 3 · SELF-DRIVING PORTFOLIO -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Phase 3 · April 2026</span>
+      <h2>The Self-Driving Portfolio</h2>
+      <p style="margin-top: 32px; font-size: 1.2em;">
+        Architecture for institutional asset management built on <strong>~50 specialized AI agents</strong>. Each has a defined role. They debate. They critique each other. They vote. A meta-agent rewrites their own code.
+      </p>
+      <p style="font-size: 1.2em;">
+        All governed by the <strong>Investment Policy Statement</strong> — the same document that constrains a human PM.
+      </p>
+      <p style="margin-top: 24px;"><em>In our framework, this is a Level 3–4 system.</em></p>
+      <div style="margin-top: 40px; font-family: 'JetBrains Mono', monospace; font-size: 0.7em; color: var(--gray-500); letter-spacing: 0.03em;">
+        ANG, AZIMBAYEV, KIM · ARXIV 2604.02279 · APRIL 2026
+      </div>
+      <aside class="notes">
+        [SECTION 3, Phase 3, 1.5 min]
+
+        Say: "Last month, our team and Andrew Ang published a second paper — The Self-Driving Portfolio.
+
+        It describes an architecture for institutional asset management built on roughly fifty specialized AI agents. Each agent has a defined role. They produce capital market assumptions. They build candidate portfolios using twenty-plus methods in parallel. They critique each other. They vote. A meta-agent reads past performance and rewrites their own code.
+
+        All of it — governed by the Investment Policy Statement. The same document that constrains a human portfolio manager — now constrains the agents.
+
+        In our framework, this is a Level three to four system."
+
+        Next slide = backtest numbers.
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 9 — BACKTEST NUMBERS -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill pill-magenta">Phase 3 validation · Backtest 1996–2026</span>
+      <h3 style="margin-bottom: 48px;">30-year academic validation</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+        <div style="padding: 40px; background: var(--off-white); border-radius: 12px; text-align: center;">
+          <div class="stat-label" style="margin-bottom: 16px;">Sharpe Ratio</div>
+          <div style="font-size: 3em; font-weight: 800; color: var(--navy-deep); line-height: 1;">0.39</div>
+          <div style="margin-top: 12px; color: var(--gray-500); font-size: 0.9em;">Self-Driving Portfolio</div>
+          <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--gray-300); font-size: 0.9em; color: var(--gray-700);">
+            vs <strong>0.41</strong> for 60/40 portfolio
+          </div>
+        </div>
+        <div style="padding: 40px; background: rgba(238, 58, 101, 0.05); border-radius: 12px; text-align: center;">
+          <div class="stat-label" style="margin-bottom: 16px;">Maximum Drawdown</div>
+          <div style="font-size: 3em; font-weight: 800; color: var(--magenta); line-height: 1;">-25.6%</div>
+          <div style="margin-top: 12px; color: var(--gray-500); font-size: 0.9em;">Self-Driving Portfolio</div>
+          <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--gray-300); font-size: 0.9em; color: var(--gray-700);">
+            vs <strong>-34.3%</strong> for 60/40 portfolio
+          </div>
+        </div>
+      </div>
+      <p style="margin-top: 48px; font-size: 1.15em;"><strong>Materially better downside.</strong> Across multiple crises — dot-com, GFC, COVID.</p>
+      <aside class="notes">
+        [SECTION 3, Phase 3 results slide. Slow delivery.]
+
+        Say: "The paper includes a backtest from nineteen-ninety-six to twenty-twenty-six. Thirty years.
+
+        Sharpe ratio of zero point three nine — versus a sixty-forty portfolio's zero point four one. Almost identical risk-adjusted return.
+
+        But here is the critical difference.
+
+        Maximum drawdown of minus twenty-five point six percent — versus the sixty-forty's minus thirty-four point three percent.
+
+        [PAUSE — let it land]
+
+        Materially better downside. Across multiple crises — including the dot-com crash, the global financial crisis, COVID."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 10 — V6 ARCHITECTURE DIAGRAM -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Apex Research Pipeline · v6</span>
+      <h2>The architecture</h2>
+      <img src="v6-diagram.png" alt="Apex Research Pipeline v6 — architecture diagram" style="width: 100%; max-height: 82vh; object-fit: contain; margin-top: 12px; border-radius: 6px;">
+      <aside class="notes">
+        [SECTION 4 — V6 ARCHITECTURE CENTERPIECE, 8 min — DO NOT RUSH]
+
+        ⚠️ BEFORE PRESENTING: export the v6 diagram as 3x PNG and replace the placeholder above.
+
+        BRIDGE INTO THIS SLIDE (while it loads, camera on you):
+        "Two phases proven. Phase one — live results from our value strategy. Phase three — a thirty-year academic backtest.
+
+        What you are about to see — is the bridge. The architecture we are rolling into production. Built on every lesson from phase one. Aligned with the principles of the Self-Driving Portfolio paper.
+
+        We call it Apex v6."
+
+        When diagram appears, pause 5 seconds. Let the audience absorb.
+
+        Say: "This is the Apex Research Pipeline, version six.
+
+        You are looking at the entire decision-making system. Every component. Every gate. Every feedback loop.
+
+        I will walk you through it in three parts. The same three principles from our published framework."
+
+        Next slide breaks this down into 3 component types.
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 11 — THREE COMPONENT TYPES -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Architecture · Part 1 of 3</span>
+      <h3>Three component types. Just three.</h3>
+      <div class="component-grid">
+        <div class="component-card blue">
+          <div class="badge b">A</div>
+          <h3>Agents</h3>
+          <p><em>LLMs. Flexible.</em> Read 10-K filings. Interpret transcripts. Build business profiles.</p>
+          <p><strong>Good at understanding.</strong></p>
+        </div>
+        <div class="component-card">
+          <div class="badge">D</div>
+          <h3>Engines</h3>
+          <p><em>Pure code. Deterministic.</em> No language model. No shortcut. Same input → same output.</p>
+          <p><strong>Good at calculation.</strong></p>
+        </div>
+        <div class="component-card magenta">
+          <div class="badge m">◇</div>
+          <h3>Gates</h3>
+          <p><em>Schema validators between stages.</em> If an artifact does not pass, the next stage cannot start.</p>
+          <p><strong>Good at enforcement.</strong></p>
+        </div>
+      </div>
+      <p style="margin-top: 40px; font-size: 1.1em;">
+        <em>Every component does what it is structurally good at — and nothing more.</em> The operational design domain is <strong>defined in code, not policy</strong>.
+      </p>
+      <aside class="notes">
+        [SECTION 4 Part 1, ~2 min]
+
+        Say: "Three kinds of components. Just three.
+
+        Agents — marked with the letter A. Language models. They read 10-K filings. Build business profiles. Agents are good at understanding.
+
+        Engines — marked with D, for deterministic. Pure code. No language model. No shortcut. No improvisation. Same input always produces the same output. Engines are good at calculation.
+
+        Gates — diamond shapes between stages. Schema validators. If the artifact does not pass — the next stage cannot start. Period. Not 'should not.' Cannot.
+
+        This separation is the most important design decision in the system.
+
+        In the language of our framework — this is how we define the operational design domain in code. The domain is not policy. The domain is gate logic."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 12 — FIVE-STAGE PIPELINE -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Architecture · Part 2 of 3</span>
+      <h3 style="margin-bottom: 40px;">Five stages. Validated artifacts between each.</h3>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; font-size: 0.7em;">
+        <div style="background: rgba(25, 75, 185, 0.08); padding: 20px 16px; border-top: 4px solid var(--blue); text-align: center;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--blue); margin-bottom: 8px;">STAGE 1 · A</div>
+          <strong>Data Fetch</strong><br>
+          <span class="dim">10-K · 10-Q · transcripts · XBRL · betas</span>
+        </div>
+        <div style="background: rgba(25, 75, 185, 0.08); padding: 20px 16px; border-top: 4px solid var(--blue); text-align: center;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--blue); margin-bottom: 8px;">STAGE 2 · A</div>
+          <strong>Extraction</strong><br>
+          <span class="dim">22 universal rows · 12 common · derived</span>
+        </div>
+        <div style="background: rgba(25, 75, 185, 0.08); padding: 20px 16px; border-top: 4px solid var(--blue); text-align: center;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--blue); margin-bottom: 8px;">STAGE 3 · A</div>
+          <strong>Business Understanding</strong><br>
+          <span class="dim">Drivers · citations · target rows</span>
+        </div>
+        <div style="background: rgba(15, 44, 108, 0.08); padding: 20px 16px; border-top: 4px solid var(--navy); text-align: center;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--navy); margin-bottom: 8px;">STAGE 4 · D</div>
+          <strong>Modeling</strong><br>
+          <span class="dim">GICS router · Bank/Energy/Tech engines</span>
+        </div>
+        <div style="background: rgba(238, 58, 101, 0.05); padding: 20px 16px; border-top: 4px solid var(--magenta); text-align: center;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--magenta); margin-bottom: 8px;">STAGE 5 · A</div>
+          <strong>Render</strong><br>
+          <span class="dim">Excel · PDF · dashboard</span>
+        </div>
+      </div>
+      <div style="margin-top: 40px; padding: 24px; background: var(--off-white); border-radius: 8px;">
+        <strong>Key:</strong> The model is stored as <strong>JSON</strong>, not Excel. Excel is a render. Every row has a formula, dependencies, and source pointer. <em>Every cell is auditable. Every value reproducible.</em>
+      </div>
+      <aside class="notes">
+        [SECTION 4 Part 2, ~3 min]
+
+        Walk through 5 stages. Emphasize Stage 4 — "This is where most AI research falls apart. We do this with deterministic code. Not an agent."
+
+        Say: "Stage four — Modeling. This is where most AI research falls apart. We do this with deterministic code. Not an agent.
+
+        The Engine routes by GICS sector. Picks the right framework.
+        - Bank — equity-only, regulatory capital adjustments, justified P/B terminal.
+        - Energy — volume times price, exit multiple.
+        - Tech and standard — FCFF, sector beta from Damodaran.
+
+        And here is the key. The model is stored as JSON. Not as Excel. Excel is a render. The source of truth is a JSON tree where every row has a formula expression, dependencies, and source.
+
+        Every cell is auditable. Every dependency traceable. Every value reproducible."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 13 — REI FEEDBACK LOOP -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">Architecture · Part 3 of 3</span>
+      <h2 style="font-size: 1.8em; margin-bottom: 8px;">REI Feedback Loop</h2>
+
+      <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; margin-top: 20px; align-items: center;">
+
+        <!-- LEFT: VIDEO (REI loop — Kling 3.0 source, ffmpeg ping-pong for seamless playback) -->
+        <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; background: #0a0e18; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+          <video autoplay loop muted playsinline preload="auto" poster="rei-loop-reference.png" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <source src="rei-loop-pp.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <!-- RIGHT: COMPRESSED TEXT -->
+        <div>
+          <p style="font-size: 0.95em; line-height: 1.45; margin-bottom: 18px;">
+            Every agent and gate writes to <span class="mono"><strong>rei_log.jsonl</strong></span>.
+            <strong>R</strong>eflection. <strong>E</strong>rrors. <strong>I</strong>nsights.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="padding: 12px 16px; background: var(--off-white); border-radius: 8px; font-size: 0.9em; line-height: 1.4;">
+              <span class="pill pill-ghost" style="margin-right: 10px;">1</span>
+              Weekly pattern analysis scans the log.
+            </div>
+            <div style="padding: 12px 16px; background: var(--off-white); border-radius: 8px; font-size: 0.9em; line-height: 1.4;">
+              <span class="pill pill-ghost" style="margin-right: 10px;">2</span>
+              Same error <strong>3+ times</strong> → ticket created.
+            </div>
+            <div style="padding: 12px 16px; background: rgba(238, 58, 101, 0.06); border-radius: 8px; border: 2px solid var(--magenta); font-size: 0.9em; line-height: 1.4;">
+              <span class="pill pill-magenta" style="margin-right: 10px;">3</span>
+              <strong>The fix is a new gate.</strong> The mistake becomes <em>technically impossible</em>.
+            </div>
+          </div>
+
+          <p style="margin-top: 18px; font-size: 1.05em; color: var(--navy-deep); line-height: 1.4;">
+            <strong>Apex gets smarter without us.</strong>
+          </p>
+        </div>
+      </div>
+      <aside class="notes">
+        [SECTION 4 Part 3 — REI Loop. THIS is what distinguishes Apex. Slow down.]
+
+        Say: "Now — here is the part I am most proud of.
+
+        Every agent and every gate writes to one log file. We call it REI — Reflection, Errors, Insights.
+
+        Once a week — automated pattern analysis scans the log.
+
+        If the same error happens three or more times — the system creates a ticket.
+
+        But the fix is not a process change. It is not a memo. It is not training.
+
+        The fix is a new gate. A new validator. A new hook. The kind of mistake that triggered the ticket — becomes technically impossible to repeat.
+
+        [PAUSE — let it land]
+
+        Apex gets smarter without us. Every error in the system's history is now a wall the system cannot cross.
+
+        That is the architecture."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 14 — SWF CASE INTRO -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">One real case · From our September paper</span>
+      <h2>Sovereign Wealth Fund<br>Manager Oversight</h2>
+      <div style="margin-top: 40px; font-size: 1.2em; line-height: 1.7; color: var(--gray-700);">
+        <p><strong>The challenge:</strong> managing relationships with <strong>75 external managers</strong>. Quarterly reviews too slow. Insufficient early warning. Manual data compilation delayed decisions.</p>
+        <p><strong>The implementation:</strong> an <strong>L3 monitoring system</strong>. Daily ingestion of performance, holdings, risk metrics across all 75 managers. Anomaly detection. Unified dashboard.</p>
+      </div>
+      <aside class="notes">
+        [SECTION 5 — CASE STUDY, 3 min — setup]
+
+        Say: "Let me share one example from our September paper. The third case study.
+
+        A sovereign wealth fund. Managing relationships with seventy-five external investment managers. Traditional quarterly review processes. Insufficient early warning. Manual data compilation slowing strategic decisions.
+
+        The fund implemented an L3 monitoring system. Daily ingestion of performance data, holdings, risk metrics — across all seventy-five managers. Real-time view of the entire portfolio. Anomaly detection. Standardized risk metrics across different strategies."
+
+        Pause before flipping to next slide (the punchline).
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 15 — SWF CASE PUNCHLINE (BIG NUMBER) -->
+    <!-- ============================================ -->
+    <section class="big-number-slide">
+      <span class="pill pill-magenta">The result</span>
+      <div class="stat stat-magenta" style="font-size: 5em;">47</div>
+      <div class="stat-label" style="font-size: 1.1em; margin-top: 8px;">DAYS BEFORE OFFICIAL DISCLOSURE</div>
+      <p style="margin-top: 24px; font-size: 1.15em; max-width: 900px; text-align: center; line-height: 1.4;">
+        The system flagged a <strong>litigation threat</strong> affecting one external manager —
+        <em>forty-seven days</em> before the official disclosure.
+      </p>
+      <p style="margin-top: 16px; font-size: 0.95em; color: var(--gray-500); max-width: 800px; text-align: center;">
+        Exposure reduced. Losses avoided. Other investors learned through traditional channels.
+      </p>
+      <p style="margin-top: 24px; font-size: 1.1em; color: var(--navy-deep); max-width: 900px; text-align: center;">
+        <strong>This is L3 in action.</strong> Not the AI replacing the investment committee —
+        the AI giving the committee <em>47 days of additional reaction time</em>.
+      </p>
+      <aside class="notes">
+        [SECTION 5 — PUNCHLINE. Pause 4 seconds before saying the number.]
+
+        Say: "Here is what happened.
+
+        [PAUSE]
+
+        The system flagged a litigation threat affecting one external manager — forty-seven days before the official disclosure.
+
+        [PAUSE — let it land]
+
+        Forty-seven days.
+
+        The sovereign fund reduced exposure. Avoided losses that affected every other investor who learned through traditional disclosure channels.
+
+        This is L3 in action. Not the AI replacing the investment committee. The AI giving the investment committee forty-seven days of additional reaction time.
+
+        That is what augmentation looks like at this level. Not faster decisions. Better-informed decisions, sooner."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 16 — IMPLICATION 1 -->
+    <!-- ============================================ -->
+    <section>
+      <div class="pill pill-ghost" style="margin-bottom: 12px;">Implication 1</div>
+      <h2 style="font-size: 2em;">Audit-grade AI<br>becomes the baseline.</h2>
+      <p style="margin-top: 22px; font-size: 1.1em; max-width: 1000px; line-height: 1.4;">
+        Within five years, no serious institutional allocator will accept <em>"the model decided"</em> as an answer.
+      </p>
+      <p style="margin-top: 14px; font-size: 1em; max-width: 1000px; line-height: 1.4;">
+        They will demand the same standards we apply to human analysts — documented methodology, reproducible decisions, explainable failures.
+      </p>
+      <p style="margin-top: 20px; font-size: 1.05em; color: var(--magenta); max-width: 1000px; line-height: 1.4;">
+        <strong>The funds that built for transparency now will be ahead.</strong><br>
+        The funds that bolted AI onto opaque processes will face an expensive retrofit.
+      </p>
+      <aside class="notes">
+        [SECTION 6 — INDUSTRY IMPLICATIONS, 3 min total — Implication 1]
+
+        OPEN (sets up whole section): "Three things matter for the next five years. Let me name them."
+
+        Then say verbatim: "First — audit-grade AI will become the baseline expectation. Not a differentiator.
+
+        Within five years, no serious institutional allocator will accept 'the model decided' as an answer. They will demand the same standards we apply to human analysts. Documented methodology. Reproducible decisions. Explainable failures.
+
+        The funds that built for transparency now will be ahead. The funds that bolted AI onto opaque processes will face an expensive retrofit."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 17 — IMPLICATION 2 -->
+    <!-- ============================================ -->
+    <section>
+      <div class="pill pill-ghost" style="margin-bottom: 12px;">Implication 2</div>
+      <h2 style="font-size: 2em;">Regulators in this region<br>can lead.</h2>
+      <p style="margin-top: 22px; font-size: 1.08em; max-width: 1000px; line-height: 1.4;">
+        Most global AI-in-investing frameworks — from the SEC, from European authorities — are <em>reactive</em>. Written <strong>after</strong> market events.
+      </p>
+      <p style="margin-top: 14px; font-size: 1.08em; max-width: 1000px; line-height: 1.4;">
+        Kazakhstan — through AIFC and the National Bank — has the chance to be <strong>proactive</strong>. To define what auditable AI in asset management looks like <em>before</em> there is a crisis.
+      </p>
+      <p style="margin-top: 20px; font-size: 1.05em; color: var(--magenta); max-width: 1000px; line-height: 1.4;">
+        <strong>Not a competitive advantage from looser rules — from clearer ones.</strong>
+      </p>
+      <aside class="notes">
+        [SECTION 6, Implication 2]
+
+        Say verbatim: "Second — regulators in this region have a strategic opportunity.
+
+        Most global AI-in-investing frameworks are reactive — written after market events. Kazakhstan, through AIFC and the National Bank, has the chance to be proactive. To define what auditable AI in asset management looks like before there is a crisis. To set a regional standard.
+
+        This would be a real competitive advantage for our financial center. Not from looser rules — from clearer ones.
+
+        We would welcome that conversation."
+
+        [GESTURE — gentle nod to regulator section if present in the room]
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 18 — IMPLICATION 3 -->
+    <!-- ============================================ -->
+    <section>
+      <div class="pill pill-ghost" style="margin-bottom: 12px;">Implication 3</div>
+      <h2 style="font-size: 2em;">Central Asia builds<br>its own infrastructure.</h2>
+      <p style="margin-top: 22px; font-size: 1.08em; max-width: 1000px; line-height: 1.4;">
+        For decades, the most sophisticated research infrastructure lived in <em>three places</em>: New York. London. Hong Kong.
+      </p>
+      <p style="margin-top: 14px; font-size: 1.08em; max-width: 1000px; line-height: 1.4;">
+        AI changes this. The same systematic research that took a hundred people in 2015 — now runs with ten.
+      </p>
+      <p style="margin-top: 20px; font-size: 1.08em; color: var(--magenta); max-width: 1000px; line-height: 1.4;">
+        <strong>We are not building software for Wall Street.</strong><br>
+        We are building institutional asset management infrastructure <em>for our region</em>.
+      </p>
+      <aside class="notes">
+        [SECTION 6, Implication 3 — the strongest one]
+
+        Say verbatim: "Third — and most importantly — Central Asia can build its own institutional asset management infrastructure.
+
+        For decades, the most sophisticated research infrastructure has lived in three places. New York. London. Hong Kong. If you wanted institutional-grade research — you bought it from Wall Street. You paid in basis points. You accepted the dependency.
+
+        AI changes this. The same systematic research that took a hundred people in twenty-fifteen — now runs with ten.
+
+        For Central Asia — this is a strategic moment. Kazakhstan has the regulatory openness. Kazakhstan has the capital. What Kazakhstan needs — is the technology layer.
+
+        We are not building software for Wall Street. We are building institutional asset management infrastructure — for our region."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 19 — THREE SENTENCES CLOSE -->
+    <!-- ============================================ -->
+    <section>
+      <span class="pill">In closing</span>
+      <h3 style="margin-bottom: 24px;">Three sentences.</h3>
+      <div style="margin-top: 20px;">
+        <div style="padding: 16px 0; border-bottom: 1px solid var(--gray-300);">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--magenta); font-size: 0.85em; margin-bottom: 6px; font-weight: 700;">ONE</div>
+          <p style="font-size: 1.1em; color: var(--navy-deep); margin: 0; line-height: 1.4;">AI in investing today is mostly L1. There is a credible path to L3 — <em>and our team has been walking it for two years</em>.</p>
+        </div>
+        <div style="padding: 16px 0; border-bottom: 1px solid var(--gray-300);">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--magenta); font-size: 0.85em; margin-bottom: 6px; font-weight: 700;">TWO</div>
+          <p style="font-size: 1.1em; color: var(--navy-deep); margin: 0; line-height: 1.4;">The journey produced three things — a <strong>live track record</strong>, a <strong>framework co-published with BlackRock's most senior alumnus</strong>, and an <strong>architecture rolling into production</strong>.</p>
+        </div>
+        <div style="padding: 16px 0;">
+          <div style="font-family: 'JetBrains Mono', monospace; color: var(--magenta); font-size: 0.85em; margin-bottom: 6px; font-weight: 700;">THREE</div>
+          <p style="font-size: 1.1em; color: var(--navy-deep); margin: 0; line-height: 1.4;">The next step is regional. Built from Almaty. <strong>With this room.</strong></p>
+        </div>
+      </div>
+      <aside class="notes">
+        [SECTION 7 — CLOSE, 2 min — this is the summary]
+
+        Say with emphasis on each sentence, pause between: "Three sentences to summarize.
+
+        One. AI in investing today is mostly L1. Most of what gets called 'AI' is marketing or opacity. There is a credible path to L3 — and our team has been walking it for two years.
+
+        Two. The journey produced three things — a live track record, a framework co-published with one of BlackRock's most senior alumni, and an architecture rolling into production. That triple — track record, framework, architecture — is unusual. We think it matters.
+
+        Three. The next step is regional. Built from Almaty. With this room. And we want to build it together."
+      </aside>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 20 — FINAL / THANK YOU -->
+    <!-- ============================================ -->
+    <section>
+      <div style="text-align: center; padding: 60px 0;">
+        <h1 style="font-size: 3em; margin-bottom: 24px;">
+          From Level 2 — through Level 3 — toward Level 4.
+        </h1>
+        <p style="font-size: 1.4em; color: var(--gray-700); margin-top: 16px; max-width: 1200px; margin-left: auto; margin-right: auto;">
+          Built from Almaty. With Andrew Ang. For institutional capital that demands more than <em>"trust the box."</em>
+        </p>
+        <div style="margin-top: 80px; font-size: 2em; color: var(--navy-deep); font-weight: 300;">
+          Thank you.
+        </div>
+        <div style="margin-top: 60px; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; color: var(--gray-500); letter-spacing: 0.05em;">
+          ASSYL · <a href="mailto:assyl@altbridge.ai" style="color: var(--magenta); text-decoration: none;">assyl@altbridge.ai</a> · ALTBRIDGE
+        </div>
+      </div>
+      <aside class="notes">
+        [SECTION 7 — Final close]
+
+        Say with strong emphasis, looking up at the audience: "From Level two — through Level three — toward Level four. Built from Almaty. With Andrew Ang. For institutional capital that demands more than 'trust the box.'
+
+        Thank you."
+
+        [GESTURE — small bow / acknowledge applause]
+
+        After applause settles — smile — say: "I would love to take your questions."
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<!-- reveal.js -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/notes/notes.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    center: false,
+    transition: 'slide',
+    transitionSpeed: 'fast',
+    width: 1920,
+    height: 1080,
+    margin: 0.04,
+    minScale: 0.2,
+    maxScale: 2.0,
+    plugins: [RevealNotes]
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m http.server 8000)",
+      "Bash(/Users/assylakhmet/miniconda3/bin/python conference-deck/qa/with_server_snap.py)",
+      "Bash(/Users/assylakhmet/miniconda3/bin/python conference-deck/mockups/snap_mockup.py slide01_v5.html)",
+      "Bash(/Users/assylakhmet/miniconda3/bin/python conference-deck/mockups/snap_mockup.py slide08_v5.html)",
+      "Bash(/Users/assylakhmet/miniconda3/bin/python conference-deck/mockups/snap_mockup.py slide10_v5.html)"
+    ]
+  }
+}
