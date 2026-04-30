@@ -1,27 +1,27 @@
 import { AbsoluteFill, interpolate, Easing, useCurrentFrame } from "remotion";
-import { colors, fonts, sizes } from "../theme";
+import { colors, fonts, sizes, glassPanel } from "../theme";
 
 // Tool calls cascade — appear sequentially
 const TOOL_CALLS = [
-  { name: "sec_edgar.fetch_xbrl(AMZN, FY2022)", appearAt: 30 },
-  { name: "sec_edgar.fetch_xbrl(AMZN, FY2023)", appearAt: 50 },
-  { name: "sec_edgar.fetch_xbrl(AMZN, FY2024)", appearAt: 70 },
-  { name: "sec_edgar.fetch_xbrl(AMZN, FY2025)", appearAt: 90 },
-  { name: "fmp.statements(AMZN, 10y)", appearAt: 120 },
-  { name: "fmp.transcripts(AMZN, 40q)", appearAt: 150 },
-  { name: "damodaran.sector_beta()", appearAt: 180 },
+  { name: "sec_edgar.fetch_xbrl(AMZN, FY2022)", appearAt: 25 },
+  { name: "sec_edgar.fetch_xbrl(AMZN, FY2023)", appearAt: 42 },
+  { name: "sec_edgar.fetch_xbrl(AMZN, FY2024)", appearAt: 59 },
+  { name: "sec_edgar.fetch_xbrl(AMZN, FY2025)", appearAt: 76 },
+  { name: "fmp.statements(AMZN, 10y)", appearAt: 100 },
+  { name: "fmp.transcripts(AMZN, 40q)", appearAt: 125 },
+  { name: "damodaran.sector_beta()", appearAt: 150 },
 ];
 
 // File tree entries — appear with cascade
 const TREE_ENTRIES = [
-  { path: ".db/", appearAt: 50 },
-  { path: "├── data/financial/", appearAt: 70 },
-  { path: "│   ├── fmp/AMZN/", appearAt: 110 },
-  { path: "│   │   ├── statements (10y)", appearAt: 130 },
-  { path: "│   │   └── transcripts (40q)", appearAt: 160 },
-  { path: "│   ├── xbrl/AMZN-10k-FY2025/", appearAt: 95 },
-  { path: "│   └── damodaran/", appearAt: 185 },
-  { path: "│       └── sector_beta · 1.10", appearAt: 200 },
+  { path: ".db/", appearAt: 45 },
+  { path: "├── data/financial/", appearAt: 60 },
+  { path: "│   ├── fmp/AMZN/", appearAt: 95 },
+  { path: "│   │   ├── statements (10y)", appearAt: 110 },
+  { path: "│   │   └── transcripts (40q)", appearAt: 135 },
+  { path: "│   ├── xbrl/AMZN-10k-FY2025/", appearAt: 80 },
+  { path: "│   └── damodaran/", appearAt: 155 },
+  { path: "│       └── sector_beta · 1.10", appearAt: 170 },
 ];
 
 const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
@@ -29,15 +29,25 @@ const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
 export const Scene1Data: React.FC = () => {
   const frame = useCurrentFrame();
 
-  // Title fade-in
-  const titleOpacity = interpolate(frame, [0, 20], [0, 1], {
+  const titleOpacity = interpolate(frame, [0, 18], [0, 1], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Status bar slide-in at end
-  const statusOpacity = interpolate(frame, [240, 270], [0, 1], {
+  const titleY = interpolate(frame, [0, 25], [12, 0], {
+    easing: easeOut,
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // Status bar — slides in earlier now (frame 200, was 240)
+  const statusOpacity = interpolate(frame, [200, 230], [0, 1], {
+    easing: easeOut,
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const statusY = interpolate(frame, [200, 230], [10, 0], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -55,7 +65,8 @@ export const Scene1Data: React.FC = () => {
       <div
         style={{
           opacity: titleOpacity,
-          marginBottom: 60,
+          transform: `translateY(${titleY}px)`,
+          marginBottom: 50,
         }}
       >
         <div
@@ -82,23 +93,30 @@ export const Scene1Data: React.FC = () => {
         </div>
       </div>
 
-      {/* Two columns: tool calls (left) + file tree (right) */}
+      {/* Two columns: tool calls (left, glass panel) + file tree (right, glass panel) */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1.1fr 1fr",
-          gap: 80,
+          gridTemplateColumns: "1fr 1fr",
+          gap: 48,
           flex: 1,
         }}
       >
-        {/* Tool calls column */}
-        <div>
+        {/* Tool calls panel */}
+        <div
+          style={{
+            ...glassPanel,
+            padding: "32px 40px",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <div
             style={{
               fontFamily: fonts.mono,
               fontSize: sizes.textXs,
-              color: colors.textMuted,
-              letterSpacing: "0.18em",
+              color: colors.accentCyan,
+              letterSpacing: "0.22em",
               textTransform: "uppercase",
               marginBottom: 24,
             }}
@@ -133,7 +151,7 @@ export const Scene1Data: React.FC = () => {
                     color: colors.textSecondary,
                     display: "flex",
                     alignItems: "center",
-                    gap: 16,
+                    gap: 14,
                   }}
                 >
                   <span style={{ color: colors.codeFunction }}>{call.name}</span>
@@ -152,14 +170,21 @@ export const Scene1Data: React.FC = () => {
           </div>
         </div>
 
-        {/* File tree column */}
-        <div>
+        {/* File tree panel */}
+        <div
+          style={{
+            ...glassPanel,
+            padding: "32px 40px",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <div
             style={{
               fontFamily: fonts.mono,
               fontSize: sizes.textXs,
-              color: colors.textMuted,
-              letterSpacing: "0.18em",
+              color: colors.accentCyan,
+              letterSpacing: "0.22em",
               textTransform: "uppercase",
               marginBottom: 24,
             }}
@@ -168,10 +193,6 @@ export const Scene1Data: React.FC = () => {
           </div>
           <div
             style={{
-              backgroundColor: colors.bgPanel,
-              border: `1px solid ${colors.borderSubtle}`,
-              borderRadius: 12,
-              padding: 32,
               fontFamily: fonts.mono,
               fontSize: sizes.textBase,
               color: colors.textSecondary,
@@ -194,18 +215,25 @@ export const Scene1Data: React.FC = () => {
         </div>
       </div>
 
-      {/* Status bar */}
+      {/* Status bar — glass with success tint */}
       <div
         style={{
           opacity: statusOpacity,
+          transform: `translateY(${statusY}px)`,
           fontFamily: fonts.mono,
           fontSize: sizes.textBase,
           color: colors.success,
-          marginTop: 40,
+          marginTop: 32,
           padding: "20px 32px",
-          backgroundColor: `${colors.success}15`,
-          border: `1px solid ${colors.success}30`,
-          borderRadius: 10,
+          background: `${colors.success}12`,
+          backdropFilter: "blur(20px) saturate(180%)",
+          WebkitBackdropFilter: "blur(20px) saturate(180%)",
+          border: `1px solid ${colors.success}40`,
+          borderRadius: 12,
+          boxShadow: `
+            inset 0 1.5px 0 rgba(255, 255, 255, 0.15),
+            0 8px 30px -10px rgba(34, 197, 94, 0.25)
+          `,
           letterSpacing: "0.04em",
         }}
       >

@@ -1,45 +1,69 @@
 // Apex Demo · Design Tokens
-// Hybrid aesthetic: dark IDE-style + cyan/blue accents (bridge to v5 deck brand)
+// V2: Liquid Glass aesthetic — bridges to v5 deck brand
+// Deep navy gradient backdrop + glass panels with backdrop-filter blur
 
 export const colors = {
-  // Backgrounds
-  bg: "#0b0e14",           // deep dark — primary background
-  bgPanel: "#0f1218",      // slightly lighter panel
-  bgSubtle: "#151821",     // hover/highlight state
-  bgGlass: "rgba(255, 255, 255, 0.03)",
+  // Backgrounds — deep navy, not pitch black
+  bgGradientFrom: "#0a0f1f",     // top — deep navy
+  bgGradientVia: "#0c1428",      // mid
+  bgGradientTo: "#0e1830",       // bottom — slightly warmer
+
+  // Glass panel base (translucent over backdrop)
+  glassBg: "rgba(255, 255, 255, 0.04)",
+  glassBgSubtle: "rgba(255, 255, 255, 0.025)",
+  glassBgStrong: "rgba(255, 255, 255, 0.06)",
+
+  // Inset edge highlights for liquid-glass feel
+  edgeLightTop: "rgba(255, 255, 255, 0.18)",
+  edgeLightBottom: "rgba(0, 0, 0, 0.20)",
 
   // Borders
-  borderSubtle: "rgba(255, 255, 255, 0.06)",
-  borderDefault: "rgba(255, 255, 255, 0.10)",
-  borderStrong: "rgba(255, 255, 255, 0.18)",
+  borderSubtle: "rgba(255, 255, 255, 0.08)",
+  borderDefault: "rgba(255, 255, 255, 0.14)",
+  borderStrong: "rgba(255, 255, 255, 0.22)",
 
   // Text
-  textPrimary: "#e6edf3",
-  textSecondary: "#9da7b3",
-  textMuted: "#6e7681",
-  textFaint: "#484f58",
+  textPrimary: "#eaf0f7",
+  textSecondary: "#a7b3c2",
+  textMuted: "#6e7e92",
+  textFaint: "#4a5868",
 
   // Brand accents (from v5 deck)
   accentCyan: "#06b6d4",
   accentBlue: "#3b82f6",
   accentPurple: "#a855f7",
+  accentMagenta: "#ec4899",   // for final scene
 
   // Semantic
-  success: "#22c55e",      // validator pass
-  warning: "#f59e0b",      // attention
-  danger: "#ef4444",       // validator fail / non-recurring flag
+  success: "#22c55e",
+  warning: "#f59e0b",
+  danger: "#ef4444",
 
   // Code-style colors
-  codeKey: "#79c0ff",      // JSON keys
-  codeString: "#a5d6ff",   // JSON strings
-  codeNumber: "#79c0ff",   // numbers
-  codeFunction: "#d2a8ff", // function names
-  codeComment: "#6e7681",  // comments
+  codeKey: "#79c0ff",
+  codeString: "#a5d6ff",
+  codeNumber: "#79c0ff",
+  codeFunction: "#d2a8ff",
+  codeComment: "#6e7681",
 } as const;
 
 export const fonts = {
   sans: '"Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
   mono: '"Geist Mono", "JetBrains Mono", "Fira Code", "Menlo", monospace',
+} as const;
+
+// Reusable glass panel CSS — applied to all content panels
+export const glassPanel = {
+  background: colors.glassBg,
+  backdropFilter: "blur(20px) saturate(180%)",
+  WebkitBackdropFilter: "blur(20px) saturate(180%)",
+  border: `1px solid ${colors.borderDefault}`,
+  borderRadius: 16,
+  boxShadow: `
+    inset 0 1.5px 0 ${colors.edgeLightTop},
+    inset 0 -1px 0 ${colors.edgeLightBottom},
+    0 12px 40px -10px rgba(0, 0, 0, 0.45)
+  `,
 } as const;
 
 export const sizes = {
@@ -48,13 +72,13 @@ export const sizes = {
   height: 1080,
   fps: 30,
 
-  // Scene durations (in frames @ 30fps)
-  scene1Frames: 360,   // 12s — data collection
-  scene2Frames: 300,   // 10s — business understanding
-  scene3Frames: 840,   // 28s — model + 154x catch
-  scene4Frames: 300,   // 10s — conviction
+  // Scene durations — V2 trimmed for tighter pacing
+  scene1Frames: 300,   // 10s — data collection (was 12s)
+  scene2Frames: 240,   // 8s  — business understanding (was 10s)
+  scene3Frames: 780,   // 26s — model + 154x catch (was 28s)
+  scene4Frames: 240,   // 8s  — conviction (was 10s)
 
-  // Total: 1800 frames = 60s
+  // Total: 1560 frames = 52s
 
   // Typography (px in 1920x1080)
   textXs: 18,
@@ -67,4 +91,4 @@ export const sizes = {
 } as const;
 
 export const totalFrames = sizes.scene1Frames + sizes.scene2Frames + sizes.scene3Frames + sizes.scene4Frames;
-// 1800 = 60 seconds at 30fps
+// 1560 frames = 52 seconds at 30fps

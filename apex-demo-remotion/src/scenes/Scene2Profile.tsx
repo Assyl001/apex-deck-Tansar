@@ -1,21 +1,20 @@
 import { AbsoluteFill, interpolate, Easing, useCurrentFrame } from "remotion";
-import { colors, fonts, sizes } from "../theme";
+import { colors, fonts, sizes, glassPanel } from "../theme";
 
-// Markdown lines that auto-type sequentially
-const MD_LINES: { text: string; appearAt: number; style?: "h2" | "p" | "list" | "arrow" }[] = [
-  { text: "# Amazon · Business Profile", appearAt: 10, style: "h2" },
-  { text: "", appearAt: 30 },
-  { text: "## Segments", appearAt: 35, style: "h2" },
-  { text: "Retail · AWS · Ads", appearAt: 60, style: "p" },
-  { text: "", appearAt: 80 },
-  { text: "## Revenue Model", appearAt: 90, style: "h2" },
-  { text: "volume × price × geography", appearAt: 115, style: "p" },
-  { text: "", appearAt: 130 },
-  { text: "## Moat", appearAt: 140, style: "h2" },
-  { text: "AWS scale + Prime ecosystem", appearAt: 165, style: "p" },
-  { text: "", appearAt: 180 },
-  { text: "→ DCF variant: roic-dcf", appearAt: 200, style: "arrow" },
-  { text: "  (capex >25% of revenue)", appearAt: 220, style: "p" },
+const MD_LINES: { text: string; appearAt: number; style?: "h1" | "h2" | "p" | "arrow" }[] = [
+  { text: "# Amazon · Business Profile", appearAt: 8, style: "h1" },
+  { text: "", appearAt: 25 },
+  { text: "## Segments", appearAt: 30, style: "h2" },
+  { text: "Retail · AWS · Ads", appearAt: 50, style: "p" },
+  { text: "", appearAt: 70 },
+  { text: "## Revenue Model", appearAt: 78, style: "h2" },
+  { text: "volume × price × geography", appearAt: 100, style: "p" },
+  { text: "", appearAt: 120 },
+  { text: "## Moat", appearAt: 128, style: "h2" },
+  { text: "AWS scale + Prime ecosystem", appearAt: 150, style: "p" },
+  { text: "", appearAt: 170 },
+  { text: "→ DCF variant: roic-dcf", appearAt: 185, style: "arrow" },
+  { text: "  (capex >25% of revenue)", appearAt: 200, style: "p" },
 ];
 
 const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
@@ -23,7 +22,12 @@ const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
 export const Scene2Profile: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const titleOpacity = interpolate(frame, [0, 20], [0, 1], {
+  const titleOpacity = interpolate(frame, [0, 18], [0, 1], {
+    easing: easeOut,
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const titleY = interpolate(frame, [0, 25], [12, 0], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -38,7 +42,13 @@ export const Scene2Profile: React.FC = () => {
       }}
     >
       {/* Phase header */}
-      <div style={{ opacity: titleOpacity, marginBottom: 50 }}>
+      <div
+        style={{
+          opacity: titleOpacity,
+          transform: `translateY(${titleY}px)`,
+          marginBottom: 40,
+        }}
+      >
         <div
           style={{
             fontFamily: fonts.mono,
@@ -62,14 +72,12 @@ export const Scene2Profile: React.FC = () => {
         </div>
       </div>
 
-      {/* Markdown editor view */}
+      {/* Markdown editor — glass panel */}
       <div
         style={{
+          ...glassPanel,
           flex: 1,
-          backgroundColor: colors.bgPanel,
-          border: `1px solid ${colors.borderSubtle}`,
-          borderRadius: 16,
-          padding: "48px 56px",
+          padding: "44px 56px",
           fontFamily: fonts.mono,
           display: "flex",
           flexDirection: "column",
@@ -88,9 +96,8 @@ export const Scene2Profile: React.FC = () => {
             extrapolateRight: "clamp",
           });
 
-          // If empty string, render spacer
           if (line.text === "") {
-            return <div key={i} style={{ height: 16 }} />;
+            return <div key={i} style={{ height: 12 }} />;
           }
 
           let style: React.CSSProperties = {
@@ -99,13 +106,20 @@ export const Scene2Profile: React.FC = () => {
             fontSize: sizes.textBase,
           };
 
-          if (line.style === "h2") {
+          if (line.style === "h1") {
+            style = {
+              ...style,
+              color: colors.accentBlue,
+              fontSize: sizes.textXl,
+              fontWeight: 600,
+            };
+          } else if (line.style === "h2") {
             style = {
               ...style,
               color: colors.accentCyan,
               fontSize: sizes.textLg,
               fontWeight: 600,
-              marginTop: 8,
+              marginTop: 4,
             };
           } else if (line.style === "arrow") {
             style = {
@@ -113,7 +127,7 @@ export const Scene2Profile: React.FC = () => {
               color: colors.accentPurple,
               fontSize: sizes.textLg,
               fontWeight: 600,
-              marginTop: 16,
+              marginTop: 12,
             };
           } else {
             style = {

@@ -1,17 +1,16 @@
 import { AbsoluteFill, interpolate, Easing, useCurrentFrame } from "remotion";
-import { colors, fonts, sizes } from "../theme";
+import { colors, fonts, sizes, glassPanel } from "../theme";
 
-// Conviction JSON keys + values, revealed sequentially
 const PILLARS: { key: string; value: string; type: "number" | "string"; appearAt: number }[] = [
-  { key: "valuation_gap", value: "0.74", type: "number", appearAt: 25 },
-  { key: "earnings_quality", value: "0.82", type: "number", appearAt: 40 },
-  { key: "smart_money", value: "0.61", type: "number", appearAt: 55 },
-  { key: "risk_balance", value: "0.55", type: "number", appearAt: 70 },
-  { key: "cycle_position", value: "0.43", type: "number", appearAt: 85 },
-  { key: "market_positioning", value: '"neutral"', type: "string", appearAt: 100 },
-  { key: "catalyst_clarity", value: "3", type: "number", appearAt: 115 },
-  { key: "normalized_basis", value: '"$70.4B"', type: "string", appearAt: 135 },
-  { key: "headline_basis", value: '"$77.7B"', type: "string", appearAt: 150 },
+  { key: "valuation_gap", value: "0.74", type: "number", appearAt: 18 },
+  { key: "earnings_quality", value: "0.82", type: "number", appearAt: 30 },
+  { key: "smart_money", value: "0.61", type: "number", appearAt: 42 },
+  { key: "risk_balance", value: "0.55", type: "number", appearAt: 54 },
+  { key: "cycle_position", value: "0.43", type: "number", appearAt: 66 },
+  { key: "market_positioning", value: '"neutral"', type: "string", appearAt: 78 },
+  { key: "catalyst_clarity", value: "3", type: "number", appearAt: 90 },
+  { key: "normalized_basis", value: '"$70.4B"', type: "string", appearAt: 105 },
+  { key: "headline_basis", value: '"$77.7B"', type: "string", appearAt: 117 },
 ];
 
 const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
@@ -19,26 +18,31 @@ const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
 export const Scene4Conviction: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const titleOpacity = interpolate(frame, [0, 20], [0, 1], {
+  const titleOpacity = interpolate(frame, [0, 18], [0, 1], {
+    easing: easeOut,
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const titleY = interpolate(frame, [0, 25], [12, 0], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Final score banner appears at frame 200
-  const scoreOpacity = interpolate(frame, [200, 240], [0, 1], {
+  // Score banner at frame 150
+  const scoreOpacity = interpolate(frame, [150, 190], [0, 1], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const scoreScale = interpolate(frame, [200, 240], [0.92, 1], {
+  const scoreScale = interpolate(frame, [150, 190], [0.92, 1], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Caveat appears at frame 240
-  const caveatOpacity = interpolate(frame, [250, 290], [0, 1], {
+  // Caveat at frame 195
+  const caveatOpacity = interpolate(frame, [195, 230], [0, 1], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -53,12 +57,18 @@ export const Scene4Conviction: React.FC = () => {
       }}
     >
       {/* Phase header */}
-      <div style={{ opacity: titleOpacity, marginBottom: 40 }}>
+      <div
+        style={{
+          opacity: titleOpacity,
+          transform: `translateY(${titleY}px)`,
+          marginBottom: 32,
+        }}
+      >
         <div
           style={{
             fontFamily: fonts.mono,
             fontSize: sizes.textSm,
-            color: colors.accentCyan,
+            color: colors.accentMagenta,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
             marginBottom: 12,
@@ -77,21 +87,19 @@ export const Scene4Conviction: React.FC = () => {
         </div>
       </div>
 
-      {/* Two columns: JSON (left) + score banner (right) */}
+      {/* Two columns */}
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "1.4fr 1fr",
-          gap: 60,
+          gap: 56,
           flex: 1,
         }}
       >
-        {/* JSON output */}
+        {/* JSON output — glass panel */}
         <div
           style={{
-            backgroundColor: colors.bgPanel,
-            border: `1px solid ${colors.borderSubtle}`,
-            borderRadius: 16,
+            ...glassPanel,
             padding: "36px 44px",
             fontFamily: fonts.mono,
             fontSize: sizes.textBase,
@@ -133,25 +141,30 @@ export const Scene4Conviction: React.FC = () => {
           <div style={{ color: colors.codeKey }}>{"}"}</div>
         </div>
 
-        {/* Score banner */}
+        {/* Score banner — glass with full gradient */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            gap: 32,
+            gap: 28,
           }}
         >
-          {/* Big score */}
           <div
             style={{
               opacity: scoreOpacity,
               transform: `scale(${scoreScale})`,
-              padding: "48px 56px",
-              background: `linear-gradient(135deg, ${colors.accentCyan}20, ${colors.accentBlue}15, ${colors.accentPurple}15)`,
-              border: `2px solid ${colors.accentCyan}50`,
+              padding: "44px 52px",
+              background: `linear-gradient(135deg, ${colors.accentCyan}1f, ${colors.accentBlue}18, ${colors.accentPurple}18, ${colors.accentMagenta}1a)`,
+              backdropFilter: "blur(20px) saturate(180%)",
+              WebkitBackdropFilter: "blur(20px) saturate(180%)",
+              border: `1px solid ${colors.accentPurple}55`,
               borderRadius: 24,
+              boxShadow: `
+                inset 0 1.5px 0 rgba(255, 255, 255, 0.20),
+                0 16px 50px -12px rgba(168, 85, 247, 0.4)
+              `,
               textAlign: "center",
               minWidth: 360,
             }}
@@ -174,7 +187,7 @@ export const Scene4Conviction: React.FC = () => {
                 fontSize: 140,
                 fontWeight: 700,
                 lineHeight: 1,
-                background: `linear-gradient(135deg, ${colors.accentCyan}, ${colors.accentBlue}, ${colors.accentPurple})`,
+                background: `linear-gradient(135deg, ${colors.accentCyan}, ${colors.accentBlue}, ${colors.accentPurple}, ${colors.accentMagenta})`,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -198,7 +211,7 @@ export const Scene4Conviction: React.FC = () => {
               style={{
                 display: "inline-block",
                 padding: "10px 28px",
-                backgroundColor: `${colors.warning}25`,
+                background: `${colors.warning}25`,
                 border: `1px solid ${colors.warning}60`,
                 borderRadius: 999,
                 fontFamily: fonts.mono,
@@ -212,7 +225,6 @@ export const Scene4Conviction: React.FC = () => {
             </div>
           </div>
 
-          {/* Caveat */}
           <div
             style={{
               opacity: caveatOpacity,

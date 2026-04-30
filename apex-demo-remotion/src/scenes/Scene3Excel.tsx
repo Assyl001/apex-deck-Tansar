@@ -1,7 +1,6 @@
 import { AbsoluteFill, interpolate, Easing, useCurrentFrame } from "remotion";
-import { colors, fonts, sizes } from "../theme";
+import { colors, fonts, sizes, glassPanel } from "../theme";
 
-// Excel sheet tabs
 const SHEET_TABS = [
   "Summary",
   "Assumptions",
@@ -19,13 +18,8 @@ const SHEET_TABS = [
   "Peers",
 ];
 
-// Net income row (the safe one)
 const NET_INCOME_ROW = ["$30.4B", "$33.4B", "$59.2B", "$77.7B"];
-
-// Equity securities row (THE CATCH)
 const EQUITY_ROW = ["$0.08B", "$0.04B", "$0.05B", "$7.71B"];
-
-// Years
 const YEARS = ["FY2022", "FY2023", "FY2024", "FY2025"];
 
 const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
@@ -33,79 +27,100 @@ const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
 export const Scene3Excel: React.FC = () => {
   const frame = useCurrentFrame();
 
-  // Phase 3 has 28s = 840 frames
-  // Sub-scene 3a: 0-240 — Excel opens, sheets visible (8s)
-  // Sub-scene 3b: 240-480 — focus on rows, the catch (8s)
-  // Sub-scene 3c: 480-720 — tool call + normalized result (8s)
-  // Sub-scene 3d: 720-840 — comparison panel (4s)
+  // Total: 780 frames @ 30fps = 26s
+  // Beat plan:
+  //   0-30   : header in
+  //   30-180 : Excel + sheet tab cycle, land on Historical
+  //   180-330: rows reveal (net income, then equity securities)
+  //   330-410: $7.71B flash + non-recurring badge
+  //   410-560: tool call panel slides in
+  //   560-700: normalized result + delta
+  //   700-780: hold
 
-  // Title fade-in
-  const titleOpacity = interpolate(frame, [0, 20], [0, 1], {
+  const titleOpacity = interpolate(frame, [0, 18], [0, 1], {
+    easing: easeOut,
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const titleY = interpolate(frame, [0, 25], [12, 0], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Excel grid fade in
-  const gridOpacity = interpolate(frame, [40, 80], [0, 1], {
+  const gridOpacity = interpolate(frame, [30, 70], [0, 1], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Active tab cycle (sweep through sheets) — frames 80-200
+  // Sheet tab sweep — frames 70-160
   const activeSheetIdx = Math.min(
-    Math.floor(interpolate(frame, [80, 200], [0, SHEET_TABS.length - 1], { extrapolateRight: "clamp", extrapolateLeft: "clamp" })),
+    Math.floor(
+      interpolate(frame, [70, 160], [0, SHEET_TABS.length - 1], {
+        extrapolateRight: "clamp",
+        extrapolateLeft: "clamp",
+      })
+    ),
     SHEET_TABS.length - 1
   );
-  // Land on Historical (idx=2) at frame 220+
-  const finalActiveIdx = frame > 220 ? 2 : activeSheetIdx;
+  const finalActiveIdx = frame > 180 ? 2 : activeSheetIdx;
 
-  // Net income row reveal at frame 240
-  const niRowOpacity = interpolate(frame, [240, 280], [0, 1], {
+  // Net income row (frame 180)
+  const niRowOpacity = interpolate(frame, [180, 220], [0, 1], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Equity securities row reveal at frame 320
-  const eqRowOpacity = interpolate(frame, [320, 360], [0, 1], {
+  // Equity securities row (frame 260)
+  const eqRowOpacity = interpolate(frame, [260, 300], [0, 1], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // $7.71B flash highlight (cyan) at frame 400-420
-  const flashScale = interpolate(frame, [400, 410, 430], [1, 1.15, 1], {
+  // $7.71B flash highlight at frame 340
+  const flashScale = interpolate(frame, [340, 350, 380], [1, 1.15, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const flashColor = interpolate(frame, [395, 410], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  // Red badge "Non-recurring" appears at frame 440
-  const badgeOpacity = interpolate(frame, [440, 480], [0, 1], {
-    easing: easeOut,
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-  const badgeScale = interpolate(frame, [440, 480], [0.85, 1], {
-    easing: easeOut,
+  const flashColorMix = interpolate(frame, [335, 350], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Tool call appears at frame 540
-  const toolCallOpacity = interpolate(frame, [540, 580], [0, 1], {
+  // Non-recurring badge at frame 380
+  const badgeOpacity = interpolate(frame, [380, 420], [0, 1], {
+    easing: easeOut,
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const badgeScale = interpolate(frame, [380, 420], [0.85, 1], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Normalized result at frame 700
-  const normalizedOpacity = interpolate(frame, [700, 740], [0, 1], {
+  // Tool call panel at frame 460
+  const toolCallOpacity = interpolate(frame, [460, 510], [0, 1], {
+    easing: easeOut,
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const toolCallY = interpolate(frame, [460, 510], [16, 0], {
+    easing: easeOut,
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // Normalized result at frame 600
+  const normalizedOpacity = interpolate(frame, [600, 650], [0, 1], {
+    easing: easeOut,
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const normalizedScale = interpolate(frame, [600, 650], [0.96, 1], {
     easing: easeOut,
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -120,7 +135,13 @@ export const Scene3Excel: React.FC = () => {
       }}
     >
       {/* Phase header */}
-      <div style={{ opacity: titleOpacity, marginBottom: 30 }}>
+      <div
+        style={{
+          opacity: titleOpacity,
+          transform: `translateY(${titleY}px)`,
+          marginBottom: 28,
+        }}
+      >
         <div
           style={{
             fontFamily: fonts.mono,
@@ -134,27 +155,26 @@ export const Scene3Excel: React.FC = () => {
         </div>
       </div>
 
-      {/* Excel-like sheet container */}
+      {/* Excel-like sheet container — glass panel */}
       <div
         style={{
+          ...glassPanel,
           opacity: gridOpacity,
           flex: 1,
-          backgroundColor: colors.bgPanel,
-          border: `1px solid ${colors.borderDefault}`,
-          borderRadius: 12,
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
         }}
       >
-        {/* Toolbar row with sheet name */}
+        {/* Toolbar row */}
         <div
           style={{
-            padding: "16px 24px",
+            padding: "16px 28px",
             borderBottom: `1px solid ${colors.borderSubtle}`,
             fontFamily: fonts.mono,
             fontSize: sizes.textSm,
             color: colors.textMuted,
+            background: "rgba(255, 255, 255, 0.02)",
           }}
         >
           AMZN-dcf-model.xlsx · {SHEET_TABS[finalActiveIdx]}
@@ -165,7 +185,7 @@ export const Scene3Excel: React.FC = () => {
           style={{
             display: "flex",
             gap: 0,
-            backgroundColor: colors.bgSubtle,
+            background: "rgba(0, 0, 0, 0.20)",
             borderBottom: `1px solid ${colors.borderSubtle}`,
             overflow: "hidden",
           }}
@@ -178,9 +198,8 @@ export const Scene3Excel: React.FC = () => {
                 fontFamily: fonts.mono,
                 fontSize: sizes.textXs,
                 color: i === finalActiveIdx ? colors.accentCyan : colors.textMuted,
-                backgroundColor: i === finalActiveIdx ? colors.bgPanel : "transparent",
+                background: i === finalActiveIdx ? "rgba(255, 255, 255, 0.04)" : "transparent",
                 borderBottom: i === finalActiveIdx ? `2px solid ${colors.accentCyan}` : "2px solid transparent",
-                transition: "all 0.2s",
               }}
             >
               {tab}
@@ -188,9 +207,8 @@ export const Scene3Excel: React.FC = () => {
           ))}
         </div>
 
-        {/* Sheet content area */}
-        <div style={{ flex: 1, padding: 40, position: "relative" }}>
-          {/* Historical sheet content — 4-column row layout */}
+        {/* Sheet content */}
+        <div style={{ flex: 1, padding: 36, position: "relative" }}>
           <div
             style={{
               display: "grid",
@@ -201,14 +219,21 @@ export const Scene3Excel: React.FC = () => {
             }}
           >
             {/* Header row */}
-            <div style={{ padding: "16px 20px", color: colors.textMuted, borderBottom: `1px solid ${colors.borderSubtle}`, fontSize: sizes.textSm }}>
+            <div
+              style={{
+                padding: "14px 20px",
+                color: colors.textMuted,
+                borderBottom: `1px solid ${colors.borderSubtle}`,
+                fontSize: sizes.textSm,
+              }}
+            >
               Metric
             </div>
             {YEARS.map((y) => (
               <div
                 key={y}
                 style={{
-                  padding: "16px 20px",
+                  padding: "14px 20px",
                   textAlign: "right",
                   color: colors.textMuted,
                   borderBottom: `1px solid ${colors.borderSubtle}`,
@@ -245,7 +270,7 @@ export const Scene3Excel: React.FC = () => {
               </div>
             ))}
 
-            {/* Equity securities row — THE CATCH */}
+            {/* Equity securities row */}
             <div
               style={{
                 padding: "20px",
@@ -257,7 +282,12 @@ export const Scene3Excel: React.FC = () => {
               Equity securities upward adj.
             </div>
             {EQUITY_ROW.map((val, i) => {
-              const isFlashCell = i === 3; // FY2025 column
+              const isFlashCell = i === 3;
+              const cellColor = isFlashCell
+                ? flashColorMix > 0.5
+                  ? colors.accentCyan
+                  : colors.textSecondary
+                : colors.textSecondary;
               return (
                 <div
                   key={i}
@@ -265,16 +295,11 @@ export const Scene3Excel: React.FC = () => {
                     padding: "20px",
                     opacity: eqRowOpacity,
                     textAlign: "right",
-                    color: isFlashCell
-                      ? interpolate(flashColor, [0, 1], [0xa5d6ff, 0x06b6d4]) >= 0
-                        ? flashColor > 0.5
-                          ? colors.accentCyan
-                          : colors.textSecondary
-                        : colors.textSecondary
-                      : colors.textSecondary,
+                    color: cellColor,
                     fontWeight: isFlashCell ? 700 : 400,
                     transform: isFlashCell ? `scale(${flashScale})` : "scale(1)",
                     transformOrigin: "right center",
+                    transition: "color 0.15s",
                   }}
                 >
                   {val}
@@ -289,12 +314,18 @@ export const Scene3Excel: React.FC = () => {
               opacity: badgeOpacity,
               transform: `scale(${badgeScale})`,
               position: "absolute",
-              top: 280,
-              right: 80,
-              padding: "16px 28px",
-              backgroundColor: `${colors.danger}25`,
+              top: 230,
+              right: 60,
+              padding: "14px 26px",
+              background: `${colors.danger}25`,
+              backdropFilter: "blur(20px) saturate(180%)",
+              WebkitBackdropFilter: "blur(20px) saturate(180%)",
               border: `1px solid ${colors.danger}80`,
               borderRadius: 999,
+              boxShadow: `
+                inset 0 1.5px 0 rgba(255, 255, 255, 0.18),
+                0 8px 30px -10px rgba(239, 68, 68, 0.5)
+              `,
               fontFamily: fonts.mono,
               fontSize: sizes.textBase,
               color: colors.danger,
@@ -305,22 +336,29 @@ export const Scene3Excel: React.FC = () => {
             ⚠ Non-recurring · 154× jump
           </div>
 
-          {/* Tool call panel */}
+          {/* Tool call panel — glass */}
           <div
             style={{
               opacity: toolCallOpacity,
-              marginTop: 80,
-              padding: "28px 32px",
-              backgroundColor: colors.bgSubtle,
-              border: `1px solid ${colors.borderSubtle}`,
-              borderRadius: 12,
+              transform: `translateY(${toolCallY}px)`,
+              marginTop: 60,
+              padding: "26px 32px",
+              background: colors.glassBgStrong,
+              backdropFilter: "blur(20px) saturate(180%)",
+              WebkitBackdropFilter: "blur(20px) saturate(180%)",
+              border: `1px solid ${colors.borderDefault}`,
+              borderRadius: 14,
+              boxShadow: `
+                inset 0 1.5px 0 ${colors.edgeLightTop},
+                0 8px 30px -10px rgba(0, 0, 0, 0.4)
+              `,
               fontFamily: fonts.mono,
             }}
           >
             <div
               style={{
                 fontSize: sizes.textXs,
-                color: colors.textMuted,
+                color: colors.accentCyan,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
                 marginBottom: 16,
@@ -348,15 +386,23 @@ export const Scene3Excel: React.FC = () => {
             </div>
           </div>
 
-          {/* Normalized result */}
+          {/* Normalized result — glass with cyan tint */}
           <div
             style={{
               opacity: normalizedOpacity,
-              marginTop: 32,
-              padding: "24px 32px",
-              backgroundColor: `${colors.accentCyan}10`,
-              border: `1px solid ${colors.accentCyan}40`,
-              borderRadius: 12,
+              transform: `scale(${normalizedScale})`,
+              transformOrigin: "center",
+              marginTop: 28,
+              padding: "26px 36px",
+              background: `linear-gradient(135deg, ${colors.accentCyan}1a, ${colors.accentBlue}10)`,
+              backdropFilter: "blur(20px) saturate(180%)",
+              WebkitBackdropFilter: "blur(20px) saturate(180%)",
+              border: `1px solid ${colors.accentCyan}50`,
+              borderRadius: 14,
+              boxShadow: `
+                inset 0 1.5px 0 rgba(255, 255, 255, 0.20),
+                0 12px 40px -10px rgba(6, 182, 212, 0.35)
+              `,
               fontFamily: fonts.mono,
               display: "flex",
               alignItems: "center",

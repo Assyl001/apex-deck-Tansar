@@ -9,11 +9,27 @@ export const ApexDemo: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: colors.bg,
+        background: `linear-gradient(180deg, ${colors.bgGradientFrom} 0%, ${colors.bgGradientVia} 50%, ${colors.bgGradientTo} 100%)`,
         fontFamily: fonts.sans,
         color: colors.textPrimary,
       }}
     >
+      {/* Ambient glow — top-left cyan */}
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(ellipse at 15% 10%, ${colors.accentCyan}1a, transparent 50%)`,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Ambient glow — bottom-right purple */}
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(ellipse at 85% 90%, ${colors.accentPurple}1a, transparent 50%)`,
+          pointerEvents: "none",
+        }}
+      />
+
       {/* Subtle grid overlay — IDE feel */}
       <AbsoluteFill
         style={{
@@ -21,16 +37,8 @@ export const ApexDemo: React.FC = () => {
             linear-gradient(${colors.borderSubtle} 1px, transparent 1px),
             linear-gradient(90deg, ${colors.borderSubtle} 1px, transparent 1px)
           `,
-          backgroundSize: "60px 60px",
-          opacity: 0.4,
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Subtle ambient glow */}
-      <AbsoluteFill
-        style={{
-          background: `radial-gradient(ellipse at top right, ${colors.accentCyan}10, transparent 60%)`,
+          backgroundSize: "80px 80px",
+          opacity: 0.25,
           pointerEvents: "none",
         }}
       />
