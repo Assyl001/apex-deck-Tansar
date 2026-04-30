@@ -231,62 +231,87 @@ preserved across both renderings to keep delivery rhythm aligned.
 
 ## Slide 05 — Failure Mode 3 · No normalization
 
-*[~45-55 seconds. B1 + CPO frame. The silent killer.]*
+*[~50-55 seconds. B1 + CPO frame. The silent killer — Amazon FY2025 example.]*
 
 > **EN:** Failure mode three. **No normalization.**
 >
 > **RU:** Failure mode номер три. **Без нормализации.**
 
-> **EN:** This one is the most expensive. And almost nobody talks about it.
+> **EN:** This one is the most expensive.
 >
-> **RU:** Эта — самая дорогая. И почти никто про неё не говорит.
+> **RU:** Эта — самая дорогая.
 
-> **EN:** Here is what every analyst learns in their first week — but the LLM does not. When a company reports earnings, the headline number is **not a baseline**. It includes **one-time items**. Asset sales. Legal settlements. Restructuring charges.
+> **EN:** Look at Amazon, FY2025. Net income, headline: **$77.7 billion**.
 >
-> **RU:** Вот что каждый аналитик учит в первую же неделю — а LLM нет. Когда компания публикует earnings, заголовочное число — это **не baseline**. В него входят **one-time items**. Продажа активов. Судебные урегулирования. Restructuring charges.
+> **RU:** Посмотрите на Amazon, FY2025. Чистая прибыль, заголовок: **$77.7 миллиарда**.
 
-> **EN:** When you build a forward projection — a DCF that estimates future cash flows — you have to **normalize**. You take out one-time items. You project from a clean baseline.
+> **EN:** Now look in the 10-K footnotes. One line catches your eye. A revaluation of private equity holdings — **$7.7 billion**.
 >
-> **RU:** Когда вы строите forward projection — DCF, который оценивает будущие денежные потоки — нужно **нормализовать**. Убрать one-time items. Проецировать с чистого baseline.
+> **RU:** Теперь посмотрите в footnotes 10-K. Одна строка обращает на себя внимание. Переоценка private equity — **$7.7 миллиарда**.
 
-> **EN:** The LLM does not do this. It reads $62 billion in net income, and it projects $62 billion forward. But in this $62 billion, there is **$4 billion** from a one-time asset sale. **$2 billion** in legal settlements. **Negative $3 billion** in restructuring.
+> **EN:** For the three years before, this same line was tiny. About fifty million dollars per year. Then in 2025, it jumped **a hundred and fifty-four times**.
 >
-> **RU:** LLM этого не делает. Она читает $62 миллиарда чистой прибыли — и проецирует $62 миллиарда вперёд. Но в этих $62 миллиардах есть **$4 миллиарда** от разовой продажи активов. **$2 миллиарда** судебных урегулирований. **Минус $3 миллиарда** от реструктуризации.
+> **RU:** Три года до этого та же строка была крошечной. Около пятидесяти миллионов долларов в год. А в 2025 — она выросла в **сто пятьдесят четыре раза**.
 
-> **EN:** The real recurring number is closer to **$59 billion**.
+> **EN:** That is not recurring. That happens once.
 >
-> **RU:** Реальное recurring число — ближе к **$59 миллиардам**.
+> **RU:** Это не повторяющееся событие. Это случается один раз.
 
-> **EN:** So the LLM's "fair value" is built on a number that **by definition will not happen again**. Headline net income is a **result**. Not a **baseline**.
+> **EN:** There are three more items like this in the footnotes. Together — about nine billion of one-time gains and losses. After tax — about **seven billion**.
 >
-> **RU:** То есть "fair value" от LLM построена на числе, которое **по определению больше не повторится**. Headline net income — это **результат**. Не **baseline**.
+> **RU:** В footnotes есть ещё три подобных пункта. Всего — около девяти миллиардов разовых доходов и расходов. После налога — около **семи миллиардов**.
 
-> **EN:** This is failure mode three. And it is the silent one — because the output looks completely normal.
+> **EN:** The real, recurring number is closer to **$70 billion**.
 >
-> **RU:** Это failure mode три. И она самая тихая — потому что output выглядит абсолютно нормальным.
+> **RU:** Реальное, recurring число — ближе к **$70 миллиардам**.
+
+> **EN:** The headline overstates by about **ten percent**. Every projection compounds that error.
+>
+> **RU:** Заголовок завышен примерно на **десять процентов**. Каждый прогноз умножает эту ошибку.
+
+> **EN:** The LLM does not read the footnotes. And even if it did — it does not know to flag these as one-time.
+>
+> **RU:** LLM не читает footnotes. А даже если читала бы — она не знает, что эти статьи нужно пометить как разовые.
+
+> **EN:** This is failure mode three. **The silent killer.**
+>
+> **RU:** Это failure mode три. **Тихий убийца.**
 
 *[Click → slide 06]*
 
 ### Stage directions (non-obvious only)
 - "the most expensive" — slow, slightly serious — sets weight
-- Reading dollar amounts — clear, deliberate
-- "**by definition will not happen again**" — strong emphasis
-- "the silent one" — quiet, then forward-lean → click
+- "**$77.7 billion**" — headline number, clear enunciation
+- "**$7.7 billion**" — the killer one-time item; pause briefly after
+- "**a hundred and fifty-four times**" — slow, this is the punchy stat
+- "**$70 billion**" — truth-anchor, slow back down
+- "**ten percent**" — the magnitude of the error
+- "The LLM does not read the footnotes" — quietly damning
+- "**The silent killer**" — final beat, forward-lean → click
 
 ### Vocabulary to memorize
 | English | Russian |
 |---|---|
 | **normalization** | нормализация (очистка от разовых статей) |
-| **baseline** | базовый уровень |
-| **recurring** vs **one-time** | повторяющийся / разовый |
-| **restructuring charges** | расходы на реорганизацию |
-| **legal settlements** | судебные урегулирования |
-| **forward projection** | прогноз на будущее |
-| **net income** | чистая прибыль |
+| **headline** (number) | заголовочное число (главная цифра отчёта) |
+| **footnotes** (10-K) | сноски в годовом отчёте |
+| **revaluation** | переоценка (актива) |
+| **one-time** vs **recurring** | разовый / повторяющийся |
+| **after tax** | после уплаты налога |
+| **flag** (as one-time) | пометить, выделить |
+
+### Source confirmation
+- All numbers from Amazon 10-K filings (XBRL, SEC EDGAR), fiscal years 2022-2025
+- $7.71B private equity adjustment = `EquitySecuritiesWithoutReadilyDeterminableFairValueUpwardPriceAdjustmentAnnualAmount`, FY2025
+- 154× jump verified across 4-year XBRL data: $0.04B (FY22) / $0.05B (FY24) / $0.08B (FY23) → $7.71B (FY25)
+- After-tax effect: $9.05B pre-tax × (1 − 19.7% effective rate) = $7.27B
+- Normalized: $77.7B − $7.27B = $70.4B (overstated by 9.4%)
 
 ### Key CPO framing
-- *"Here is what every analyst learns in their first week — but the LLM does not"* — positions you as product person who tested AI, comparing model to baseline professional standard, not claiming analyst expertise
-- "The silent one" — closes failure modes section, prepares framework reveal
+- *"Look at Amazon, FY2025"* — concrete public-company example, not abstract claim
+- *"154 times bigger"* — punchy stat that makes the failure mode visceral
+- *"The LLM does not read the footnotes. And even if it did..."* — sets up Apex reveal on slide 12 (validators that catch this)
+- This is **product engineering review** of LLM output, not Amazon investment thesis
 
 ---
 

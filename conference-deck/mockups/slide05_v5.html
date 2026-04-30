@@ -261,58 +261,70 @@
   <div class="header">
     <div class="kicker">Failure Mode · 3 of 3</div>
     <h1 class="title">No normalization.</h1>
-    <div class="subtitle">The LLM treats headline figures as <em>recurring</em>. Asset sales, restructuring charges, legal settlements — all roll straight into the forward projection.</div>
+    <div class="subtitle">The LLM treats headline figures as <em>recurring</em>. MTM gains, asset revaluations, impairment charges — all roll straight into the forward projection.</div>
   </div>
 
   <div class="compare">
     <div class="panel reads">
-      <div class="panel-label">What the LLM reads · Meta FY2024</div>
+      <div class="panel-label">What the LLM reads · Amazon FY2025</div>
       <div class="panel-title">Simple, clean, confident.</div>
       <div class="mono-list">
         <div class="mono-row">
           <span class="lbl">Net income</span>
-          <span class="val">$62.4B</span>
+          <span class="val">$77.7B</span>
         </div>
         <div class="mono-row">
-          <span class="lbl">Growth · 5-yr avg</span>
-          <span class="val">12%</span>
+          <span class="lbl">Revenue</span>
+          <span class="val">$716.9B</span>
+        </div>
+        <div class="mono-row">
+          <span class="lbl">4-yr CAGR</span>
+          <span class="val">11.1%</span>
         </div>
         <div class="mono-row proj">
           <span class="lbl">FY2026 projection</span>
-          <span class="val">$78.3B</span>
+          <span class="val">~$86B</span>
         </div>
       </div>
-      <div class="panel-note">Built from the income statement alone — no footnote reading.</div>
+      <div class="panel-note">Built from the income statement alone — no 10-K footnote reading.</div>
     </div>
 
     <div class="panel misses">
-      <div class="panel-label">What the LLM missed · in the footnotes</div>
-      <div class="panel-title">One-time items, hiding in plain sight.</div>
+      <div class="panel-label">What the LLM missed · in the 10-K footnotes</div>
+      <div class="panel-title">One-time gains, hiding in 'Other Income'.</div>
       <div class="mono-list">
         <div class="mono-row add">
-          <span class="lbl">+ One-time tax benefit</span>
-          <span class="val">$4.2B</span>
+          <span class="lbl">+ Equity securities upward adj.</span>
+          <span class="val">$7.71B</span>
         </div>
         <div class="mono-row add">
-          <span class="lbl">+ Legal settlement income</span>
-          <span class="val">$2.1B</span>
+          <span class="lbl">+ Public equity MTM (Rivian)</span>
+          <span class="val">$1.20B</span>
+        </div>
+        <div class="mono-row add">
+          <span class="lbl">+ Marketable securities unrealized</span>
+          <span class="val">$1.44B</span>
         </div>
         <div class="mono-row sub">
-          <span class="lbl">− Reality Labs impairment</span>
-          <span class="val">$3.8B</span>
+          <span class="lbl">− Asset impairment charges</span>
+          <span class="val">$1.30B</span>
         </div>
         <div class="mono-row sum">
-          <span class="lbl">= Net one-time items</span>
-          <span class="val">$2.5B</span>
+          <span class="lbl">= Pre-tax non-recurring</span>
+          <span class="val">$9.05B</span>
+        </div>
+        <div class="mono-row sum">
+          <span class="lbl">× After-tax impact</span>
+          <span class="val">$7.27B</span>
         </div>
       </div>
-      <div class="panel-note"><strong>Normalized net income ≈ $59.9B.</strong> Projecting off the wrong base compounds — forward FCF off by <span class="err">~8%</span> over 5 years.</div>
+      <div class="panel-note"><strong>Normalized net income ≈ $70.4B.</strong> Headline overstated by <span class="err">~9.4%</span>. Source: Amazon 10-K · SEC EDGAR.</div>
     </div>
   </div>
 
   <div class="verdict glass">
     <div class="verdict-text">
-      Headline net income is a <em>result</em>, not a <span class="em">baseline</span>. The LLM's "recurring earnings" include items that by definition <span class="em">will not recur</span>.
+      Headline: <strong>$77.7B</strong>. Recurring: <span class="em">$70.4B</span>. A <span class="em">9.4% gap</span> — hidden in 10-K footnotes the model never opened.
     </div>
     <div class="verdict-meta">
       Three failures<br>

@@ -1,0 +1,248 @@
+/* Altbridge brand base — shared across all v5 slide mockups.
+   Tokens extracted from live altbridge.ai/landing.css on 2026-04-21. */
+
+:root {
+  --bg-primary: #f0f4f8;
+  --bg-secondary: #fffefb;
+  --bg-tertiary: #f0ebe3;
+
+  --text-primary: #2c2416;
+  --text-secondary: rgba(44, 36, 22, 0.78);
+  --text-muted: rgba(44, 36, 22, 0.5);
+  --text-faint: rgba(44, 36, 22, 0.32);
+
+  --accent-cyan: #0e7490;
+  --accent-blue: #0369a1;
+  --accent-purple: #7e22ce;
+  --accent-green: #15803d;
+
+  --brand-magenta: #ee3a65;
+  --brand-navy: #0f2c6c;
+  --brand-blue: #194bb9;
+
+  --border-subtle: rgba(44, 36, 22, 0.06);
+  --border-light: rgba(44, 36, 22, 0.1);
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 26px;
+
+  --glass-blur: 25px;
+  --glass-blur-strong: 30px;
+  --glass-saturation: 180%;
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-bg-hover: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.35);
+  --edge-light-top: rgba(255, 255, 255, 0.6);
+  --edge-light-bottom: rgba(0, 0, 0, 0.05);
+  --glass-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.15);
+  --glass-shadow-sm: 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+
+  --spring-bounce: cubic-bezier(0.25, 1.2, 0.5, 1);
+  --spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: #1a1713;
+  font-family: 'Geist', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+
+.slide {
+  width: min(100vw, calc(100vh * 16 / 9));
+  aspect-ratio: 16 / 9;
+  position: relative; overflow: hidden;
+  container-type: inline-size;
+  background: linear-gradient(180deg, #e8f4f8 0%, #faf8f5 50%, #f8f0f5 100%);
+  color: var(--text-primary);
+  font-feature-settings: "ss01", "cv11";
+}
+
+/* Ambient color blobs */
+.ambient {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(80px);
+}
+.ambient.cyan {
+  width: 55cqw; height: 55cqw;
+  top: -12cqh; left: 25cqw;
+  background: radial-gradient(circle, rgba(14, 116, 144, 0.18) 0%, rgba(14, 116, 144, 0) 65%);
+}
+.ambient.purple {
+  width: 48cqw; height: 48cqw;
+  bottom: -15cqh; right: 5cqw;
+  background: radial-gradient(circle, rgba(126, 34, 206, 0.15) 0%, rgba(126, 34, 206, 0) 65%);
+}
+.ambient.blue {
+  width: 35cqw; height: 35cqw;
+  top: 35cqh; left: -10cqw;
+  background: radial-gradient(circle, rgba(3, 105, 161, 0.12) 0%, rgba(3, 105, 161, 0) 65%);
+}
+
+/* Subtle grid pattern */
+.grid-bg::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(44, 36, 22, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(44, 36, 22, 0.025) 1px, transparent 1px);
+  background-size: 6cqw 6cqw;
+  pointer-events: none; z-index: 2;
+}
+
+/* Liquid Glass — per altbridge.ai spec */
+.glass {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    inset 0 1.5px 0 var(--edge-light-top),
+    inset 0 -1px 0 var(--edge-light-bottom),
+    var(--glass-shadow);
+  overflow: hidden;
+}
+.glass.sm { border-radius: var(--radius-md); box-shadow: inset 0 1.5px 0 var(--edge-light-top), inset 0 -1px 0 var(--edge-light-bottom), var(--glass-shadow-sm); }
+.glass::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.02) 40%, rgba(255, 255, 255, 0.1) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+.glass > * { position: relative; z-index: 1; }
+
+/* Gradient text — altbridge signature */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Brand wordmark with animated breathing gradient */
+.wordmark {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  background: linear-gradient(
+    135deg,
+    #2c2416 0%,
+    #ee3a65 33%,
+    #194bb9 66%,
+    #2c2416 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: logo-breathe 8s ease-in-out infinite;
+}
+@keyframes logo-breathe {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Shared rise animation */
+@keyframes rise {
+  from { transform: translateY(28px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Brand block (logo + wordmark) */
+.brand {
+  position: absolute;
+  top: 5cqh; left: 4.5cqw;
+  display: flex; align-items: center;
+  gap: 0.9cqw;
+  z-index: 5;
+  animation: rise 900ms 160ms var(--spring-smooth) both;
+}
+.brand .logo-mark {
+  width: 4.4cqw; height: auto;
+  display: block;
+}
+.brand .wordmark {
+  font-size: 2.4cqw;
+}
+
+/* Folio chip */
+.folio-chip {
+  position: absolute;
+  top: 5cqh; right: 4.5cqw;
+  padding: 1.4cqh 1.5cqw;
+  display: flex; align-items: baseline; gap: 0.5cqw;
+  z-index: 4;
+  border-radius: var(--radius-md);
+  animation: rise 900ms 260ms var(--spring-smooth) both;
+}
+.folio-chip .folio-label {
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-right: 0.6cqw;
+}
+.folio-chip .folio-num {
+  font-size: 1.6cqw;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  font-feature-settings: "tnum";
+}
+.folio-chip .folio-sep {
+  color: var(--text-muted);
+  font-size: 1.3cqw;
+  font-weight: 400;
+  margin: 0 0.1cqw;
+}
+.folio-chip .folio-total {
+  font-size: 1.3cqw;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-feature-settings: "tnum";
+}
+
+/* Kicker — small uppercase cyan label with gradient rule */
+.kicker {
+  font-size: 1.05cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  display: flex; align-items: center; gap: 0.8cqw;
+}
+.kicker::before {
+  content: "";
+  display: inline-block;
+  width: 2.4cqw; height: 2px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+}
+
+/* Shared utilities */
+.section-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.032em;
+  color: var(--text-primary);
+}

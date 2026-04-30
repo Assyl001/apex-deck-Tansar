@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 02 · V5 · Altbridge Brand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base_v5.css">
+<style>
+.lede {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 17cqh;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqh;
+}
+.lede .kicker {
+  animation: rise 800ms 240ms var(--spring-smooth) both;
+}
+.lede .setup {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1.6cqw;
+  line-height: 1.35;
+  color: var(--text-secondary);
+  letter-spacing: -0.008em;
+  max-width: 60cqw;
+  animation: rise 900ms 360ms var(--spring-smooth) both;
+}
+.lede .setup strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Quote block — center-stage */
+.quote-block {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 32cqh;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4cqh;
+}
+.quote-mark {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 14cqw;
+  line-height: 0.7;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.85;
+  height: 6cqh;
+  animation: rise 900ms 460ms var(--spring-smooth) both;
+}
+
+.big-quote {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 5.6cqw;
+  line-height: 1.05;
+  letter-spacing: -0.034em;
+  color: var(--text-primary);
+  max-width: 86cqw;
+  animation: rise 900ms 600ms var(--spring-smooth) both;
+}
+.big-quote .em {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+.big-quote .dash {
+  color: var(--text-faint);
+  font-weight: 300;
+  margin: 0 0.05em;
+}
+
+/* Attribution — glass card bottom-right */
+.attribution {
+  position: absolute;
+  right: 4.5cqw;
+  bottom: 5cqh;
+  padding: 2.6cqh 2.2cqw;
+  z-index: 4;
+  min-width: 38cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7cqh;
+  animation: rise 900ms 880ms var(--spring-smooth) both;
+}
+.attr-label {
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.82cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4cqh;
+}
+.attr-name {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600;
+  font-size: 2.2cqw;
+  line-height: 1.05;
+  letter-spacing: -0.022em;
+  color: var(--text-primary);
+}
+.attr-role {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 1.25cqw;
+  line-height: 1.25;
+  color: var(--text-secondary);
+  letter-spacing: -0.008em;
+}
+.attr-credentials {
+  margin-top: 0.6cqh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4cqh;
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1cqw;
+  line-height: 1.35;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+}
+.attr-credentials .row {
+  display: flex;
+  align-items: center;
+  gap: 0.5cqw;
+}
+.attr-credentials .row::before {
+  content: "";
+  display: inline-block;
+  width: 0.32cqw; height: 0.32cqw;
+  min-width: 4px; min-height: 4px;
+  background: var(--accent-cyan);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.attr-credentials .row:nth-child(2)::before { background: var(--accent-blue); }
+.attr-credentials .row:nth-child(3)::before { background: var(--accent-purple); }
+.attr-credentials .row strong { color: var(--text-primary); font-weight: 600; }
+
+/* Source chip bottom-left */
+.source {
+  position: absolute;
+  left: 4.5cqw;
+  bottom: 5cqh;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.82cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  animation: fade 900ms 1080ms var(--spring-smooth) both;
+}
+.source .sep { color: var(--text-faint); }
+.source .where {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+<div class="slide grid-bg">
+  <div class="ambient cyan"></div>
+  <div class="ambient purple"></div>
+  <div class="ambient blue"></div>
+
+  <div class="brand">
+    <svg class="logo-mark" viewBox="550 264 394 372" xmlns="http://www.w3.org/2000/svg" aria-label="Altbridge">
+      <defs>
+        <linearGradient gradientTransform="matrix(325.187,0,0,300.71,585.481,295.253)" gradientUnits="userSpaceOnUse" x2="1" id="g1">
+          <stop stop-color="#ee3a65" offset="0"/>
+          <stop stop-color="#a7237b" offset="1"/>
+        </linearGradient>
+        <linearGradient gradientTransform="matrix(213.557,107.505,-122.141,242.631,657.866,467.538)" gradientUnits="userSpaceOnUse" x2="1" id="g2">
+          <stop stop-color="#000000" offset="0"/>
+          <stop stop-color="#0f2c6c" offset=".564"/>
+          <stop stop-color="#194bb9" offset="1"/>
+        </linearGradient>
+      </defs>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g1)"/>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g2)"/>
+    </svg>
+    <span class="wordmark">Altbridge</span>
+  </div>
+
+  <div class="folio-chip glass">
+    <span class="folio-label">Slide</span>
+    <span class="folio-num">02</span>
+    <span class="folio-sep">/</span>
+    <span class="folio-total">17</span>
+  </div>
+
+  <div class="lede">
+    <div class="kicker">Opening · Six Months Ago</div>
+    <div class="setup">Our Chief Strategist wrote this on <strong>LinkedIn</strong>.</div>
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-mark">“</div>
+    <div class="big-quote">How is adopting AI in investments <span class="dash">—</span> like <span class="em">driverless cars?</span>”</div>
+  </div>
+
+  <div class="attribution glass">
+    <div class="attr-label">Author</div>
+    <div class="attr-name">Andrew Ang</div>
+    <div class="attr-role">Chief Strategist, Altbridge</div>
+    <div class="attr-credentials">
+      <div class="row">Former Head of Systematic Investing, <strong>BlackRock</strong></div>
+      <div class="row">Adjunct Professor, <strong>Columbia Business School</strong></div>
+      <div class="row"><strong>34,000+</strong> academic citations</div>
+    </div>
+  </div>
+
+  <div class="source">
+    <span>Source</span>
+    <span class="sep">—</span>
+    <span class="where">LinkedIn · Oct 2025</span>
+  </div>
+</div>
+</body>
+</html>

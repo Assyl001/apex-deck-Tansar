@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 05 · V5 · Altbridge Brand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base_v5.css">
+<style>
+.header {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 16cqh;
+  z-index: 4;
+}
+.header .kicker {
+  margin-bottom: 1.4cqh;
+  color: var(--accent-purple);
+  animation: rise 800ms 240ms var(--spring-smooth) both;
+}
+.header .kicker::before {
+  background: linear-gradient(90deg, var(--accent-purple), var(--brand-magenta));
+}
+.header .title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 4.4cqw;
+  line-height: 1.0;
+  letter-spacing: -0.032em;
+  color: var(--text-primary);
+  margin-bottom: 1.4cqh;
+  animation: rise 900ms 340ms var(--spring-smooth) both;
+}
+.header .subtitle {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 1.4cqw;
+  line-height: 1.35;
+  color: var(--text-secondary);
+  letter-spacing: -0.008em;
+  max-width: 78cqw;
+  animation: rise 900ms 460ms var(--spring-smooth) both;
+}
+.header .subtitle em {
+  font-style: italic;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Two panels */
+.compare {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  top: 36cqh;
+  bottom: 18cqh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.2cqw;
+  z-index: 4;
+}
+
+.panel {
+  padding: 2.4cqh 2cqw;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqh;
+  animation: rise 900ms var(--spring-smooth) both;
+}
+.panel.reads {
+  background: rgba(255,255,255,0.35);
+  border: 1px solid var(--border-light);
+  animation-delay: 540ms;
+}
+.panel.misses {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1.5px 0 var(--edge-light-top),
+    inset 0 -1px 0 var(--edge-light-bottom),
+    0 10px 40px -10px rgba(126, 34, 206, 0.18);
+  overflow: hidden;
+  animation-delay: 660ms;
+}
+.panel.misses::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.02) 45%, rgba(126,34,206,0.06) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+}
+.panel.misses > * { position: relative; z-index: 1; }
+
+.panel-label {
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.8cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.panel.misses .panel-label { color: var(--accent-purple); }
+.panel-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600;
+  font-size: 1.6cqw;
+  line-height: 1.15;
+  letter-spacing: -0.018em;
+  color: var(--text-primary);
+}
+
+/* Mono lists */
+.mono-list {
+  background: rgba(44, 36, 22, 0.04);
+  border: 1px solid rgba(44, 36, 22, 0.06);
+  border-radius: var(--radius-md);
+  padding: 1.8cqh 1.4cqw;
+  font-family: 'Geist Mono', monospace;
+  font-size: 1.05cqw;
+  line-height: 1.85;
+  font-feature-settings: "tnum";
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqh;
+}
+.mono-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 1cqw;
+}
+.mono-row .lbl { color: var(--text-muted); }
+.mono-row .val {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-feature-settings: "tnum";
+}
+.mono-row.proj .val {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mono-row.add .val { color: var(--accent-green); }
+.mono-row.sub .val { color: var(--brand-magenta); }
+.mono-row.sum {
+  border-top: 1px solid rgba(44, 36, 22, 0.1);
+  padding-top: 0.6cqh;
+  margin-top: 0.2cqh;
+}
+.mono-row.sum .lbl { color: var(--text-secondary); font-weight: 500; }
+.mono-row.sum .val {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.panel-note {
+  font-family: 'Geist', sans-serif;
+  font-size: 1cqw;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+}
+.panel-note strong { color: var(--text-primary); font-weight: 600; }
+.panel-note .err {
+  background: linear-gradient(135deg, var(--brand-magenta), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Verdict */
+.verdict {
+  position: absolute;
+  left: 4.5cqw; right: 4.5cqw;
+  bottom: 5cqh;
+  padding: 2.4cqh 2.4cqw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3cqw;
+  z-index: 4;
+  animation: rise 900ms 880ms var(--spring-smooth) both;
+}
+.verdict-text {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 1.5cqw;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: var(--text-primary);
+}
+.verdict-text em {
+  font-style: italic;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.verdict-text .em {
+  font-style: normal;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.verdict-meta {
+  flex-shrink: 0;
+  font-family: 'Geist Mono', 'Geist', monospace;
+  font-size: 0.78cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: right;
+  line-height: 1.5;
+}
+.verdict-meta strong { color: var(--text-primary); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="slide grid-bg">
+  <div class="ambient cyan"></div>
+  <div class="ambient purple"></div>
+  <div class="ambient blue"></div>
+
+  <div class="brand">
+    <svg class="logo-mark" viewBox="550 264 394 372" xmlns="http://www.w3.org/2000/svg" aria-label="Altbridge">
+      <defs>
+        <linearGradient gradientTransform="matrix(325.187,0,0,300.71,585.481,295.253)" gradientUnits="userSpaceOnUse" x2="1" id="g1">
+          <stop stop-color="#ee3a65" offset="0"/>
+          <stop stop-color="#a7237b" offset="1"/>
+        </linearGradient>
+        <linearGradient gradientTransform="matrix(213.557,107.505,-122.141,242.631,657.866,467.538)" gradientUnits="userSpaceOnUse" x2="1" id="g2">
+          <stop stop-color="#000000" offset="0"/>
+          <stop stop-color="#0f2c6c" offset=".564"/>
+          <stop stop-color="#194bb9" offset="1"/>
+        </linearGradient>
+      </defs>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g1)"/>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g2)"/>
+    </svg>
+    <span class="wordmark">Altbridge</span>
+  </div>
+
+  <div class="folio-chip glass">
+    <span class="folio-label">Slide</span>
+    <span class="folio-num">05</span>
+    <span class="folio-sep">/</span>
+    <span class="folio-total">17</span>
+  </div>
+
+  <div class="header">
+    <div class="kicker">Failure Mode · 3 of 3</div>
+    <h1 class="title">No normalization.</h1>
+    <div class="subtitle">The LLM treats headline figures as <em>recurring</em>. Asset sales, restructuring charges, legal settlements — all roll straight into the forward projection.</div>
+  </div>
+
+  <div class="compare">
+    <div class="panel reads">
+      <div class="panel-label">What the LLM reads · Meta FY2024</div>
+      <div class="panel-title">Simple, clean, confident.</div>
+      <div class="mono-list">
+        <div class="mono-row">
+          <span class="lbl">Net income</span>
+          <span class="val">$62.4B</span>
+        </div>
+        <div class="mono-row">
+          <span class="lbl">Growth · 5-yr avg</span>
+          <span class="val">12%</span>
+        </div>
+        <div class="mono-row proj">
+          <span class="lbl">FY2026 projection</span>
+          <span class="val">$78.3B</span>
+        </div>
+      </div>
+      <div class="panel-note">Built from the income statement alone — no footnote reading.</div>
+    </div>
+
+    <div class="panel misses">
+      <div class="panel-label">What the LLM missed · in the footnotes</div>
+      <div class="panel-title">One-time items, hiding in plain sight.</div>
+      <div class="mono-list">
+        <div class="mono-row add">
+          <span class="lbl">+ One-time tax benefit</span>
+          <span class="val">$4.2B</span>
+        </div>
+        <div class="mono-row add">
+          <span class="lbl">+ Legal settlement income</span>
+          <span class="val">$2.1B</span>
+        </div>
+        <div class="mono-row sub">
+          <span class="lbl">− Reality Labs impairment</span>
+          <span class="val">$3.8B</span>
+        </div>
+        <div class="mono-row sum">
+          <span class="lbl">= Net one-time items</span>
+          <span class="val">$2.5B</span>
+        </div>
+      </div>
+      <div class="panel-note"><strong>Normalized net income ≈ $59.9B.</strong> Projecting off the wrong base compounds — forward FCF off by <span class="err">~8%</span> over 5 years.</div>
+    </div>
+  </div>
+
+  <div class="verdict glass">
+    <div class="verdict-text">
+      Headline net income is a <em>result</em>, not a <span class="em">baseline</span>. The LLM's "recurring earnings" include items that by definition <span class="em">will not recur</span>.
+    </div>
+    <div class="verdict-meta">
+      Three failures<br>
+      <strong>↓</strong><br>
+      Three gates · next.
+    </div>
+  </div>
+</div>
+</body>
+</html>

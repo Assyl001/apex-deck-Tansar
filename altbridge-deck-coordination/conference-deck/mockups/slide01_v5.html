@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 01 · V5 · Altbridge Brand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base_v5.css">
+<style>
+.hero {
+  position: absolute;
+  left: 4.5cqw;
+  right: 4.5cqw;
+  top: 26cqh;
+  z-index: 4;
+}
+.hero .kicker {
+  margin-bottom: 3.2cqh;
+  animation: rise 800ms 320ms var(--spring-smooth) both;
+}
+.hero-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 8.4cqw;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: var(--text-primary);
+  max-width: 82cqw;
+  animation: rise 900ms 420ms var(--spring-smooth) both;
+}
+.hero-title .gradient {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+.hero-sub {
+  margin-top: 3.6cqh;
+  font-size: 2.2cqw;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--text-secondary);
+  letter-spacing: -0.012em;
+  max-width: 64cqw;
+  animation: rise 900ms 580ms var(--spring-smooth) both;
+}
+.hero-sub strong { font-weight: 600; color: var(--text-primary); }
+
+.byline-card {
+  position: absolute;
+  left: 4.5cqw;
+  bottom: 5cqh;
+  padding: 2.6cqh 2.2cqw;
+  min-width: 40cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqh;
+  z-index: 4;
+  animation: rise 900ms 760ms var(--spring-smooth) both;
+}
+.byline-label {
+  font-size: 0.82cqw;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.byline-name {
+  font-size: 2cqw;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.018em;
+  line-height: 1.1;
+}
+.byline-role {
+  font-size: 1.35cqw;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: -0.008em;
+}
+
+.venue-card {
+  position: absolute;
+  right: 4.5cqw; bottom: 5cqh;
+  padding: 2.6cqh 2.2cqw;
+  min-width: 34cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqh;
+  text-align: right;
+  z-index: 4;
+  animation: rise 900ms 880ms var(--spring-smooth) both;
+}
+.venue-label {
+  font-size: 0.82cqw;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.venue-name {
+  font-size: 1.6cqw;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+  line-height: 1.18;
+}
+.venue-meta {
+  font-size: 1.15cqw;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+}
+</style>
+</head>
+<body>
+<div class="slide grid-bg">
+  <div class="ambient cyan"></div>
+  <div class="ambient purple"></div>
+  <div class="ambient blue"></div>
+
+  <div class="brand">
+    <svg class="logo-mark" viewBox="550 264 394 372" xmlns="http://www.w3.org/2000/svg" aria-label="Altbridge">
+      <defs>
+        <linearGradient gradientTransform="matrix(325.187,0,0,300.71,585.481,295.253)" gradientUnits="userSpaceOnUse" x2="1" id="g1">
+          <stop stop-color="#ee3a65" offset="0"/>
+          <stop stop-color="#a7237b" offset="1"/>
+        </linearGradient>
+        <linearGradient gradientTransform="matrix(213.557,107.505,-122.141,242.631,657.866,467.538)" gradientUnits="userSpaceOnUse" x2="1" id="g2">
+          <stop stop-color="#000000" offset="0"/>
+          <stop stop-color="#0f2c6c" offset=".564"/>
+          <stop stop-color="#194bb9" offset="1"/>
+        </linearGradient>
+      </defs>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g1)"/>
+      <path d="m910.7 589.8l-0.6 0.3c-22.4 10.2-48.5 6.8-67.9-8.4-19.2-15-49.8-31.1-94.3-33 0 0-52.6 1-94.1 33.2-11.8 9.2-26.2 14-40.6 14-9.4 0-18.9-2-27.7-6.1l0.7-0.6-0.7-0.3 7.8-16.8 118.5-253.8c3.3-7 8.5-12.8 14.8-16.8 6.3-4 13.7-6.2 21.5-6.2 15.5 0 29.6 9 36.2 23l91.6 196.1 13.4 28.7c-18-18.4-39-32.6-61.6-42.6q-5.8-2.6-11.8-4.8l-67.8-145.9-68 146.2-12.2 26.3 0.7-0.6c0 0 45.2-23.5 99.7-16.8 20.3 2.5 40.4 7.9 59.4 16.3 26.4 11.7 50.7 29 70.5 52.3q6.3 7.4 12 15.6 0.2 0.4 0.5 0.7z" fill="url(#g2)"/>
+    </svg>
+    <span class="wordmark">Altbridge</span>
+  </div>
+
+  <div class="folio-chip glass">
+    <span class="folio-label">Slide</span>
+    <span class="folio-num">01</span>
+    <span class="folio-sep">/</span>
+    <span class="folio-total">17</span>
+  </div>
+
+  <div class="hero">
+    <div class="kicker">From L3 to L4 · One Year on Live Capital</div>
+    <h1 class="hero-title">AI, in <span class="gradient">Investment Activities.</span></h1>
+    <div class="hero-sub">From analyst-assist to a <strong>validated pipeline</strong> running on live capital.</div>
+  </div>
+
+  <div class="byline-card glass">
+    <div class="byline-label">Speaker</div>
+    <div class="byline-name">Assyl Akhmet</div>
+    <div class="byline-role">Chief Product Officer, Altbridge</div>
+  </div>
+
+  <div class="venue-card glass">
+    <div class="venue-label">Occasion</div>
+    <div class="venue-name">Tansar Capital · Investors Annual Meeting</div>
+    <div class="venue-meta">Almaty · May 6, 2026</div>
+  </div>
+</div>
+</body>
+</html>
