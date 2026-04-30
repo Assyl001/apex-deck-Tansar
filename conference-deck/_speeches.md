@@ -693,53 +693,52 @@ preserved across both renderings to keep delivery rhythm aligned.
 
 ---
 
-## Slide 13 — How Apex gets smarter (BARREL + Apex demo)
+## Slide 13 — Apex in Action (AMZN demo)
 
-*[~40-50 seconds. Self-improvement layer. Apex demo plays in video panel.]*
+*[~40-50 seconds. Capability demo. Apex demo video plays in panel showing AMZN audit.]*
 
-> **EN:** Apex catches errors. But what makes Apex **get smarter**?
+> **EN:** Now watch the system run. This is **Apex** — auditing Amazon's FY2025 10-K, end to end.
 >
-> **RU:** Apex ловит ошибки. Но что заставляет Apex **становиться умнее**?
+> **RU:** Теперь посмотрите систему в действии. Это **Apex** — аудитирует 10-K Amazon за FY2025, от начала до конца.
 
-> **EN:** Every agent. Every gate. Every check — writes to a log. Reflection. Errors. Insights.
+> **EN:** First — **data collection**. The system pulls XBRL filings from SEC, ten years of statements, forty earnings call transcripts, sector data. Public sources. Auditable.
 >
-> **RU:** Каждый agent. Каждый gate. Каждая проверка — пишет в log. Reflection. Errors. Insights.
+> **RU:** Сначала — **data collection**. Система забирает XBRL filings из SEC, десять лет statements, сорок earnings call транскриптов, sector data. Публичные источники. Аудируемые.
 
-> **EN:** Then **BARREL** — Apex's learning engine — reads the log. Weekly. It looks for patterns.
+> **EN:** Second — **model build**. The 10-K is decomposed into atomic rows. Each row has a value, a source, a validator. Normalization runs. The 154-times jump on private equity? **Caught.** Normalized net income drops to 70.4 billion.
 >
-> **RU:** Затем **BARREL** — learning engine от Apex — читает log. Еженедельно. Ищет паттерны.
+> **RU:** Второе — **model build**. 10-K разлагается на атомарные строки. У каждой — значение, источник, validator. Нормализация запускается. Тот 154-кратный скачок по private equity? **Поймано.** Нормализованная чистая прибыль падает до 70.4 миллиарда.
 
-> **EN:** When the same error appears **three or more times**, BARREL writes a new gate. The mistake becomes — technically — **impossible**.
+> **EN:** Third — **conviction score**. Seven pillars. Full audit trail. Every cell traceable to a 10-K page.
 >
-> **RU:** Когда та же ошибка появляется **три или больше раз**, BARREL пишет новый gate. Ошибка становится — технически — **невозможной**.
+> **RU:** Третье — **conviction score**. Семь пилларов. Полный audit trail. Каждая ячейка прослеживается до страницы 10-K.
 
-> **EN:** This is how Apex gets smarter without us. Every error becomes a **wall the system cannot cross again**.
+> **EN:** Three days of analyst work — **done in twenty minutes**. Sourced. Auditable. **Reproducible.**
 >
-> **RU:** Так Apex становится умнее без нас. Каждая ошибка становится **стеной, которую система больше не может пересечь**.
-
-> **EN:** Watch the demo on the screen. This is the system in action.
->
-> **RU:** Посмотрите демо на экране. Это система в действии.
+> **RU:** Три дня работы аналитика — **сделано за двадцать минут**. С источниками. Аудируемо. **Воспроизводимо.**
 
 *[Click → slide 14]*
 
 ### Stage directions
-- "what makes Apex **get smarter**?" — rhetorical pause
-- Listing "agent / gate / check" — three beats
-- "**three or more times**" — slow on number
-- "wall the system cannot cross again" — quiet, then gesture to demo on screen
-- Final line — gesture to video, let it speak
+- "Watch the system run" — gesture to video panel
+- "**data collection · model build · conviction score**" — three beats matching the three steps on slide
+- "**Caught.**" — short, deliberate; this is the AMZN-arc closing moment
+- "**done in twenty minutes**" — slow on number; the punch
+- "Sourced. Auditable. Reproducible." — three short beats, forward-lean → click
 
 ### Vocabulary to memorize
 | English | Russian |
 |---|---|
-| **log** | журнал (записи событий) |
-| **learning engine** | обучающий движок |
-| **pattern** | паттерн (повторяющийся шаблон) |
-| **wall** | стена (метафора для ограничения) |
+| **end to end** | от начала до конца |
+| **audit trail** | след аудита (полная история операций) |
+| **atomic row** | атомарная строка (минимальная единица данных) |
+| **validator** | валидатор (проверяющая функция) |
+| **traceable** | прослеживаемый (с источником) |
+| **reproducible** | воспроизводимый |
 
 ### ⚠ Note for Assyl
-- Speech assumes the Apex demo video is playing in the panel. The current placeholder badge "APEX DEMO · PENDING" is visible until the video file is dropped in. When recording, aim for ~60 seconds, looping, no audio.
+- Speech assumes the Apex demo video is playing in the panel showing AMZN workflow (4 phases ending with conviction). The placeholder badge "APEX DEMO · PENDING" is visible until video is dropped in. Target: ~60 sec, looping, no audio.
+- This slide closes the AMZN narrative arc started on slide 5 (failure mode 3 set up the $7.71B catch problem; this slide shows Apex catching it).
 
 ---
 

@@ -12,3 +12,6 @@ __pycache__/
 # QA snapshots (regenerated)
 conference-deck/qa/current/*.png
 conference-deck/qa/diff/
+
+# Coordination package staging dir (regenerated when needed)
+altbridge-deck-coordination/

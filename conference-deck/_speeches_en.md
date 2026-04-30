@@ -388,21 +388,19 @@ Three failures. **Three gates.**
 
 ---
 
-## Slide 13 — How Apex gets smarter (BARREL + Apex demo)
+## Slide 13 — Apex in Action (AMZN demo)
 
-*[~40-50 seconds. Self-improvement layer. Apex demo plays in video panel.]*
+*[~40-50 seconds. Capability demo. Apex demo video plays in panel showing AMZN audit.]*
 
-Apex catches errors. But what makes Apex **get smarter**?
+Now watch the system run. This is **Apex** — auditing Amazon's FY2025 10-K, end to end.
 
-Every agent. Every gate. Every check — writes to a log. Reflection. Errors. Insights.
+First — **data collection**. The system pulls XBRL filings from SEC, ten years of statements, forty earnings call transcripts, sector data. Public sources. Auditable.
 
-Then **BARREL** — Apex's learning engine — reads the log. Weekly. It looks for patterns.
+Second — **model build**. The 10-K is decomposed into atomic rows. Each row has a value, a source, a validator. Normalization runs. The 154-times jump on private equity? **Caught.** Normalized net income drops to 70.4 billion.
 
-When the same error appears **three or more times**, BARREL writes a new gate. The mistake becomes — technically — **impossible**.
+Third — **conviction score**. Seven pillars. Full audit trail. Every cell traceable to a 10-K page.
 
-This is how Apex gets smarter without us. Every error becomes a **wall the system cannot cross again**.
-
-Watch the demo on the screen. This is the system in action.
+Three days of analyst work — **done in twenty minutes**. Sourced. Auditable. **Reproducible.**
 
 *[Click → slide 14]*
 
